@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BridgePoint</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome to BridgePoint</h1>
+    <p>Connecting people through goodwill and shared contributions.</p>
+    <a href="#learn-more" class="btn">Learn More</a>
+    <footer>
+      <p>Support us: 
+        <a href="https://www.buymeacoffee.com/yourusername" target="_blank">
+          Buy Me a Coffee ☕
+        </a>
+      </p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>/* Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #fdfdfd, #f5f7fa);
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Card Container */
+.card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Heading */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: #1e293b;
+}
+
+/* Tagline */
+p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #475569;
+}
+
+/* Button */
+.btn {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  border-radius: 2rem;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.btn:hover {
+  background: linear-gradient(90deg, #1d4ed8, #2563eb);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+/* Footer */
+footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+footer a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+footer a:hover {
+  text-decoration: underline;
+}// Simple script for BridgePoint
+document.addEventListener("DOMContentLoaded", () => {
+  const learnMoreBtn = document.querySelector(".btn");
+
+  learnMoreBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    alert("BridgePoint is coming soon 🚀 Stay tuned!");
+  });
+});
