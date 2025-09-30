@@ -4,218 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BridgePoint</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
   <style>
-    /* Base styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
     body {
-      line-height: 1.6;
-      color: #333;
-      background: #f9f9f9;
-      scroll-behavior: smooth;
-    }
-    header {
-      background: linear-gradient(135deg, #222, #444);
-      color: #fff;
-      text-align: center;
-      padding: 4rem 1rem;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-
-    section {
-      padding: 3rem 1.5rem;
-      max-width: 900px;
-      margin: auto;
-    }
-    section h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
-      color: #222;
-    }
-    section p {
-      margin-bottom: 1rem;
-      text-align: center;
-      font-size: 1.05rem;
-    }
-
-    /* Support section standout */
-    .support {
-      background: #fff;
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      margin-top: 2rem;
-      transition: transform 0.2s;
-    }
-    .support:hover {
-      transform: scale(1.02);
-    }
-    .support h2::before {
-      content: "❤️ ";
-    }
-    .donate-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.8rem 1.5rem;
-      background: #ff6b6b;
-      color: #fff;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .donate-btn:hover {
-      background: #ff4c4c;
-    }
-
-    /* Contact form */
-    form {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f9ff;
+      color: #1a1a1a;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      max-width: 500px;
-      margin: auto;
-    }
-    input, textarea {
-      padding: 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      width: 100%;
-    }
-    button {
-      padding: 0.8rem;
-      background: #222;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #444;
-    }
-
-    /* Footer */
-    footer {
-      background: #222;
-      color: #fff;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       text-align: center;
-      padding: 1.5rem 1rem;
-      margin-top: 2rem;
-    }
-    .socials a {
-      color: #fff;
-      margin: 0 10px;
-      text-decoration: none;
-      font-size: 1.2rem;
-      transition: opacity 0.3s;
-    }
-    .socials a:hover {
-      opacity: 0.7;
     }
 
-    /* Back-to-top button */
-    #topBtn {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      font-size: 18px;
-      border: none;
-      outline: none;
-      background: #ff6b6b;
-      color: white;
-      cursor: pointer;
-      padding: 12px;
-      border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    header {
+      padding: 2rem;
     }
-    #topBtn:hover {
-      background: #ff4c4c;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #0056b3;
+    }
+
+    p.tagline {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 2rem;
+    }
+
+    .donate-btn {
+      display: inline-block;
+      background: #ffcc00;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .donate-btn:hover {
+      background: #ffdb4d;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
   <header>
+    <img src="favicon.png" alt="BridgePoint Icon" width="80" style="margin-bottom: 1rem;" />
     <h1>Welcome to BridgePoint</h1>
-    <p>Connecting people. Fostering understanding. Building peace.</p>
+    <p class="tagline">Connecting people. Building understanding. Diffusing tension.</p>
   </header>
 
-  <section id="about">
-    <h2>About Us</h2>
-    <p>BridgePoint is a platform dedicated to connecting people across cultures, reducing tensions, and opening opportunities through shared understanding.</p>
-  </section>
-
-  <section id="mission">
-    <h2>Our Mission</h2>
-    <p>To promote integration, reduce inequality, and help create a world where peace and opportunities are within everyone’s reach.</p>
-  </section>
-
-  <section id="get-involved">
-    <h2>Get Involved</h2>
-    <p>Join our growing community. Together we can create meaningful change.</p>
-  </section>
-
-  <section class="support" id="support">
-    <h2>Support BridgePoint</h2>
-    <p>Your goodwill contributions help us continue our mission. Every bit of support builds stronger bridges.</p>
-    <a class="donate-btn" href="https://www.buymeacoffee.com/yourusername" target="_blank">☕ Buy Me a Coffee</a>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+  <main>
+    <a class="donate-btn" href="https://www.buymeacoffee.com/YOURUSERNAME" target="_blank">
+      ☕ Support BridgePoint
+    </a>
+  </main>
 
   <footer>
     <p>© 2025 BridgePoint. All rights reserved.</p>
-    <div class="socials">
-      <a href="#">Facebook</a>|
-      <a href="#">Twitter</a>|
-      <a href="#">Instagram</a>|
-      <a href="#">LinkedIn</a>
-    </div>
   </footer>
-
-  <button onclick="topFunction()" id="topBtn" title="Go to top">↑</button>
-
-  <script>
-    // Back to top button script
-    let mybutton = document.getElementById("topBtn");
-    window.onscroll = function() {
-      scrollFunction();
-    };
-    function scrollFunction() {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        mybutton.style.display = "block";
-      } else {
-        mybutton.style.display = "none";
-      }
-    }
-    function topFunction() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  </script>
 </body>
 </html>
