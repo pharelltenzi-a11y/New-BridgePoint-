@@ -4,78 +4,175 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BridgePoint</title>
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f9ff;
-      color: #1a1a1a;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
-
+    body {
+      background: #f9fafb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
     header {
-      padding: 2rem;
+      background: #111827;
+      color: #f9fafb;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    nav a {
+      color: #f9fafb;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #38bdf8;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      color: #0056b3;
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(to right, #111827, #1e3a8a);
+      color: #f9fafb;
     }
-
-    p.tagline {
-      font-size: 1.2rem;
-      color: #444;
-      margin-bottom: 2rem;
+    .hero h2 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
     }
-
-    .donate-btn {
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .hero .btn {
       display: inline-block;
-      background: #ffcc00;
-      color: #000;
-      padding: 0.75rem 1.5rem;
+      padding: 0.8rem 1.6rem;
+      background: #38bdf8;
+      color: #111827;
+      font-weight: 600;
       border-radius: 8px;
       text-decoration: none;
-      font-weight: bold;
-      transition: transform 0.2s ease, background 0.2s ease;
+      transition: background 0.3s;
+    }
+    .hero .btn:hover {
+      background: #0ea5e9;
     }
 
-    .donate-btn:hover {
-      background: #ffdb4d;
-      transform: scale(1.05);
+    section {
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #111827;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     }
 
     footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #666;
+      background: #111827;
+      color: #9ca3af;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+    footer a {
+      color: #38bdf8;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <img src="favicon.png" alt="BridgePoint Icon" width="80" style="margin-bottom: 1rem;" />
-    <h1>Welcome to BridgePoint</h1>
-    <p class="tagline">Connecting people. Building understanding. Diffusing tension.</p>
+    <h1>🌉 BridgePoint</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#mission">Mission</a>
+      <a href="#support">Support</a>
+    </nav>
   </header>
 
-  <main>
-    <a class="donate-btn" href="https://www.buymeacoffee.com/YOURUSERNAME" target="_blank">
-      ☕ Support BridgePoint
-    </a>
-  </main>
+  <section class="hero">
+    <h2>Building Bridges, Connecting Cultures</h2>
+    <p>Together we can foster understanding, reduce inequality, and open opportunities across communities.  
+    BridgePoint is your platform for connection and peace ✌️</p>
+    <a class="btn" href="#support">Support the Mission</a>
+  </section>
+
+  <section id="about">
+    <h3>About BridgePoint</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>Our Vision</h4>
+        <p>A world where differences unite us instead of divide us.  
+        BridgePoint promotes peace and integration across borders.</p>
+      </div>
+      <div class="card">
+        <h4>Our Community</h4>
+        <p>BridgePoint is for everyone who believes in equality, dialogue, and opportunities for all.</p>
+      </div>
+      <div class="card">
+        <h4>Our Drive</h4>
+        <p>We stand for connection, understanding, and creating lasting impact through collaboration.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mission">
+    <h3>Our Mission</h3>
+    <p style="text-align:center; max-width:700px; margin:0 auto;">
+      To connect people across cultural and social divides, building pathways to peace, 
+      opportunity, and a shared future 🌍.
+    </p>
+  </section>
+
+  <section id="support">
+    <h3>Support BridgePoint</h3>
+    <p style="text-align:center; margin-bottom:1.5rem;">
+      Your contribution helps us continue building bridges and creating opportunities.
+    </p>
+    <p style="text-align:center;">
+      <a class="btn" href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank">☕ Buy Me a Coffee</a>
+    </p>
+  </section>
 
   <footer>
-    <p>© 2025 BridgePoint. All rights reserved.</p>
+    <p>© 2025 BridgePoint. All Rights Reserved.</p>
+    <p>Made with ❤️ to build peace and connection.</p>
   </footer>
+
 </body>
 </html>
