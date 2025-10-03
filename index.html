@@ -1,157 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><!-- Open Graph / Facebook -->
-<meta property="og:title" content="BridgePoint - Connecting People, Building Peace">
-<meta property="og:description" content="BridgePoint is a platform for connection, understanding, and collaboration in a polarized world.">
-<meta property="og:image" content="https://YOUR-USERNAME.github.io/BridgePoint/preview.png">
-<meta property="og:url" content="https://YOUR-USERNAME.github.io/BridgePoint/">
-<meta property="og:type" content="website">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="BridgePoint - Connecting People, Building Peace">
-<meta name="twitter:description" content="BridgePoint is a platform for connection, understanding, and collaboration in a polarized world.">
-<meta name="twitter:image" content="https://YOUR-USERNAME.github.io/BridgePoint/preview.png">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BridgePoint</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Open Graph Meta -->
-  <meta property="og:title" content="BridgePoint" />
-  <meta property="og:description" content="Connecting people, fostering understanding, building peace." />
-  <meta property="og:image" content="https://yourusername.github.io/BridgePoint/preview.png" />
-  <meta property="og:url" content="https://yourusername.github.io/BridgePoint/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="BridgePoint" />
-  <meta name="twitter:description" content="Connecting people, fostering understanding, building peace." />
-  <meta name="twitter:image" content="https://yourusername.github.io/BridgePoint/preview.png" />
-
+  <link rel="icon" href="favicon.png" type="image/png">
   <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f6f8;
-      color: #333;
-      transition: background 0.3s, color 0.3s;
+    :root {
+      --bg-light: #f9f9f9;
+      --text-light: #222;
+      --bg-dark: #121212;
+      --text-dark: #f9f9f9;
+      --accent: #0077ff;
     }
-    body.dark-mode {
-      background: #1a1a1a;
-      color: #f1f1f1;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
+      text-align: center;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
     }
     header {
-      background: linear-gradient(135deg, #0077b6, #0096c7);
-      color: white;
-      padding: 2rem;
-      text-align: center;
+      padding: 1.5rem;
+      border-bottom: 2px solid var(--accent);
+    }
+    header img {
+      width: 60px;
+      height: auto;
+      vertical-align: middle;
     }
     header h1 {
-      margin: 0;
-      font-size: 2.5rem;
+      display: inline-block;
+      margin-left: 10px;
+      font-size: 1.8rem;
+      vertical-align: middle;
     }
-    nav {
-      margin-top: 1rem;
-    }
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    .toggle-btn {
-      margin-top: 1rem;
-      background: white;
-      color: #0077b6;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    main {
+    .container {
       padding: 2rem;
-      max-width: 900px;
+      max-width: 800px;
       margin: auto;
     }
-    section {
-      margin-bottom: 3rem;
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.2rem;
+      margin: 1rem;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
     }
-    section h2 {
-      color: #0077b6;
+    .btn:hover {
+      background: #005fcc;
     }
-    .dark-mode section h2 {
-      color: #90e0ef;
+    .socials {
+      margin: 2rem 0;
+    }
+    .socials a {
+      margin: 0 10px;
+      display: inline-block;
+    }
+    .socials img {
+      width: 40px; /* ideal size */
+      height: 40px;
+      transition: transform 0.3s;
+    }
+    .socials img:hover {
+      transform: scale(1.2);
     }
     footer {
-      background: #0077b6;
-      color: white;
-      text-align: center;
+      margin-top: 3rem;
       padding: 1rem;
+      border-top: 1px solid #ddd;
     }
-    footer a {
-      color: #ffd60a;
-      margin: 0 0.5rem;
-      text-decoration: none;
+    .toggle-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: 2px solid var(--accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      color: inherit;
     }
   </style>
 </head>
 <body>
+  <button class="toggle-btn" onclick="toggleMode()">🌙</button>
   <header>
-    <h1>🌉 BridgePoint</h1>
-    <p>Connecting people, fostering understanding, building peace.</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#mission">Mission</a>
-      <a href="#contribute">Contribute</a>
-    </nav>
-    <button class="toggle-btn" onclick="toggleMode()">🌙 Toggle Dark Mode</button>
+    <img src="favicon.png" alt="BridgePoint Logo">
+    <h1>BridgePoint</h1>
   </header>
 
-  <main>
-    <section id="about">
-      <h2>About</h2>
-      <p>
-        BridgePoint is a community-driven initiative to bring people together across cultures, nations, and perspectives. 
-        By promoting dialogue and empathy, we aim to reduce polarization and strengthen unity.
-      </p>
-    </section>
+  <div class="container">
+    <p>🌍 Connecting people, bridging cultures, and building understanding in a polarized world.</p>
 
-    <section id="mission">
-      <h2>Mission</h2>
-      <p>
-        Our mission is to create safe spaces for dialogue, learning, and cooperation. 
-        We believe that understanding and shared humanity are the cornerstones of peace.
-      </p>
-    </section>
+    <a href="https://www.buymeacoffee.com//pharelltenzi-a11y" target="_blank" class="btn">☕ Support Us</a>
 
-    <section id="contribute">
-      <h2>Contribute</h2>
-      <p>
-        If you’d like to support BridgePoint, consider buying us a coffee ☕ or sharing our message with your community.
-      </p>
-      <a href="https://www.buymeacoffee.com/yourusername" target="_blank">
-        <img src="https://img.buymeacoffee.com/button-api/?text=Support BridgePoint&emoji=🌉&slug=yourusername&button_colour=0077b6&font_colour=ffffff&font_family=Inter&outline_colour=ffffff&coffee_colour=FFDD00" alt="Buy Me a Coffee" />
+    <div class="socials">
+      <a href="https://twitter.com" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter">
       </a>
-    </section>
-  </main>
+      <a href="https://facebook.com" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+      </a>
+      <a href="https://instagram.com" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+    </div>
+  </div>
 
   <footer>
-    <p>© 2025 BridgePoint. Built with ❤️ to connect the world.</p>
-    <p>
-      <a href="https://twitter.com" target="_blank">Twitter</a> |
-      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-    </p>
+    <p>© 2025 BridgePoint. All rights reserved.</p>
   </footer>
 
   <script>
     function toggleMode() {
-      document.body.classList.toggle('dark-mode');
+      document.body.classList.toggle("dark");
     }
   </script>
 </body>
