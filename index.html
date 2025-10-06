@@ -3,119 +3,164 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BridgePoint</title>
+  <title>BridgePoint - Connecting People with Purpose</title>
+  
   <!-- Favicon -->
-  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Social Media Preview -->
+  <meta property="og:image" content="bridgepoint-social-preview.png">
+  <meta property="og:title" content="BridgePoint - Connecting People with Purpose">
+  <meta property="og:description" content="BridgePoint fosters global understanding and collaboration through meaningful connections.">
+
   <style>
+    :root {
+      --primary-color: #2b7a78;
+      --secondary-color: #3aafa9;
+      --text-color: #17252a;
+      --bg-color: #def2f1;
+      --card-bg: #ffffff;
+      --transition: 0.3s ease;
+    }
+    [data-theme='dark'] {
+      --primary-color: #17252a;
+      --secondary-color: #3aafa9;
+      --text-color: #def2f1;
+      --bg-color: #0b0c10;
+      --card-bg: #1f2833;
+    }
+
     body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9fafb;
-      color: #111827;
+      padding: 0;
+      transition: var(--transition);
     }
     header {
-      background: #2563eb;
-      color: #fff;
+      background-color: var(--primary-color);
+      color: white;
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
     }
     header h1 {
       margin: 0;
       font-size: 2.5rem;
     }
-    nav {
-      margin-top: 1rem;
-    }
-    nav a {
-      margin: 0 1rem;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
+    header p {
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
     }
     main {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1rem;
     }
     section {
-      margin-bottom: 3rem;
+      max-width: 800px;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      transition: var(--transition);
     }
-    footer {
-      background: #111827;
-      color: #fff;
-      text-align: center;
-      padding: 2rem 1rem;
+    h2 {
+      color: var(--primary-color);
+      margin-top: 0;
     }
-    .social-icons img {
-      width: 40px;
-      height: 40px;
-      margin: 0 0.5rem;
-      vertical-align: middle;
-    }
-    .donate-btn {
-      background: #f59e0b;
-      padding: 0.7rem 1.5rem;
-      border-radius: 8px;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
+    .button {
       display: inline-block;
-      margin-top: 1rem;
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: var(--transition);
     }
-    .donate-btn:hover {
-      background: #d97706;
+    .button:hover {
+      background-color: var(--primary-color);
+    }
+
+    .toggle-container {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      padding: 0.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--primary-color);
+      color: white;
+      margin-top: 3rem;
+    }
+
+    footer a {
+      color: #feffff;
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
+  <div class="toggle-container" id="themeToggle">🌙</div>
+
   <header>
-    <h1>Welcome to BridgePoint 🌉</h1>
-    <p>Connecting People, Building Understanding</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#mission">Mission</a>
-      <a href="#donate">Support Us</a>
-    </nav>
+    <h1>BridgePoint</h1>
+    <p>Connecting People with Purpose 🌍</p>
   </header>
 
   <main>
-    <section id="about">
-      <h2>About BridgePoint</h2>
-      <p>
-        BridgePoint is a platform designed to bring people together across divides,
-        fostering dialogue, collaboration, and understanding in today’s polarized world.
-      </p>
+    <section>
+      <h2>Welcome to BridgePoint</h2>
+      <p>BridgePoint is where ideas, people, and cultures come together — promoting understanding, empathy, and collaboration across the world. 🌎</p>
     </section>
 
-    <section id="mission">
-      <h2>Our Mission</h2>
-      <p>
-        We aim to create a safe and engaging space where communities can connect,
-        share ideas, and work together toward a stronger, more unified future.
-      </p>
+    <section>
+      <h2>Our Vision</h2>
+      <p>We believe in a connected world built on respect, unity, and shared progress. BridgePoint bridges divides and inspires dialogue between communities, creators, and dreamers.</p>
     </section>
 
-    <section id="donate">
+    <section>
       <h2>Support BridgePoint</h2>
-      <p>
-        Your support helps us grow and keep the mission alive. Any contribution goes a
-        long way in building stronger bridges between people. 
-      </p>
-      <a class="donate-btn" href="https://www.buymeacoffee.com/pharelltenzi-a11y" target="_blank">☕ Buy Me a Coffee</a>
+      <p>Your contributions help us continue building bridges and connecting people. Every bit of support counts — thank you!</p>
+      <a class="button" href="https://www.buymeacoffee.com/yourusername" target="_blank">☕ Buy Me a Coffee</a>
     </section>
   </main>
 
   <footer>
+    <p>Follow BridgePoint:</p>
+    <a href="#" title="Twitter"><img src="twitter-icon.png" width="24" alt="Twitter"></a>
+    <a href="#" title="Facebook"><img src="facebook-icon.png" width="24" alt="Facebook"></a>
+    <a href="#" title="Instagram"><img src="instagram-icon.png" width="24" alt="Instagram"></a>
     <p>© 2025 BridgePoint. All rights reserved.</p>
-    <div class="social-icons">
-      <a href="#"><img src="facebook.png" alt="Facebook"></a>
-      <a href="#"><img src="twitter.png" alt="Twitter"></a>
-      <a href="#"><img src="instagram.png" alt="Instagram"></a>
-      <a href="#"><img src="linkedin.png" alt="LinkedIn"></a>
-    </div>
   </footer>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      const currentTheme = document.body.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.body.removeAttribute('data-theme');
+        toggle.textContent = '🌙';
+      } else {
+        document.body.setAttribute('data-theme', 'dark');
+        toggle.textContent = '☀️';
+      }
+    });
+  </script>
 </body>
 </html>
