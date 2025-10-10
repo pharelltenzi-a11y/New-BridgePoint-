@@ -3,164 +3,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BridgePoint - Connecting People with Purpose</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-
-  <!-- Social Media Preview -->
-  <meta property="og:image" content="bridgepoint-social-preview.png">
-  <meta property="og:title" content="BridgePoint - Connecting People with Purpose">
-  <meta property="og:description" content="BridgePoint fosters global understanding and collaboration through meaningful connections.">
-
+  <title>BridgePoint | Connecting People, Building Understanding</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
-    :root {
-      --primary-color: #2b7a78;
-      --secondary-color: #3aafa9;
-      --text-color: #17252a;
-      --bg-color: #def2f1;
-      --card-bg: #ffffff;
-      --transition: 0.3s ease;
-    }
-    [data-theme='dark'] {
-      --primary-color: #17252a;
-      --secondary-color: #3aafa9;
-      --text-color: #def2f1;
-      --bg-color: #0b0c10;
-      --card-bg: #1f2833;
-    }
-
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: #f9fafb;
+      color: #333;
       margin: 0;
       padding: 0;
-      transition: var(--transition);
+      text-align: center;
     }
     header {
-      background-color: var(--primary-color);
-      color: white;
-      text-align: center;
+      background: linear-gradient(90deg, #0077b6, #00b4d8);
+      color: #fff;
       padding: 2rem 1rem;
     }
     header h1 {
+      font-size: 2.4rem;
       margin: 0;
-      font-size: 2.5rem;
+      letter-spacing: 1px;
     }
     header p {
       margin-top: 0.5rem;
       font-size: 1.1rem;
     }
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3rem 1rem;
-    }
     section {
       max-width: 800px;
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
-      transition: var(--transition);
+      margin: 3rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     h2 {
-      color: var(--primary-color);
-      margin-top: 0;
+      color: #0077b6;
+      margin-bottom: 1rem;
     }
-    .button {
-      display: inline-block;
-      background-color: var(--secondary-color);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
+    p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    .donate {
+      margin: 2rem 0;
+    }
+    .donate a {
+      background: #ffdd00;
+      color: #000;
+      padding: 0.8rem 1.4rem;
+      border-radius: 30px;
+      font-weight: 600;
       text-decoration: none;
-      transition: var(--transition);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s;
     }
-    .button:hover {
-      background-color: var(--primary-color);
+    .donate a:hover {
+      background: #ffe75a;
     }
-
-    .toggle-container {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: var(--card-bg);
-      padding: 0.5rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: var(--transition);
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
     }
-
+    .socials a {
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 6px;
+      padding: 0.4rem 0.7rem;
+      transition: all 0.3s;
+    }
+    .insta { background: #E1306C; color: #fff; }
+    .fb { background: #1877F2; color: #fff; }
+    .x { background: #000; color: #fff; }
+    .li { background: #0A66C2; color: #fff; }
+    .socials a:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
     footer {
-      text-align: center;
-      padding: 2rem;
-      background: var(--primary-color);
-      color: white;
       margin-top: 3rem;
-    }
-
-    footer a {
-      color: #feffff;
-      margin: 0 0.5rem;
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
+      padding: 1rem;
+      background: #0077b6;
+      color: #fff;
+      font-size: 0.9rem;
     }
   </style>
 </head>
-
 <body>
-  <div class="toggle-container" id="themeToggle">🌙</div>
 
   <header>
-    <h1>BridgePoint</h1>
-    <p>Connecting People with Purpose 🌍</p>
+    <h1>🌉 BridgePoint</h1>
+    <p>Connecting People • Building Understanding • Protecting Ambition</p>
   </header>
 
-  <main>
-    <section>
-      <h2>Welcome to BridgePoint</h2>
-      <p>BridgePoint is where ideas, people, and cultures come together — promoting understanding, empathy, and collaboration across the world. 🌎</p>
-    </section>
+  <section id="about">
+    <h2>About BridgePoint</h2>
+    <p>
+      At BridgePoint, we believe in fostering unity and understanding in a world that’s becoming more polarized. 
+      Our mission is simple yet profound — to create a platform where voices meet halfway, where dialogue sparks empathy, 
+      and where ambition is protected, not divided. 
+    </p>
+    <p>
+      We stand for connection, compassion, and progress — because building bridges is how we make the world stronger. 🌍
+    </p>
 
-    <section>
-      <h2>Our Vision</h2>
-      <p>We believe in a connected world built on respect, unity, and shared progress. BridgePoint bridges divides and inspires dialogue between communities, creators, and dreamers.</p>
-    </section>
+    <div class="donate">
+      <a href="https://www.buymeacoffee.com/pharelltenzi" target="_blank">☕ Support BridgePoint</a>
+    </div>
 
-    <section>
-      <h2>Support BridgePoint</h2>
-      <p>Your contributions help us continue building bridges and connecting people. Every bit of support counts — thank you!</p>
-      <a class="button" href="https://www.buymeacoffee.com/yourusername" target="_blank">☕ Buy Me a Coffee</a>
-    </section>
-  </main>
+    <div class="socials">
+      <a href="https://www.instagram.com/pharell405" class="insta" target="_blank">📸 Instagram</a>
+      <a href="https://www.facebook.com/pharell.mwendwa" class="fb" target="_blank">📘 Facebook</a>
+      <a href="https://x.com/pharelltenzi" class="x" target="_blank">✖ X</a>
+      <a href="https://www.linkedin.com/in/pharelltenzi" class="li" target="_blank">💼 LinkedIn</a>
+    </div>
+  </section>
 
   <footer>
-    <p>Follow BridgePoint:</p>
-    <a href="#" title="Twitter"><img src="twitter-icon.png" width="24" alt="Twitter"></a>
-    <a href="#" title="Facebook"><img src="facebook-icon.png" width="24" alt="Facebook"></a>
-    <a href="#" title="Instagram"><img src="instagram-icon.png" width="24" alt="Instagram"></a>
-    <p>© 2025 BridgePoint. All rights reserved.</p>
+    © 2025 BridgePoint — Built with vision, heart, and unity.
   </footer>
 
-  <script>
-    const toggle = document.getElementById('themeToggle');
-    toggle.addEventListener('click', () => {
-      const currentTheme = document.body.getAttribute('data-theme');
-      if (currentTheme === 'dark') {
-        document.body.removeAttribute('data-theme');
-        toggle.textContent = '🌙';
-      } else {
-        document.body.setAttribute('data-theme', 'dark');
-        toggle.textContent = '☀️';
-      }
-    });
-  </script>
 </body>
 </html>
