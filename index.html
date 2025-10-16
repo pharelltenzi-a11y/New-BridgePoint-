@@ -1,125 +1,378 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Heartfelt SEO -->
   <title>BridgePoint — Where Ambition Finds Purpose, and Hope Takes Shape</title>
   <meta name="description" content="BridgePoint is a modern platform inspiring young dreamers and changemakers. We connect ambition with purpose through creativity, inclusion, and hope — building bridges to a brighter future." />
   <meta name="keywords" content="BridgePoint, inspiration, youth empowerment, inclusion, creativity, innovation, hope, ambition, purpose, changemakers, Kenya, Africa" />
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="author" content="Pharell Tenzi" />
+
+  <!-- Open Graph / Social preview (replace preview.png later if you upload one) -->
+  <meta property="og:title" content="BridgePoint — Where Ambition Finds Purpose, and Hope Takes Shape" />
+  <meta property="og:description" content="BridgePoint is a modern platform inspiring young dreamers and changemakers. We connect ambition with purpose through creativity, inclusion, and hope." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://your-github-pages-url/" />
+  <meta property="og:image" content="preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BridgePoint — Where Ambition Finds Purpose" />
+  <meta name="twitter:description" content="Inspiration, inclusion, and ambition — BridgePoint is where young people connect, grow, and create a better tomorrow." />
+
+  <!-- Inline styles & animations -->
   <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      margin: 0;
-      background-color: #f8f9fb;
-      color: #222;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
+    :root{
+      --bg: #0b0b0b;           /* deep matte black */
+      --panel: #0f0f10;        /* subtle card tone */
+      --gold: #d4a83a;         /* golden core */
+      --gold-2: #ffdd66;       /* lighter gold for highlights */
+      --muted: #bdbdbd;
+      --max-width: 980px;
+      --gap: 28px;
     }
-    header {
-      margin-top: 60px;
+
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: var(--bg);
+      color: #f1efe9;
+      font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
     }
-    h1 {
-      font-size: 2.5em;
-      letter-spacing: 1px;
-      color: #222;
+
+    /* Layout container */
+    .site {
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      gap: var(--gap);
+      padding: 48px 20px;
     }
-    .tagline {
-      font-size: 1.1em;
-      color: #555;
-      margin-top: 5px;
-      font-style: italic;
+
+    /* Centered header area with vignette */
+    .hero {
+      width:100%;
+      max-width:var(--max-width);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:18px;
+      padding:48px 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:14px;
+      position:relative;
+      overflow:visible;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
     }
-    section {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
+
+    /* subtle golden vignette behind the hero center */
+    .hero::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:10%;
+      transform:translateX(-50%);
+      width:70%;
+      height:420px;
+      background: radial-gradient(ellipse at center, rgba(212,168,58,0.10), rgba(212,168,58,0.04) 20%, rgba(0,0,0,0) 60%);
+      filter: blur(32px);
+      pointer-events:none;
+      z-index:0;
+      border-radius:50%;
     }
-    .about {
-      font-size: 1.05em;
-      line-height: 1.6;
-      color: #444;
+
+    /* logo block */
+    .logo-wrap{
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
     }
-    .donate {
-      background-color: #ffdd00;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 30px;
-      font-size: 1em;
-      cursor: pointer;
-      color: #111;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
+
+    /* Inline SVG logo sizing */
+    .logo-svg{
+      width:220px;
+      height:auto;
+      display:block;
+      margin:0 auto;
     }
-    .donate:hover {
-      background-color: #ffcd00;
-      transform: translateY(-2px);
+
+    /* breathing glow on the logo (soft vignette + glow) */
+    .logo-glow{
+      animation: breathe 4.5s ease-in-out infinite;
+      transform-origin:center;
+      filter: drop-shadow(0 8px 30px rgba(212,168,58,0.14));
     }
-    footer {
-      margin-top: auto;
-      padding: 40px 0;
+
+    @keyframes breathe{
+      0%{ filter: drop-shadow(0 6px 18px rgba(212,168,58,0.08)); transform:scale(1)}
+      50%{ filter: drop-shadow(0 12px 36px rgba(212,168,58,0.16)); transform:scale(1.02)}
+      100%{ filter: drop-shadow(0 6px 18px rgba(212,168,58,0.08)); transform:scale(1)}
     }
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
+
+    /* Site title */
+    .site-title{
+      font-size:32px;
+      letter-spacing:0.6px;
+      color: var(--gold);
+      font-weight:600;
+      text-shadow: 0 2px 8px rgba(212,168,58,0.05);
+      z-index:2;
+      margin:0;
     }
-    .socials a {
-      text-decoration: none;
-      font-size: 1.2em;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+
+    .tagline{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:400;
+      z-index:2;
     }
-    .instagram { color: #E4405F; }
-    .facebook { color: #1877F2; }
-    .twitter { color: #1DA1F2; }
-    .linkedin { color: #0077B5; }
-    @media (max-width: 600px) {
-      h1 { font-size: 2em; }
-      .about { font-size: 1em; }
+
+    /* content panels */
+    .panel{
+      width:100%;
+      max-width:var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:32px;
+      color:#e9e6df;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
     }
+
+    h2{
+      color: var(--gold-2);
+      margin:0 0 12px 0;
+      font-size:20px;
+    }
+
+    p.lead{
+      color:#dcd6cf;
+      margin: 0 0 16px 0;
+      font-size:16px;
+    }
+
+    /* Donate / support button with subtle pulse (delayed start) */
+    .donate-row{
+      margin-top:18px;
+    }
+    .donate-btn{
+      display:inline-block;
+      background: linear-gradient(180deg, var(--gold), var(--gold-2));
+      color:#0b0b0b;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:700;
+      text-decoration:none;
+      box-shadow: 0 6px 18px rgba(212,168,58,0.15);
+      transition: transform .18s ease, box-shadow .18s ease;
+      animation: pulse-entrance 1s ease .9s both, pulse 3.2s ease-in-out 4s infinite;
+    }
+    .donate-btn:hover{ transform: translateY(-4px); box-shadow: 0 12px 32px rgba(212,168,58,0.24) }
+
+    @keyframes pulse-entrance{
+      from{ opacity:0; transform: translateY(8px) scale(.98) }
+      to{ opacity:1; transform: translateY(0) scale(1) }
+    }
+    @keyframes pulse{
+      0%,100%{ box-shadow: 0 6px 18px rgba(212,168,58,0.12); transform: scale(1) }
+      50%{ box-shadow: 0 14px 40px rgba(212,168,58,0.22); transform: scale(1.03) }
+    }
+
+    /* subtle divider wave (flat neutral) */
+    .wave-divider{
+      width:100%;
+      height:42px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      mask-image: radial-gradient(circle at 50% 0%, black 10%, transparent 70%);
+    }
+
+    /* socials & footer */
+    .footer{
+      width:100%;
+      max-width:var(--max-width);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+      padding:22px;
+      color:var(--muted);
+    }
+
+    .socials{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .social-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:8px;
+      text-decoration:none;
+      color:#fff;
+      font-weight:600;
+      font-size:14px;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+    .social-link:hover{ transform:translateY(-4px); opacity:.95 }
+
+    .insta{ background: linear-gradient(45deg,#E1306C,#C13584); color:#fff }
+    .fb{ background:#1877F2; color:#fff }
+    .x{ background:#111; color:#fff }
+    .li{ background:#0A66C2; color:#fff }
+
+    /* responsive */
+    @media (max-width:720px){
+      .logo-svg{ width:170px }
+      .site-title{ font-size:22px }
+      .hero{ padding:32px 18px }
+      .panel{ padding:20px }
+    }
+
+    /* small accessibility tweaks */
+    a{outline: none}
+    a:focus{ box-shadow: 0 0 0 3px rgba(212,168,58,0.18); border-radius:8px }
+
   </style>
 </head>
-
 <body>
-  <header>
-    <img src="favicon.png" alt="BridgePoint Logo" width="80" height="80" />
-    <h1>BridgePoint</h1>
-    <p class="tagline">Where ambition finds purpose, and hope takes shape.</p>
-  </header>
+  <div class="site" role="document">
 
-  <section class="about">
-    <p>
-      Welcome to <strong>BridgePoint</strong> — more than just a platform, it's a movement.
-      We stand for <em>ambition, inclusion, creativity, and hope</em>. 
-      Our goal is to inspire the next generation of dreamers and changemakers to believe in what they can build. 
-      Every idea, every step, and every story shared here helps us bridge worlds — connecting passion with purpose.
-    </p>
-    <p>
-      If our mission speaks to you, consider supporting us. 
-      Your kindness keeps this bridge strong for everyone who crosses it.
-    </p>
-    <a href="https://www.buymeacoffee.com/pharelltenzi" class="donate" target="_blank">
-      ☕ Support BridgePoint
-    </a>
-  </section>
+    <!-- HERO: centered logo + title + tagline -->
+    <header class="hero" role="banner" aria-labelledby="site-title">
+      <div class="logo-wrap" role="img" aria-label="BridgePoint logo">
+        <!-- Inline SVG logo: minimal bridge arc above 'BridgePoint' text in golden tones -->
+        <svg class="logo-svg logo-glow" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- subtle vignette circle (behind) -->
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#d4a83a" stop-opacity="1"/>
+              <stop offset="1" stop-color="#ffd66b" stop-opacity="1"/>
+            </linearGradient>
+            <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="6" result="b"/>
+              <feMerge>
+                <feMergeNode in="b"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
 
-  <footer>
-    <h3>Connect with BridgePoint</h3>
-    <div class="socials">
-      <a href="https://www.instagram.com/pharell405" class="instagram" target="_blank">📸 Instagram</a>
-      <a href="https://www.facebook.com/pharellmwendwa" class="facebook" target="_blank">📘 Facebook</a>
-      <a href="https://x.com/pharelltenzi" class="twitter" target="_blank">🐦 X (Twitter)</a>
-      <a href="https://www.linkedin.com/in/pharelltenzi" class="linkedin" target="_blank">💼 LinkedIn</a>
-    </div>
-    <p style="margin-top: 30px; color: #777;">© 2025 BridgePoint. All Rights Reserved.</p>
-  </footer>
+          <!-- background soft ellipse (very subtle) -->
+          <ellipse cx="300" cy="80" rx="220" ry="64" fill="url(#g1)" opacity="0.06" />
+
+          <!-- bridge arc (thin, golden) -->
+          <path d="M120 110 C 225 10, 375 10, 480 110" fill="none" stroke="url(#g1)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+
+          <!-- optional secondary thinner arcs for refinement -->
+          <path d="M140 116 C 225 30, 375 30, 460 116" fill="none" stroke="rgba(255,221,102,0.35)" stroke-width="3" stroke-linecap="round" />
+
+          <!-- BridgePoint text -->
+          <g transform="translate(0,20)">
+            <text x="300" y="150" text-anchor="middle" font-family="Poppins, Inter, system-ui, sans-serif"
+              font-weight="600" font-size="46" fill="url(#g1)" style="letter-spacing:1.2px">
+              BridgePoint
+            </text>
+          </g>
+        </svg>
+
+        <h1 id="site-title" class="site-title">BridgePoint</h1>
+        <p class="tagline">Where ambition finds purpose, and hope takes shape.</p>
+      </div>
+    </header>
+
+    <!-- ABOUT / MISSION -->
+    <main role="main" style="width:100%; display:flex; flex-direction:column; gap:20px; align-items:center">
+      <section class="panel" id="about" aria-labelledby="about-heading">
+        <h2 id="about-heading">About BridgePoint</h2>
+        <p class="lead">
+          BridgePoint builds quiet, durable connections between people, cultures, and ideas.
+          We create spaces for dialogue, opportunity, and meaningful collaboration — especially for young changemakers who are building tomorrow.
+          Our work is guided by inclusion, ambition, and hope.
+        </p>
+
+        <div style="display:flex; gap:18px; align-items:center; justify-content:center; flex-wrap:wrap">
+          <a class="donate-btn" href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" rel="noopener noreferrer" aria-label="Support BridgePoint on Buy Me a Coffee">
+            ☕ Support BridgePoint
+          </a>
+        </div>
+      </section>
+
+      <!-- VISION -->
+      <section class="panel" id="vision" aria-labelledby="vision-heading">
+        <h2 id="vision-heading">Our Vision</h2>
+        <p class="lead">
+          We imagine a world where bridges — digital and human — help people find common ground, access opportunities, and shape better futures.
+          BridgePoint empowers voices, nurtures ambition, and supports action that brings communities closer.
+        </p>
+      </section>
+
+      <!-- CONTACT / SOCIALS -->
+      <section class="panel" id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Connect & Share</h2>
+        <p class="lead">Follow BridgePoint or reach out — collaboration and conversation are how we grow.</p>
+
+        <div class="socials" role="navigation" aria-label="BridgePoint social links">
+          <a class="social-link insta" href="https://www.instagram.com/pharell405" target="_blank" rel="noopener noreferrer">
+            <!-- emoji + label for clarity -->
+            <span aria-hidden="true">📸</span><span>Instagram @pharell405</span>
+          </a>
+
+          <a class="social-link fb" href="https://www.facebook.com/pharell.mwendwa" target="_blank" rel="noopener noreferrer">
+            <span aria-hidden="true">📘</span><span>Facebook Pharell Mwendwa</span>
+          </a>
+
+          <a class="social-link x" href="https://x.com/pharelltenzi" target="_blank" rel="noopener noreferrer">
+            <span aria-hidden="true">✖</span><span>X @pharelltenzi</span>
+          </a>
+
+          <a class="social-link li" href="https://www.linkedin.com/in/pharelltenzi" target="_blank" rel="noopener noreferrer">
+            <span aria-hidden="true">💼</span><span>LinkedIn Pharell Tenzi</span>
+          </a>
+        </div>
+
+        <div style="margin-top:18px; color:var(--muted); font-size:13px">
+          <p style="margin:0">Email: <a href="mailto:hello@bridgepoint.org" style="color:var(--gold-2); text-decoration:none">hello@bridgepoint.org</a> (placeholder — replace if you prefer)</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div style="opacity:.85">© <span id="year"></span> BridgePoint — Built with vision, heart, and unity.</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Current year for footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Accessibility: allow keyboard focus visible states
+    (function(){document.addEventListener('keyup', function(e){
+      if(e.key === 'Tab') document.documentElement.classList.add('user-tabbing');
+    })})();
+
+    // Optional: smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        const t = document.querySelector(this.getAttribute('href'));
+        if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  </script>
 </body>
 </html>
