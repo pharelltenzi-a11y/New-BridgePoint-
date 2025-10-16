@@ -10,7 +10,7 @@
   <meta name="keywords" content="BridgePoint, inspiration, youth empowerment, inclusion, creativity, innovation, hope, ambition, purpose, changemakers, Kenya, Africa" />
   <meta name="author" content="Pharell Tenzi" />
 
-  <!-- Open Graph / Social preview (replace preview.png later if you upload one) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="BridgePoint — Where Ambition Finds Purpose, and Hope Takes Shape" />
   <meta property="og:description" content="BridgePoint is a modern platform inspiring young dreamers and changemakers. We connect ambition with purpose through creativity, inclusion, and hope." />
   <meta property="og:type" content="website" />
@@ -20,282 +20,247 @@
   <meta name="twitter:title" content="BridgePoint — Where Ambition Finds Purpose" />
   <meta name="twitter:description" content="Inspiration, inclusion, and ambition — BridgePoint is where young people connect, grow, and create a better tomorrow." />
 
-  <!-- Inline styles & animations -->
+  <!-- Embedded styles -->
   <style>
     :root{
       --bg: #0b0b0b;           /* deep matte black */
-      --panel: #0f0f10;        /* subtle card tone */
-      --gold: #d4a83a;         /* golden core */
-      --gold-2: #ffdd66;       /* lighter gold for highlights */
+      --panel: #0f0f10;
+      --gold: #d4a83a;
+      --gold-2: #ffd66b;
       --muted: #bdbdbd;
+      --card-radius: 12px;
       --max-width: 980px;
-      --gap: 28px;
+      --space: 28px;
+      --ease: cubic-bezier(.2,.9,.3,1);
     }
 
-    /* Reset & base */
+    /* Reset */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      background: var(--bg);
+      background:var(--bg);
       color: #f1efe9;
       font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       line-height:1.5;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* Layout container */
-    .site {
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      gap: var(--gap);
-      padding: 48px 20px;
-    }
+    /* Page layout */
+    .wrap { min-height:100vh; display:flex; flex-direction:column; align-items:center; gap:var(--space); padding:40px 20px; }
 
-    /* Centered header area with vignette */
+    /* HERO (welcome) */
     .hero {
       width:100%;
       max-width:var(--max-width);
+      position:relative;
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:18px;
-      padding:48px 36px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border-radius:14px;
-      position:relative;
+      gap:14px;
+      padding:56px;
+      border-radius:var(--card-radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 14px 50px rgba(0,0,0,0.55);
       overflow:visible;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      transition: transform 700ms var(--ease), opacity 600ms var(--ease);
     }
 
-    /* subtle golden vignette behind the hero center */
+    /* golden vignette behind hero center */
     .hero::before{
       content:"";
       position:absolute;
       left:50%;
-      top:10%;
+      top:8%;
       transform:translateX(-50%);
-      width:70%;
+      width:68%;
       height:420px;
-      background: radial-gradient(ellipse at center, rgba(212,168,58,0.10), rgba(212,168,58,0.04) 20%, rgba(0,0,0,0) 60%);
-      filter: blur(32px);
+      background: radial-gradient(ellipse at center, rgba(212,168,58,0.10), rgba(212,168,58,0.03) 18%, rgba(0,0,0,0) 60%);
+      filter: blur(28px);
       pointer-events:none;
       z-index:0;
       border-radius:50%;
     }
 
-    /* logo block */
-    .logo-wrap{
-      z-index:2;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:12px;
-    }
+    .logo-wrap{ z-index:2; display:flex; flex-direction:column; align-items:center; gap:12px; }
 
-    /* Inline SVG logo sizing */
-    .logo-svg{
-      width:220px;
-      height:auto;
-      display:block;
-      margin:0 auto;
-    }
+    /* Inline SVG logo */
+    .logo-svg{ width:240px; height:auto; display:block; margin:0; }
+    .site-title{ font-size:30px; color:var(--gold); margin:0; letter-spacing:0.6px; font-weight:600; text-shadow:0 2px 10px rgba(212,168,58,0.05); }
+    .tagline { margin:0; color:var(--muted); font-size:14px; font-weight:400; }
 
-    /* breathing glow on the logo (soft vignette + glow) */
+    /* breathing glow for logo group */
     .logo-glow{
-      animation: breathe 4.5s ease-in-out infinite;
+      animation: breathe 4.2s ease-in-out infinite;
       transform-origin:center;
-      filter: drop-shadow(0 8px 30px rgba(212,168,58,0.14));
+      filter: drop-shadow(0 8px 28px rgba(212,168,58,0.12));
+    }
+    @keyframes breathe {
+      0%{ transform:scale(1); filter: drop-shadow(0 8px 28px rgba(212,168,58,0.08)) }
+      50%{ transform:scale(1.02); filter: drop-shadow(0 18px 44px rgba(212,168,58,0.16)) }
+      100%{ transform:scale(1); filter: drop-shadow(0 8px 28px rgba(212,168,58,0.08)) }
     }
 
-    @keyframes breathe{
-      0%{ filter: drop-shadow(0 6px 18px rgba(212,168,58,0.08)); transform:scale(1)}
-      50%{ filter: drop-shadow(0 12px 36px rgba(212,168,58,0.16)); transform:scale(1.02)}
-      100%{ filter: drop-shadow(0 6px 18px rgba(212,168,58,0.08)); transform:scale(1)}
-    }
-
-    /* Site title */
-    .site-title{
-      font-size:32px;
-      letter-spacing:0.6px;
-      color: var(--gold);
-      font-weight:600;
-      text-shadow: 0 2px 8px rgba(212,168,58,0.05);
-      z-index:2;
-      margin:0;
-    }
-
-    .tagline{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      font-weight:400;
-      z-index:2;
-    }
-
-    /* content panels */
-    .panel{
-      width:100%;
-      max-width:var(--max-width);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:12px;
-      padding:32px;
-      color:#e9e6df;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    }
-
-    h2{
-      color: var(--gold-2);
-      margin:0 0 12px 0;
-      font-size:20px;
-    }
-
-    p.lead{
-      color:#dcd6cf;
-      margin: 0 0 16px 0;
-      font-size:16px;
-    }
-
-    /* Donate / support button with subtle pulse (delayed start) */
-    .donate-row{
-      margin-top:18px;
-    }
-    .donate-btn{
-      display:inline-block;
-      background: linear-gradient(180deg, var(--gold), var(--gold-2));
-      color:#0b0b0b;
-      padding:12px 20px;
+    /* hero buttons row */
+    .hero-actions{ display:flex; gap:14px; align-items:center; margin-top:6px; z-index:2; }
+    .btn {
+      padding:10px 18px;
       border-radius:999px;
       font-weight:700;
       text-decoration:none;
-      box-shadow: 0 6px 18px rgba(212,168,58,0.15);
-      transition: transform .18s ease, box-shadow .18s ease;
-      animation: pulse-entrance 1s ease .9s both, pulse 3.2s ease-in-out 4s infinite;
-    }
-    .donate-btn:hover{ transform: translateY(-4px); box-shadow: 0 12px 32px rgba(212,168,58,0.24) }
-
-    @keyframes pulse-entrance{
-      from{ opacity:0; transform: translateY(8px) scale(.98) }
-      to{ opacity:1; transform: translateY(0) scale(1) }
-    }
-    @keyframes pulse{
-      0%,100%{ box-shadow: 0 6px 18px rgba(212,168,58,0.12); transform: scale(1) }
-      50%{ box-shadow: 0 14px 40px rgba(212,168,58,0.22); transform: scale(1.03) }
-    }
-
-    /* subtle divider wave (flat neutral) */
-    .wave-divider{
-      width:100%;
-      height:42px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      mask-image: radial-gradient(circle at 50% 0%, black 10%, transparent 70%);
-    }
-
-    /* socials & footer */
-    .footer{
-      width:100%;
-      max-width:var(--max-width);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:12px;
-      padding:22px;
-      color:var(--muted);
-    }
-
-    .socials{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    .social-link{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:8px;
-      text-decoration:none;
-      color:#fff;
-      font-weight:600;
-      font-size:14px;
-      transition: transform .12s ease, opacity .12s ease;
+      gap:10px;
+      cursor:pointer;
+      border: none;
     }
-    .social-link:hover{ transform:translateY(-4px); opacity:.95 }
 
-    .insta{ background: linear-gradient(45deg,#E1306C,#C13584); color:#fff }
-    .fb{ background:#1877F2; color:#fff }
-    .x{ background:#111; color:#fff }
-    .li{ background:#0A66C2; color:#fff }
+    .btn-get {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding:10px 18px;
+      transition: all .18s ease;
+    }
+    .btn-get:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.5) }
 
-    /* responsive */
+    .btn-support {
+      background: linear-gradient(180deg, var(--gold), var(--gold-2));
+      color: #0b0b0b;
+      box-shadow: 0 8px 24px rgba(212,168,58,0.12);
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease);
+      animation: pulse 3.2s ease-in-out 4s infinite;
+    }
+    .btn-support:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(212,168,58,0.22); }
+    @keyframes pulse {
+      0%,100%{ transform:scale(1) }
+      50%{ transform:scale(1.02) }
+    }
+
+    /* collapsed hero to reveal content (when .hero--collapsed added) */
+    .hero.hero--collapsed { transform: translateY(-36px) scale(.98); opacity:0.98; }
+
+    /* main content container hidden initially for cinematic reveal */
+    .main-content{ width:100%; max-width:var(--max-width); display:flex; flex-direction:column; gap:20px; opacity:0; transform: translateY(18px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
+    .main-content.is-visible{ opacity:1; transform: translateY(0) }
+
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--card-radius);
+      padding:28px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+
+    h2{ color: var(--gold-2); margin:0 0 12px 0; font-size:20px }
+    p.lead{ color:#dcd6cf; margin:0 0 18px 0; font-size:16px }
+
+    /* subtle wave divider (flat neutral) */
+    .divider{ height:38px; width:100%; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); margin: 6px 0 0 0; }
+
+    /* socials */
+    .socials{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center }
+    .social-link{ padding:8px 12px; border-radius:8px; color:#fff; text-decoration:none; font-weight:600; display:inline-flex; gap:8px; align-items:center; }
+    .insta{ background: linear-gradient(45deg,#E1306C,#C13584) }
+    .fb{ background:#1877F2 }
+    .x{ background:#111 }
+    .li{ background:#0A66C2 }
+
+    /* footer */
+    .footer{ width:100%; max-width:var(--max-width); color:var(--muted); display:flex; justify-content:center; padding:16px 0; }
+
+    /* modal styles */
+    .modal-backdrop{ position:fixed; inset:0; background: rgba(0,0,0,0.65); display:flex; align-items:center; justify-content:center; z-index:999; opacity:0; pointer-events:none; transition: opacity 260ms var(--ease) }
+    .modal-backdrop.is-open{ opacity:1; pointer-events:auto }
+    .modal{
+      width:92%;
+      max-width:520px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+      border-radius:16px;
+      padding:20px;
+      text-align:center;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.7);
+      transform: translateY(8px) scale(.98);
+      transition: transform 300ms var(--ease), opacity 300ms var(--ease);
+      opacity:0;
+    }
+    .modal-backdrop.is-open .modal{ opacity:1; transform: translateY(0) scale(1) }
+
+    .modal h3{ margin:0; color:var(--gold); font-size:20px }
+    .modal p{ color:#e9e6df; margin:12px 0 18px 0 }
+
+    .modal .coffee{ display:inline-block; padding:10px 16px; border-radius:999px; background: linear-gradient(180deg,var(--gold),var(--gold-2)); color:#000; font-weight:800; text-decoration:none; box-shadow:0 10px 30px rgba(212,168,58,0.16); }
+    .modal .close{ margin-top:14px; background:transparent; border:1px solid rgba(255,255,255,0.06); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer }
+
+    /* spark helper (small energetic burst) */
+    .spark {
+      position: absolute;
+      width:6px; height:6px; border-radius:50%;
+      background: var(--gold-2);
+      opacity:0;
+      transform: translate(-50%,-50%) scale(.6);
+      pointer-events:none;
+      box-shadow: 0 6px 10px rgba(255,221,102,0.35);
+    }
+
+    /* small utilities */
+    .center { display:flex; justify-content:center; align-items:center; }
+    a { color:inherit }
+    button { font-family: inherit }
+
+    /* responsive tweaks */
     @media (max-width:720px){
-      .logo-svg{ width:170px }
-      .site-title{ font-size:22px }
-      .hero{ padding:32px 18px }
-      .panel{ padding:20px }
+      .hero{ padding:28px; border-radius:10px }
+      .logo-svg{ width:180px }
+      .site-title{ font-size:20px }
+      .tagline{ font-size:13px }
     }
-
-    /* small accessibility tweaks */
-    a{outline: none}
-    a:focus{ box-shadow: 0 0 0 3px rgba(212,168,58,0.18); border-radius:8px }
-
   </style>
 </head>
 <body>
-  <div class="site" role="document">
+  <div class="wrap" role="document">
 
-    <!-- HERO: centered logo + title + tagline -->
-    <header class="hero" role="banner" aria-labelledby="site-title">
+    <!-- HERO: centered logo + tagline + buttons -->
+    <header class="hero" id="hero" role="banner" aria-labelledby="site-title">
       <div class="logo-wrap" role="img" aria-label="BridgePoint logo">
         <!-- Inline SVG logo: minimal bridge arc above 'BridgePoint' text in golden tones -->
-        <svg class="logo-svg logo-glow" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- subtle vignette circle (behind) -->
+        <svg class="logo-svg logo-glow" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
           <defs>
-            <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0" stop-color="#d4a83a" stop-opacity="1"/>
-              <stop offset="1" stop-color="#ffd66b" stop-opacity="1"/>
+            <linearGradient id="goldGrad" x1="0" x2="1">
+              <stop offset="0" stop-color="#d4a83a"/>
+              <stop offset="1" stop-color="#ffd66b"/>
             </linearGradient>
-            <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="6" result="b"/>
-              <feMerge>
-                <feMergeNode in="b"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
 
-          <!-- background soft ellipse (very subtle) -->
-          <ellipse cx="300" cy="80" rx="220" ry="64" fill="url(#g1)" opacity="0.06" />
+          <!-- subtle ellipse behind -->
+          <ellipse cx="300" cy="70" rx="220" ry="60" fill="url(#goldGrad)" opacity="0.06" />
 
-          <!-- bridge arc (thin, golden) -->
-          <path d="M120 110 C 225 10, 375 10, 480 110" fill="none" stroke="url(#g1)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+          <!-- bridge arc -->
+          <path d="M120 110 C 225 10, 375 10, 480 110" fill="none" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
 
-          <!-- optional secondary thinner arcs for refinement -->
-          <path d="M140 116 C 225 30, 375 30, 460 116" fill="none" stroke="rgba(255,221,102,0.35)" stroke-width="3" stroke-linecap="round" />
+          <!-- smaller accent arc -->
+          <path d="M140 116 C 225 30, 375 30, 460 116" fill="none" stroke="rgba(255,221,102,0.36)" stroke-width="3" stroke-linecap="round" />
 
           <!-- BridgePoint text -->
-          <g transform="translate(0,20)">
-            <text x="300" y="150" text-anchor="middle" font-family="Poppins, Inter, system-ui, sans-serif"
-              font-weight="600" font-size="46" fill="url(#g1)" style="letter-spacing:1.2px">
-              BridgePoint
-            </text>
-          </g>
+          <text x="300" y="160" text-anchor="middle" font-family="Poppins, Inter, system-ui, sans-serif" font-weight="600" font-size="46" fill="url(#goldGrad)" style="letter-spacing:1.2px">
+            BridgePoint
+          </text>
         </svg>
 
         <h1 id="site-title" class="site-title">BridgePoint</h1>
         <p class="tagline">Where ambition finds purpose, and hope takes shape.</p>
+
+        <div class="hero-actions" role="region" aria-label="Hero actions">
+          <button class="btn btn-get" id="getStarted">Get Started</button>
+          <button class="btn btn-support" id="openSupport" aria-haspopup="dialog" aria-controls="supportModal">Support BridgePoint</button>
+        </div>
       </div>
     </header>
 
-    <!-- ABOUT / MISSION -->
-    <main role="main" style="width:100%; display:flex; flex-direction:column; gap:20px; align-items:center">
+    <!-- Main content (hidden initially; revealed after Get Started) -->
+    <main class="main-content" id="mainContent" role="main" aria-live="polite">
+      <!-- ABOUT -->
       <section class="panel" id="about" aria-labelledby="about-heading">
         <h2 id="about-heading">About BridgePoint</h2>
         <p class="lead">
@@ -304,10 +269,8 @@
           Our work is guided by inclusion, ambition, and hope.
         </p>
 
-        <div style="display:flex; gap:18px; align-items:center; justify-content:center; flex-wrap:wrap">
-          <a class="donate-btn" href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" rel="noopener noreferrer" aria-label="Support BridgePoint on Buy Me a Coffee">
-            ☕ Support BridgePoint
-          </a>
+        <div class="center donate-row" style="gap:12px">
+          <a class="donate-btn" href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" rel="noopener noreferrer" aria-label="Support BridgePoint on Buy Me a Coffee">☕ Support BridgePoint</a>
         </div>
       </section>
 
@@ -320,59 +283,186 @@
         </p>
       </section>
 
-      <!-- CONTACT / SOCIALS -->
-      <section class="panel" id="contact" aria-labelledby="contact-heading">
-        <h2 id="contact-heading">Connect & Share</h2>
+      <!-- CONNECT -->
+      <section class="panel" id="connect" aria-labelledby="connect-heading">
+        <h2 id="connect-heading">Connect & Share</h2>
         <p class="lead">Follow BridgePoint or reach out — collaboration and conversation are how we grow.</p>
 
         <div class="socials" role="navigation" aria-label="BridgePoint social links">
-          <a class="social-link insta" href="https://www.instagram.com/pharell405" target="_blank" rel="noopener noreferrer">
-            <!-- emoji + label for clarity -->
-            <span aria-hidden="true">📸</span><span>Instagram @pharell405</span>
-          </a>
-
-          <a class="social-link fb" href="https://www.facebook.com/pharell.mwendwa" target="_blank" rel="noopener noreferrer">
-            <span aria-hidden="true">📘</span><span>Facebook Pharell Mwendwa</span>
-          </a>
-
-          <a class="social-link x" href="https://x.com/pharelltenzi" target="_blank" rel="noopener noreferrer">
-            <span aria-hidden="true">✖</span><span>X @pharelltenzi</span>
-          </a>
-
-          <a class="social-link li" href="https://www.linkedin.com/in/pharelltenzi" target="_blank" rel="noopener noreferrer">
-            <span aria-hidden="true">💼</span><span>LinkedIn Pharell Tenzi</span>
-          </a>
+          <a class="social-link insta" href="https://www.instagram.com/pharell405" target="_blank" rel="noopener noreferrer">📸 Instagram @pharell405</a>
+          <a class="social-link fb" href="https://www.facebook.com/pharell.mwendwa" target="_blank" rel="noopener noreferrer">📘 Facebook Pharell Mwendwa</a>
+          <a class="social-link x" href="https://x.com/pharelltenzi" target="_blank" rel="noopener noreferrer">✖ X @pharelltenzi</a>
+          <a class="social-link li" href="https://www.linkedin.com/in/pharelltenzi" target="_blank" rel="noopener noreferrer">💼 LinkedIn Pharell Tenzi</a>
         </div>
 
-        <div style="margin-top:18px; color:var(--muted); font-size:13px">
-          <p style="margin:0">Email: <a href="mailto:hello@bridgepoint.org" style="color:var(--gold-2); text-decoration:none">hello@bridgepoint.org</a> (placeholder — replace if you prefer)</p>
+        <div style="margin-top:16px; color:var(--muted); font-size:13px">
+          <p style="margin:0">Email: <a href="mailto:hello@bridgepoint.org" style="color:var(--gold-2); text-decoration:none">hello@bridgepoint.org</a></p>
         </div>
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer" role="contentinfo">
-      <div style="opacity:.85">© <span id="year"></span> BridgePoint — Built with vision, heart, and unity.</div>
+      <div style="opacity:.9">© <span id="year"></span> BridgePoint — Built with vision, heart, and unity.</div>
     </footer>
-
   </div>
 
+  <!-- Support Modal (hidden until opened) -->
+  <div id="supportModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+      <h3 id="modalTitle">Thank you — your kindness matters</h3>
+      <p id="modalDesc">Your support keeps the bridge strong. Small acts of kindness create real opportunity for people and communities.</p>
+
+      <a class="coffee" href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" rel="noopener noreferrer">☕ Buy Me a Coffee</a>
+      <div><button class="close" id="closeModal">Close</button></div>
+    </div>
+    <!-- spark container (for energetic tiny bursts) -->
+    <div id="sparkContainer" aria-hidden="true"></div>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    // Current year for footer
+    // DOM references
+    const getStartedBtn = document.getElementById('getStarted');
+    const hero = document.getElementById('hero');
+    const mainContent = document.getElementById('mainContent');
+
+    const openSupport = document.getElementById('openSupport');
+    const supportModal = document.getElementById('supportModal');
+    const closeModal = document.getElementById('closeModal');
+    const sparkContainer = document.getElementById('sparkContainer');
+
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Accessibility: allow keyboard focus visible states
-    (function(){document.addEventListener('keyup', function(e){
-      if(e.key === 'Tab') document.documentElement.classList.add('user-tabbing');
-    })})();
+    // Smooth reveal when Get Started is clicked
+    getStartedBtn.addEventListener('click', () => {
+      // golden sweep effect (overlay)
+      createSweep();
 
-    // Optional: smooth scroll for anchor links
+      // collapse hero slightly & reveal main content
+      hero.classList.add('hero--collapsed');
+      setTimeout(() => {
+        mainContent.classList.add('is-visible');
+        // scroll into view of main content smoothly
+        mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 450); // slight delay for sweep
+    });
+
+    // Sweep overlay: subtle golden line that moves across, then disappears
+    function createSweep() {
+      const sweep = document.createElement('div');
+      sweep.style.position = 'fixed';
+      sweep.style.left = '0';
+      sweep.style.top = '0';
+      sweep.style.width = '100%';
+      sweep.style.height = '100%';
+      sweep.style.pointerEvents = 'none';
+      sweep.style.zIndex = 998;
+      sweep.style.backgroundImage = 'linear-gradient(90deg, rgba(255,255,255,0.00), rgba(212,168,58,0.06) 30%, rgba(212,168,58,0.12) 50%, rgba(255,255,255,0.00) 70%)';
+      sweep.style.transform = 'translateX(-100%)';
+      sweep.style.transition = 'transform 700ms cubic-bezier(.2,.9,.3,1), opacity 400ms ease';
+      document.body.appendChild(sweep);
+
+      requestAnimationFrame(()=> {
+        sweep.style.transform = 'translateX(100%)';
+      });
+
+      // fade out then remove
+      setTimeout(()=> {
+        sweep.style.opacity = '0';
+        setTimeout(()=> document.body.removeChild(sweep), 500);
+      }, 900);
+    }
+
+    // Support modal open with sparks effect
+    openSupport.addEventListener('click', () => {
+      openSupportModal();
+      // generate small energetic sparks
+      generateSparks();
+    });
+
+    function openSupportModal() {
+      supportModal.classList.add('is-open');
+      supportModal.setAttribute('aria-hidden','false');
+      // trap focus briefly to modal
+      closeModal.focus();
+    }
+
+    closeModal.addEventListener('click', closeSupportModal);
+
+    // close when clicking outside modal content
+    supportModal.addEventListener('click', (e) => {
+      if (e.target === supportModal) closeSupportModal();
+    });
+
+    function closeSupportModal() {
+      supportModal.classList.remove('is-open');
+      supportModal.setAttribute('aria-hidden','true');
+      // clear sparks
+      clearSparks();
+    }
+
+    // Spark generator (energetic but subtle)
+    let sparkInterval;
+    function generateSparks() {
+      clearSparks();
+      const max = 12;
+      let count = 0;
+      sparkInterval = setInterval(()=> {
+        if (count++ > max) {
+          clearInterval(sparkInterval);
+          return;
+        }
+        const s = document.createElement('div');
+        s.className = 'spark';
+        // position around the support button
+        const rect = openSupport.getBoundingClientRect();
+        const x = rect.left + rect.width * (0.2 + Math.random() * 0.6);
+        const y = rect.top + rect.height * (0.2 + Math.random() * 0.6);
+        s.style.left = x + 'px';
+        s.style.top = y + 'px';
+        document.body.appendChild(s);
+
+        // animate (pop and drift)
+        requestAnimationFrame(()=> {
+          s.style.transition = 'transform 900ms ease-out, opacity 900ms ease-out';
+          s.style.opacity = '1';
+          s.style.transform = 'translate(-50%,-60%) scale(1.8)';
+        });
+
+        // fade away
+        setTimeout(()=> {
+          s.style.opacity = '0';
+          s.style.transform = 'translate(-50%,-120%) scale(.8)';
+        }, 400 + Math.random()*300);
+
+        // remove later
+        setTimeout(()=> {
+          if (s && s.parentNode) s.parentNode.removeChild(s);
+        }, 1400);
+      }, 80);
+    }
+    function clearSparks() { clearInterval(sparkInterval); Array.from(document.querySelectorAll('.spark')).forEach(s => s.remove()); }
+
+    // Accessibility: keyboard closes modal with Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (supportModal.classList.contains('is-open')) closeSupportModal();
+      }
+    });
+
+    // Smooth anchor navigation (if user clicks in-page links)
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', function(e){
         e.preventDefault();
-        const t = document.querySelector(this.getAttribute('href'));
-        if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+        const tgt = document.querySelector(this.getAttribute('href'));
+        if(tgt){ tgt.scrollIntoView({behavior:'smooth', block:'start'}); }
       });
     });
+
+    // For accessibility: show focus ring when keyboard is used
+    (function(){ document.addEventListener('keydown', function(e){ if(e.key === 'Tab') document.documentElement.classList.add('user-tabbing'); }); })();
   </script>
 </body>
 </html>
