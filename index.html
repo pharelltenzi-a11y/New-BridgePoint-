@@ -1,468 +1,198 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-  <!-- Heartfelt SEO -->
-  <title>BridgePoint — Where Ambition Finds Purpose, and Hope Takes Shape</title>
-  <meta name="description" content="BridgePoint is a modern platform inspiring young dreamers and changemakers. We connect ambition with purpose through creativity, inclusion, and hope — building bridges to a brighter future." />
-  <meta name="keywords" content="BridgePoint, inspiration, youth empowerment, inclusion, creativity, innovation, hope, ambition, purpose, changemakers, Kenya, Africa" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BridgePoint — inspiring ambition, inclusion, and modern connection for a brighter future." />
+  <meta name="keywords" content="BridgePoint, inspiration, ambition, inclusion, youth, hope, innovation" />
   <meta name="author" content="Pharell Tenzi" />
+  <title>BridgePoint</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="BridgePoint — Where Ambition Finds Purpose, and Hope Takes Shape" />
-  <meta property="og:description" content="BridgePoint is a modern platform inspiring young dreamers and changemakers. We connect ambition with purpose through creativity, inclusion, and hope." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://your-github-pages-url/" />
-  <meta property="og:image" content="preview.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="BridgePoint — Where Ambition Finds Purpose" />
-  <meta name="twitter:description" content="Inspiration, inclusion, and ambition — BridgePoint is where young people connect, grow, and create a better tomorrow." />
-
-  <!-- Embedded styles -->
   <style>
-    :root{
-      --bg: #0b0b0b;           /* deep matte black */
-      --panel: #0f0f10;
-      --gold: #d4a83a;
-      --gold-2: #ffd66b;
-      --muted: #bdbdbd;
-      --card-radius: 12px;
-      --max-width: 980px;
-      --space: 28px;
-      --ease: cubic-bezier(.2,.9,.3,1);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
     }
 
-    /* Reset */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:var(--bg);
-      color: #f1efe9;
-      font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Page layout */
-    .wrap { min-height:100vh; display:flex; flex-direction:column; align-items:center; gap:var(--space); padding:40px 20px; }
-
-    /* HERO (welcome) */
-    .hero {
-      width:100%;
-      max-width:var(--max-width);
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:14px;
-      padding:56px;
-      border-radius:var(--card-radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: 0 14px 50px rgba(0,0,0,0.55);
-      overflow:visible;
-      transition: transform 700ms var(--ease), opacity 600ms var(--ease);
-    }
-
-    /* golden vignette behind hero center */
-    .hero::before{
-      content:"";
-      position:absolute;
-      left:50%;
-      top:8%;
-      transform:translateX(-50%);
-      width:68%;
-      height:420px;
-      background: radial-gradient(ellipse at center, rgba(212,168,58,0.10), rgba(212,168,58,0.03) 18%, rgba(0,0,0,0) 60%);
-      filter: blur(28px);
-      pointer-events:none;
-      z-index:0;
-      border-radius:50%;
-    }
-
-    .logo-wrap{ z-index:2; display:flex; flex-direction:column; align-items:center; gap:12px; }
-
-    /* Inline SVG logo */
-    .logo-svg{ width:240px; height:auto; display:block; margin:0; }
-    .site-title{ font-size:30px; color:var(--gold); margin:0; letter-spacing:0.6px; font-weight:600; text-shadow:0 2px 10px rgba(212,168,58,0.05); }
-    .tagline { margin:0; color:var(--muted); font-size:14px; font-weight:400; }
-
-    /* breathing glow for logo group */
-    .logo-glow{
-      animation: breathe 4.2s ease-in-out infinite;
-      transform-origin:center;
-      filter: drop-shadow(0 8px 28px rgba(212,168,58,0.12));
-    }
-    @keyframes breathe {
-      0%{ transform:scale(1); filter: drop-shadow(0 8px 28px rgba(212,168,58,0.08)) }
-      50%{ transform:scale(1.02); filter: drop-shadow(0 18px 44px rgba(212,168,58,0.16)) }
-      100%{ transform:scale(1); filter: drop-shadow(0 8px 28px rgba(212,168,58,0.08)) }
-    }
-
-    /* hero buttons row */
-    .hero-actions{ display:flex; gap:14px; align-items:center; margin-top:6px; z-index:2; }
-    .btn {
-      padding:10px 18px;
-      border-radius:999px;
-      font-weight:700;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      cursor:pointer;
-      border: none;
-    }
-
-    .btn-get {
-      background: transparent;
+    body {
+      background-color: #000;
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.08);
-      padding:10px 18px;
-      transition: all .18s ease;
+      overflow-x: hidden;
     }
-    .btn-get:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.5) }
 
-    .btn-support {
-      background: linear-gradient(180deg, var(--gold), var(--gold-2));
-      color: #0b0b0b;
-      box-shadow: 0 8px 24px rgba(212,168,58,0.12);
-      transition: transform .18s var(--ease), box-shadow .18s var(--ease);
-      animation: pulse 3.2s ease-in-out 4s infinite;
+    /* --- Intro Section --- */
+    .intro {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      animation: fadeIn 1s ease-in-out forwards;
+      position: relative;
     }
-    .btn-support:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(212,168,58,0.22); }
+
+    .logo {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #d4af37;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+      opacity: 0;
+      animation: logoGlow 3s ease-in-out forwards;
+    }
+
+    @keyframes logoGlow {
+      0% { opacity: 0; transform: scale(0.9); }
+      30% { opacity: 1; transform: scale(1); }
+      70% { text-shadow: 0 0 30px rgba(212, 175, 55, 1); }
+      100% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.6); }
+    }
+
+    .get-started {
+      margin-top: 40px;
+      padding: 12px 32px;
+      border: 2px solid #fff;
+      color: #fff;
+      font-size: 1.1rem;
+      border-radius: 25px;
+      background: transparent;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeInButton 1.5s ease-in-out 3.5s forwards, pulse 2s infinite 5s;
+      transition: all 0.4s ease;
+    }
+
+    @keyframes fadeInButton {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes pulse {
-      0%,100%{ transform:scale(1) }
-      50%{ transform:scale(1.02) }
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.3); }
+      70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
     }
 
-    /* collapsed hero to reveal content (when .hero--collapsed added) */
-    .hero.hero--collapsed { transform: translateY(-36px) scale(.98); opacity:0.98; }
-
-    /* main content container hidden initially for cinematic reveal */
-    .main-content{ width:100%; max-width:var(--max-width); display:flex; flex-direction:column; gap:20px; opacity:0; transform: translateY(18px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
-    .main-content.is-visible{ opacity:1; transform: translateY(0) }
-
-    .panel{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:var(--card-radius);
-      padding:28px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    .get-started:hover {
+      background-color: #fff;
+      color: #000;
     }
 
-    h2{ color: var(--gold-2); margin:0 0 12px 0; font-size:20px }
-    p.lead{ color:#dcd6cf; margin:0 0 18px 0; font-size:16px }
-
-    /* subtle wave divider (flat neutral) */
-    .divider{ height:38px; width:100%; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); margin: 6px 0 0 0; }
-
-    /* socials */
-    .socials{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center }
-    .social-link{ padding:8px 12px; border-radius:8px; color:#fff; text-decoration:none; font-weight:600; display:inline-flex; gap:8px; align-items:center; }
-    .insta{ background: linear-gradient(45deg,#E1306C,#C13584) }
-    .fb{ background:#1877F2 }
-    .x{ background:#111 }
-    .li{ background:#0A66C2 }
-
-    /* footer */
-    .footer{ width:100%; max-width:var(--max-width); color:var(--muted); display:flex; justify-content:center; padding:16px 0; }
-
-    /* modal styles */
-    .modal-backdrop{ position:fixed; inset:0; background: rgba(0,0,0,0.65); display:flex; align-items:center; justify-content:center; z-index:999; opacity:0; pointer-events:none; transition: opacity 260ms var(--ease) }
-    .modal-backdrop.is-open{ opacity:1; pointer-events:auto }
-    .modal{
-      width:92%;
-      max-width:520px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
-      border-radius:16px;
-      padding:20px;
-      text-align:center;
-      box-shadow: 0 18px 60px rgba(0,0,0,0.7);
-      transform: translateY(8px) scale(.98);
-      transition: transform 300ms var(--ease), opacity 300ms var(--ease);
-      opacity:0;
-    }
-    .modal-backdrop.is-open .modal{ opacity:1; transform: translateY(0) scale(1) }
-
-    .modal h3{ margin:0; color:var(--gold); font-size:20px }
-    .modal p{ color:#e9e6df; margin:12px 0 18px 0 }
-
-    .modal .coffee{ display:inline-block; padding:10px 16px; border-radius:999px; background: linear-gradient(180deg,var(--gold),var(--gold-2)); color:#000; font-weight:800; text-decoration:none; box-shadow:0 10px 30px rgba(212,168,58,0.16); }
-    .modal .close{ margin-top:14px; background:transparent; border:1px solid rgba(255,255,255,0.06); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer }
-
-    /* spark helper (small energetic burst) */
-    .spark {
-      position: absolute;
-      width:6px; height:6px; border-radius:50%;
-      background: var(--gold-2);
-      opacity:0;
-      transform: translate(-50%,-50%) scale(.6);
-      pointer-events:none;
-      box-shadow: 0 6px 10px rgba(255,221,102,0.35);
+    /* --- Main Section (Hidden Initially) --- */
+    .main {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.5s ease-in-out;
+      background-color: #000;
     }
 
-    /* small utilities */
-    .center { display:flex; justify-content:center; align-items:center; }
-    a { color:inherit }
-    button { font-family: inherit }
+    .main.active {
+      opacity: 1;
+      pointer-events: all;
+    }
 
-    /* responsive tweaks */
-    @media (max-width:720px){
-      .hero{ padding:28px; border-radius:10px }
-      .logo-svg{ width:180px }
-      .site-title{ font-size:20px }
-      .tagline{ font-size:13px }
+    .section {
+      padding: 80px 20px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: #d4af37;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #ccc;
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+
+    /* --- Donation Button --- */
+    .donate-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 32px;
+      background-color: #d4af37;
+      color: #000;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 0 10px rgba(212,175,55,0.7);
+      transition: 0.3s;
+    }
+
+    .donate-btn:hover {
+      box-shadow: 0 0 20px rgba(212,175,55,1);
+      background-color: #f5c542;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background-color: #000;
+      color: #aaa;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+    }
+
+    .socials a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      color: #d4af37;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
+
 <body>
-  <div class="wrap" role="document">
+  <div class="intro">
+    <div class="logo">BridgePoint</div>
+    <button class="get-started" onclick="enterSite()">Get Started</button>
+  </div>
 
-    <!-- HERO: centered logo + tagline + buttons -->
-    <header class="hero" id="hero" role="banner" aria-labelledby="site-title">
-      <div class="logo-wrap" role="img" aria-label="BridgePoint logo">
-        <!-- Inline SVG logo: minimal bridge arc above 'BridgePoint' text in golden tones -->
-        <svg class="logo-svg logo-glow" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
-          <defs>
-            <linearGradient id="goldGrad" x1="0" x2="1">
-              <stop offset="0" stop-color="#d4a83a"/>
-              <stop offset="1" stop-color="#ffd66b"/>
-            </linearGradient>
-          </defs>
+  <div class="main" id="mainContent">
+    <section class="section">
+      <h2>Welcome to BridgePoint</h2>
+      <p>BridgePoint is more than a website — it’s a movement of ambition, inclusion, and connection. We’re here to inspire, empower, and bridge the gaps that hold dreams apart.</p>
+      <a href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" class="donate-btn">Support BridgePoint ☕</a>
+    </section>
 
-          <!-- subtle ellipse behind -->
-          <ellipse cx="300" cy="70" rx="220" ry="60" fill="url(#goldGrad)" opacity="0.06" />
-
-          <!-- bridge arc -->
-          <path d="M120 110 C 225 10, 375 10, 480 110" fill="none" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
-
-          <!-- smaller accent arc -->
-          <path d="M140 116 C 225 30, 375 30, 460 116" fill="none" stroke="rgba(255,221,102,0.36)" stroke-width="3" stroke-linecap="round" />
-
-          <!-- BridgePoint text -->
-          <text x="300" y="160" text-anchor="middle" font-family="Poppins, Inter, system-ui, sans-serif" font-weight="600" font-size="46" fill="url(#goldGrad)" style="letter-spacing:1.2px">
-            BridgePoint
-          </text>
-        </svg>
-
-        <h1 id="site-title" class="site-title">BridgePoint</h1>
-        <p class="tagline">Where ambition finds purpose, and hope takes shape.</p>
-
-        <div class="hero-actions" role="region" aria-label="Hero actions">
-          <button class="btn btn-get" id="getStarted">Get Started</button>
-          <button class="btn btn-support" id="openSupport" aria-haspopup="dialog" aria-controls="supportModal">Support BridgePoint</button>
-        </div>
+    <section class="section">
+      <h2>Connect with Us</h2>
+      <div class="socials">
+        <a href="https://instagram.com/pharell405" target="_blank">📸</a>
+        <a href="https://facebook.com/pharell.mwendwa" target="_blank">📘</a>
+        <a href="https://x.com/pharelltenzi" target="_blank">🐦</a>
+        <a href="https://linkedin.com/in/pharelltenzi" target="_blank">💼</a>
       </div>
-    </header>
-
-    <!-- Main content (hidden initially; revealed after Get Started) -->
-    <main class="main-content" id="mainContent" role="main" aria-live="polite">
-      <!-- ABOUT -->
-      <section class="panel" id="about" aria-labelledby="about-heading">
-        <h2 id="about-heading">About BridgePoint</h2>
-        <p class="lead">
-          BridgePoint builds quiet, durable connections between people, cultures, and ideas.
-          We create spaces for dialogue, opportunity, and meaningful collaboration — especially for young changemakers who are building tomorrow.
-          Our work is guided by inclusion, ambition, and hope.
-        </p>
-
-        <div class="center donate-row" style="gap:12px">
-          <a class="donate-btn" href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" rel="noopener noreferrer" aria-label="Support BridgePoint on Buy Me a Coffee">☕ Support BridgePoint</a>
-        </div>
-      </section>
-
-      <!-- VISION -->
-      <section class="panel" id="vision" aria-labelledby="vision-heading">
-        <h2 id="vision-heading">Our Vision</h2>
-        <p class="lead">
-          We imagine a world where bridges — digital and human — help people find common ground, access opportunities, and shape better futures.
-          BridgePoint empowers voices, nurtures ambition, and supports action that brings communities closer.
-        </p>
-      </section>
-
-      <!-- CONNECT -->
-      <section class="panel" id="connect" aria-labelledby="connect-heading">
-        <h2 id="connect-heading">Connect & Share</h2>
-        <p class="lead">Follow BridgePoint or reach out — collaboration and conversation are how we grow.</p>
-
-        <div class="socials" role="navigation" aria-label="BridgePoint social links">
-          <a class="social-link insta" href="https://www.instagram.com/pharell405" target="_blank" rel="noopener noreferrer">📸 Instagram @pharell405</a>
-          <a class="social-link fb" href="https://www.facebook.com/pharell.mwendwa" target="_blank" rel="noopener noreferrer">📘 Facebook Pharell Mwendwa</a>
-          <a class="social-link x" href="https://x.com/pharelltenzi" target="_blank" rel="noopener noreferrer">✖ X @pharelltenzi</a>
-          <a class="social-link li" href="https://www.linkedin.com/in/pharelltenzi" target="_blank" rel="noopener noreferrer">💼 LinkedIn Pharell Tenzi</a>
-        </div>
-
-        <div style="margin-top:16px; color:var(--muted); font-size:13px">
-          <p style="margin:0">Email: <a href="mailto:hello@bridgepoint.org" style="color:var(--gold-2); text-decoration:none">hello@bridgepoint.org</a></p>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-      <div style="opacity:.9">© <span id="year"></span> BridgePoint — Built with vision, heart, and unity.</div>
-    </footer>
+    </section>
   </div>
 
-  <!-- Support Modal (hidden until opened) -->
-  <div id="supportModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="modalTitle" aria-describedby="modalDesc">
-      <h3 id="modalTitle">Thank you — your kindness matters</h3>
-      <p id="modalDesc">Your support keeps the bridge strong. Small acts of kindness create real opportunity for people and communities.</p>
+  <footer>
+    <p>© 2025 BridgePoint. All rights reserved. Designed with ambition and heart by Pharell Tenzi.</p>
+  </footer>
 
-      <a class="coffee" href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" rel="noopener noreferrer">☕ Buy Me a Coffee</a>
-      <div><button class="close" id="closeModal">Close</button></div>
-    </div>
-    <!-- spark container (for energetic tiny bursts) -->
-    <div id="sparkContainer" aria-hidden="true"></div>
-  </div>
-
-  <!-- Scripts -->
   <script>
-    // DOM references
-    const getStartedBtn = document.getElementById('getStarted');
-    const hero = document.getElementById('hero');
-    const mainContent = document.getElementById('mainContent');
-
-    const openSupport = document.getElementById('openSupport');
-    const supportModal = document.getElementById('supportModal');
-    const closeModal = document.getElementById('closeModal');
-    const sparkContainer = document.getElementById('sparkContainer');
-
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Smooth reveal when Get Started is clicked
-    getStartedBtn.addEventListener('click', () => {
-      // golden sweep effect (overlay)
-      createSweep();
-
-      // collapse hero slightly & reveal main content
-      hero.classList.add('hero--collapsed');
-      setTimeout(() => {
-        mainContent.classList.add('is-visible');
-        // scroll into view of main content smoothly
-        mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 450); // slight delay for sweep
-    });
-
-    // Sweep overlay: subtle golden line that moves across, then disappears
-    function createSweep() {
-      const sweep = document.createElement('div');
-      sweep.style.position = 'fixed';
-      sweep.style.left = '0';
-      sweep.style.top = '0';
-      sweep.style.width = '100%';
-      sweep.style.height = '100%';
-      sweep.style.pointerEvents = 'none';
-      sweep.style.zIndex = 998;
-      sweep.style.backgroundImage = 'linear-gradient(90deg, rgba(255,255,255,0.00), rgba(212,168,58,0.06) 30%, rgba(212,168,58,0.12) 50%, rgba(255,255,255,0.00) 70%)';
-      sweep.style.transform = 'translateX(-100%)';
-      sweep.style.transition = 'transform 700ms cubic-bezier(.2,.9,.3,1), opacity 400ms ease';
-      document.body.appendChild(sweep);
-
-      requestAnimationFrame(()=> {
-        sweep.style.transform = 'translateX(100%)';
-      });
-
-      // fade out then remove
-      setTimeout(()=> {
-        sweep.style.opacity = '0';
-        setTimeout(()=> document.body.removeChild(sweep), 500);
-      }, 900);
+    function enterSite() {
+      document.querySelector('.intro').style.display = 'none';
+      const main = document.getElementById('mainContent');
+      main.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // Support modal open with sparks effect
-    openSupport.addEventListener('click', () => {
-      openSupportModal();
-      // generate small energetic sparks
-      generateSparks();
-    });
-
-    function openSupportModal() {
-      supportModal.classList.add('is-open');
-      supportModal.setAttribute('aria-hidden','false');
-      // trap focus briefly to modal
-      closeModal.focus();
-    }
-
-    closeModal.addEventListener('click', closeSupportModal);
-
-    // close when clicking outside modal content
-    supportModal.addEventListener('click', (e) => {
-      if (e.target === supportModal) closeSupportModal();
-    });
-
-    function closeSupportModal() {
-      supportModal.classList.remove('is-open');
-      supportModal.setAttribute('aria-hidden','true');
-      // clear sparks
-      clearSparks();
-    }
-
-    // Spark generator (energetic but subtle)
-    let sparkInterval;
-    function generateSparks() {
-      clearSparks();
-      const max = 12;
-      let count = 0;
-      sparkInterval = setInterval(()=> {
-        if (count++ > max) {
-          clearInterval(sparkInterval);
-          return;
-        }
-        const s = document.createElement('div');
-        s.className = 'spark';
-        // position around the support button
-        const rect = openSupport.getBoundingClientRect();
-        const x = rect.left + rect.width * (0.2 + Math.random() * 0.6);
-        const y = rect.top + rect.height * (0.2 + Math.random() * 0.6);
-        s.style.left = x + 'px';
-        s.style.top = y + 'px';
-        document.body.appendChild(s);
-
-        // animate (pop and drift)
-        requestAnimationFrame(()=> {
-          s.style.transition = 'transform 900ms ease-out, opacity 900ms ease-out';
-          s.style.opacity = '1';
-          s.style.transform = 'translate(-50%,-60%) scale(1.8)';
-        });
-
-        // fade away
-        setTimeout(()=> {
-          s.style.opacity = '0';
-          s.style.transform = 'translate(-50%,-120%) scale(.8)';
-        }, 400 + Math.random()*300);
-
-        // remove later
-        setTimeout(()=> {
-          if (s && s.parentNode) s.parentNode.removeChild(s);
-        }, 1400);
-      }, 80);
-    }
-    function clearSparks() { clearInterval(sparkInterval); Array.from(document.querySelectorAll('.spark')).forEach(s => s.remove()); }
-
-    // Accessibility: keyboard closes modal with Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (supportModal.classList.contains('is-open')) closeSupportModal();
-      }
-    });
-
-    // Smooth anchor navigation (if user clicks in-page links)
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', function(e){
-        e.preventDefault();
-        const tgt = document.querySelector(this.getAttribute('href'));
-        if(tgt){ tgt.scrollIntoView({behavior:'smooth', block:'start'}); }
-      });
-    });
-
-    // For accessibility: show focus ring when keyboard is used
-    (function(){ document.addEventListener('keydown', function(e){ if(e.key === 'Tab') document.documentElement.classList.add('user-tabbing'); }); })();
   </script>
 </body>
 </html>
