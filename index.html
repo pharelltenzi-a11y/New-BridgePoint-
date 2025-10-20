@@ -4,234 +4,224 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BridgePoint</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
+    /* Reset + general styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #000;
+      font-family: "Poppins", sans-serif;
+      background-color: #000;
       color: #fff;
-      overflow-x: hidden;
+      overflow: hidden;
+      transition: background-color 1.5s ease;
     }
 
-    header {
+    /* --- Logo Intro Section --- */
+    .intro {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
-      color: gold;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 40px;
-      z-index: 1000;
-    }
-
-    header h1 {
-      font-size: 1.6rem;
-      letter-spacing: 1px;
-      color: gold;
-    }
-
-    header nav a {
-      color: gold;
-      text-decoration: none;
-      margin-left: 25px;
-      transition: 0.3s;
-    }
-
-    header nav a:hover {
-      color: #fff;
-    }
-
-    /* Intro Section */
-    .intro {
       height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       background: #000;
-      animation: fadeOut 1.5s ease forwards;
-      animation-delay: 2s;
-      position: relative;
+      z-index: 5;
+      animation: fadeOut 2s ease 2s forwards;
     }
 
     .logo {
+      color: #d4af37;
       font-size: 3rem;
-      color: gold;
-      letter-spacing: 2px;
       text-align: center;
-      opacity: 0;
-      animation: fadeIn 1.5s ease forwards;
+      letter-spacing: 3px;
+      position: relative;
+      animation: glow 2s ease-in-out infinite alternate;
     }
 
-    .bridge-arc {
+    .logo::before {
+      content: "";
+      position: absolute;
+      top: -30px;
+      left: 50%;
       width: 120px;
       height: 60px;
-      border-top: 3px solid gold;
-      border-radius: 0 0 60px 60px;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: arcFadeIn 1.5s ease forwards;
+      border-top: 4px solid #d4af37;
+      border-radius: 50%;
+      transform: translateX(-50%);
     }
 
-    @keyframes arcFadeIn {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .get-started {
-      margin-top: 40px;
-      padding: 12px 35px;
-      background: gold;
-      border: none;
-      border-radius: 30px;
-      color: #000;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.4s;
-      opacity: 0;
-      animation: fadeIn 1.5s ease 2s forwards;
-    }
-
-    .get-started:hover {
-      background: #fff;
-      color: gold;
-      transform: scale(1.05);
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #d4af37; }
+      to { text-shadow: 0 0 20px #ffd700; }
     }
 
     @keyframes fadeOut {
-      0%, 60% { opacity: 1; }
-      100% { opacity: 0; visibility: hidden; }
+      to { opacity: 0; visibility: hidden; }
     }
 
-    /* Interior */
-    .interior {
-      background: linear-gradient(to bottom, #000, #111, #fff);
+    /* --- About Page --- */
+    .about {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 0 20px;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    .about.active {
+      display: flex;
+    }
+
+    .about h1 {
+      font-size: 2.5rem;
+      color: #ffd700;
+      margin-bottom: 1rem;
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      line-height: 1.6;
+      color: #ddd;
+    }
+
+    .buttons {
+      margin-top: 2rem;
+    }
+
+    button {
+      padding: 0.8rem 2rem;
+      margin: 0.5rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.4s ease;
+    }
+
+    .get-started {
+      background: #ffd700;
       color: #000;
-      padding-top: 100px;
-      min-height: 100vh;
-      opacity: 0;
-      animation: fadeInInterior 2s ease 3.5s forwards;
     }
 
-    @keyframes fadeInInterior {
+    .get-started:hover {
+      box-shadow: 0 0 15px #ffd700;
+      transform: scale(1.05);
+    }
+
+    .donate {
+      background: transparent;
+      color: #ffd700;
+      border: 2px solid #ffd700;
+    }
+
+    .donate:hover {
+      background: #ffd700;
+      color: #000;
+    }
+
+    @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    .section {
-      padding: 80px 10%;
-      text-align: center;
-    }
-
-    .section h2 {
-      color: gold;
-      font-size: 2rem;
-      margin-bottom: 15px;
-    }
-
-    .section p {
-      font-size: 1.1rem;
-      max-width: 800px;
-      margin: auto;
-      line-height: 1.8;
-    }
-
-    /* Donate Button */
-    .donate {
-      display: block;
-      margin: 50px auto;
-      text-align: center;
-      background: rgba(255, 215, 0, 0.2);
-      border: 1px solid gold;
-      padding: 12px 30px;
-      border-radius: 25px;
-      color: gold;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.4s;
-      width: fit-content;
-    }
-
-    .donate:hover {
-      background: gold;
+    /* --- Main Interior --- */
+    .main {
+      display: none;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #fff, #f8f0d4);
       color: #000;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: all 1.5s ease;
     }
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #000;
-      color: gold;
-      font-size: 0.9rem;
+    .main.active {
+      display: flex;
+      animation: zoomIn 1.5s ease forwards;
     }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .donate-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffd700;
+      color: #000;
+      padding: 0.6rem 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255,215,0,0.5);
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .donate-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #ffd700;
+    }
+
   </style>
 </head>
 <body>
-  <header>
-    <h1>BridgePoint</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#mission">Mission</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
 
-  <section class="intro">
-    <div class="bridge-arc"></div>
+  <!-- Intro -->
+  <div class="intro">
     <div class="logo">BridgePoint</div>
-    <button class="get-started" onclick="enterSite()">Get Started</button>
-  </section>
+  </div>
 
-  <section class="interior" id="main-content">
-    <div class="section" id="about">
-      <h2>About BridgePoint</h2>
-      <p>BridgePoint is more than a platform — it’s a movement. We connect ambition, innovation, and people through a shared vision of hope and modern progress. Our mission is to create bridges — between ideas, generations, and opportunities.</p>
+  <!-- About -->
+  <div class="about">
+    <h1>Welcome to BridgePoint</h1>
+    <p>BridgePoint is where vision meets purpose — connecting ideas, people, and innovation. 
+      Our mission is to create meaningful impact through collaboration and creativity.</p>
+    <div class="buttons">
+      <button class="get-started">Get Started</button>
+      <a href="https://www.buymeacoffee.com/pharelltenzi" target="_blank">
+        <button class="donate">Donate</button>
+      </a>
     </div>
+  </div>
 
-    <div class="section" id="mission">
-      <h2>Our Mission</h2>
-      <p>To inspire inclusion, innovation, and ambition across the world — beginning with every young person who dares to dream. BridgePoint is the meeting ground of purpose and progress.</p>
-    </div>
-
-    <div class="section" id="contact">
-      <h2>Connect With Us</h2>
-      <p>Follow us and be part of the BridgePoint community:</p>
-      <div style="margin-top: 20px;">
-        <a href="https://www.instagram.com/pharell405" target="_blank" style="color: gold; margin: 10px;">Instagram</a>
-        <a href="https://www.facebook.com/Pharell Mwendwa" target="_blank" style="color: gold; margin: 10px;">Facebook</a>
-        <a href="https://x.com/pharelltenzi" target="_blank" style="color: gold; margin: 10px;">X</a>
-        <a href="https://www.linkedin.com/in/pharelltenzi" target="_blank" style="color: gold; margin: 10px;">LinkedIn</a>
-      </div>
-      <a href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" class="donate">Support Us ☕</a>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 BridgePoint. All rights reserved.
-  </footer>
+  <!-- Main Site -->
+  <div class="main">
+    <h1>Inside BridgePoint</h1>
+    <p>Welcome to the heart of BridgePoint — explore, connect, and grow with us.</p>
+    <a href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" class="donate-icon">💛</a>
+  </div>
 
   <script>
-    function enterSite() {
-      document.querySelector('.intro').style.animation = 'fadeOut 1.5s ease forwards';
-      setTimeout(() => {
-        document.querySelector('.interior').scrollIntoView({ behavior: 'smooth' });
-      }, 1500);
-    }
+    // Automatic intro fade → About
+    setTimeout(() => {
+      document.querySelector('.intro').style.display = 'none';
+      document.querySelector('.about').classList.add('active');
+    }, 3500);
+
+    // Get Started → Zoom transition to Main
+    document.querySelector('.get-started').addEventListener('click', () => {
+      document.querySelector('.about').classList.remove('active');
+      document.querySelector('.main').classList.add('active');
+      document.body.style.backgroundColor = "#fff";
+    });
   </script>
 </body>
 </html>
