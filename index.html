@@ -6,7 +6,6 @@
   <title>BridgePoint</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
-    /* Reset + general styles */
     * {
       margin: 0;
       padding: 0;
@@ -21,7 +20,7 @@
       transition: background-color 1.5s ease;
     }
 
-    /* --- Logo Intro Section --- */
+    /* --- Logo Intro --- */
     .intro {
       position: fixed;
       top: 0;
@@ -99,38 +98,47 @@
 
     .buttons {
       margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
 
     button {
       padding: 0.8rem 2rem;
-      margin: 0.5rem;
       border: none;
       border-radius: 30px;
       cursor: pointer;
       font-weight: bold;
       font-size: 1rem;
-      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
     .get-started {
       background: #ffd700;
       color: #000;
-    }
-
-    .get-started:hover {
-      box-shadow: 0 0 15px #ffd700;
-      transform: scale(1.05);
+      animation: shimmer 3s infinite;
     }
 
     .donate {
       background: transparent;
       color: #ffd700;
       border: 2px solid #ffd700;
+      animation: shimmer-border 4s infinite;
     }
 
-    .donate:hover {
-      background: #ffd700;
-      color: #000;
+    @keyframes shimmer {
+      0% { box-shadow: 0 0 5px #ffd700; }
+      50% { box-shadow: 0 0 20px #ffea70; }
+      100% { box-shadow: 0 0 5px #ffd700; }
+    }
+
+    @keyframes shimmer-border {
+      0% { box-shadow: 0 0 5px #ffd700 inset; }
+      50% { box-shadow: 0 0 15px #ffea70 inset; }
+      100% { box-shadow: 0 0 5px #ffd700 inset; }
     }
 
     @keyframes fadeIn {
@@ -179,7 +187,6 @@
       transform: scale(1.1);
       box-shadow: 0 0 20px #ffd700;
     }
-
   </style>
 </head>
 <body>
@@ -196,7 +203,7 @@
       Our mission is to create meaningful impact through collaboration and creativity.</p>
     <div class="buttons">
       <button class="get-started">Get Started</button>
-      <a href="https://www.buymeacoffee.com/pharelltenzi" target="_blank">
+      <a href="https://www.buymeacoffee.com/yourpage" target="_blank">
         <button class="donate">Donate</button>
       </a>
     </div>
@@ -206,17 +213,15 @@
   <div class="main">
     <h1>Inside BridgePoint</h1>
     <p>Welcome to the heart of BridgePoint — explore, connect, and grow with us.</p>
-    <a href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" class="donate-icon">💛</a>
+    <a href="https://www.buymeacoffee.com/yourpage" target="_blank" class="donate-icon">💛</a>
   </div>
 
   <script>
-    // Automatic intro fade → About
     setTimeout(() => {
       document.querySelector('.intro').style.display = 'none';
       document.querySelector('.about').classList.add('active');
     }, 3500);
 
-    // Get Started → Zoom transition to Main
     document.querySelector('.get-started').addEventListener('click', () => {
       document.querySelector('.about').classList.remove('active');
       document.querySelector('.main').classList.add('active');
