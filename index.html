@@ -3,33 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BridgePoint | Home</title>
+  <title>BridgePoint</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="main fade-in">
-  <header class="navbar">
-    <img src="logo.png" alt="BridgePoint Logo" class="nav-logo" />
-    <nav>
-      <a href="about.html">About</a>
-      <a href="#">Projects</a>
-      <a href="#">Community</a>
-      <a href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" class="donate-icon">☕</a>
-    </nav>
-  </header>
+<body class="landing">
+  <div class="logo-container fade-in">
+    <img src="logo.png" alt="BridgePoint Logo" class="logo" />
+  </div>
 
-  <main class="main-content">
-    <section class="intro">
-      <h1>Welcome to <span>BridgePoint</span></h1>
-      <p>
-        Where ambition meets inclusion, creativity meets clarity, and hope meets action.
-        BridgePoint is your space to grow, connect, and build a brighter world — one idea at a time.
-      </p>
-      <a href="#" class="btn explore">Explore More</a>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 BridgePoint. All Rights Reserved.</p>
-  </footer>
+  <script>
+    // Auto transition to about page after 3 seconds
+    setTimeout(() => {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = "about.html";
+      }, 1500); // match fade duration
+    }, 3000);
+  </script>
 </body>
 </html>
