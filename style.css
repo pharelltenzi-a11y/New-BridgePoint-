@@ -117,4 +117,106 @@ body.about .overlay {
   opacity: 1;
   background: rgba(255, 215, 0, 0.1);
   box-shadow: 0 0 10px gold;
+}/* Main interior page */
+body.main {
+  background: linear-gradient(to bottom, #fff, #fdf6e3);
+  color: #222;
+  transition: opacity 1.5s ease-in-out, background 1.5s ease-in-out;
+}
+
+body.main .fade-in {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.navbar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.nav-logo {
+  width: 130px;
+  filter: drop-shadow(0 0 6px goldenrod);
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: goldenrod;
+}
+
+.donate-icon {
+  font-size: 1.2rem;
+  border: 1px solid gold;
+  border-radius: 50%;
+  padding: 6px 10px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.donate-icon:hover {
+  background: gold;
+  color: #000;
+  box-shadow: 0 0 10px gold;
+}
+
+.main-content {
+  padding-top: 120px;
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.intro h1 {
+  font-size: 2.7rem;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.intro h1 span {
+  color: goldenrod;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 25px;
+}
+
+.btn.explore {
+  background: linear-gradient(90deg, gold, goldenrod);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px gold;
+}
+
+.btn.explore:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px gold;
+}
+
+footer {
+  margin-top: 80px;
+  text-align: center;
+  color: #777;
+  font-size: 0.9rem;
+  padding: 20px;
 }
