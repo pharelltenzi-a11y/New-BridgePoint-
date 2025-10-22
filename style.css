@@ -1,0 +1,120 @@
+/* General resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Landing page */
+body.landing {
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.logo-container img {
+  width: 220px;
+  filter: drop-shadow(0 0 12px gold);
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.fade-in {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { filter: drop-shadow(0 0 10px gold); }
+  50% { filter: drop-shadow(0 0 25px goldenrod); }
+}
+
+/* About page */
+body.about {
+  background-color: #000;
+  color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  transition: background 1.5s ease-in-out;
+}
+
+body.about .overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, transparent 80%);
+  pointer-events: none;
+}
+
+.content h1 {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.content h1 span {
+  color: gold;
+  font-weight: 600;
+}
+
+.content p {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #ddd;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn.get-started {
+  background: linear-gradient(90deg, gold, goldenrod);
+  box-shadow: 0 0 10px gold;
+}
+
+.btn.get-started:hover {
+  box-shadow: 0 0 25px gold;
+  transform: scale(1.05);
+}
+
+.btn.donate {
+  border: 1px solid gold;
+  background: transparent;
+  opacity: 0.8;
+}
+
+.btn.donate:hover {
+  opacity: 1;
+  background: rgba(255, 215, 0, 0.1);
+  box-shadow: 0 0 10px gold;
+}
