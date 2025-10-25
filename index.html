@@ -4,21 +4,128 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BridgePoint</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      transition: background 1s ease-in-out;
+    }
+
+    /* Logo Styling */
+    .logo {
+      width: 200px;
+      height: auto;
+      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+      margin-bottom: 40px;
+      animation: logoFade 2s ease-in-out;
+    }
+
+    @keyframes logoFade {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Buttons */
+    .get-started-btn {
+      background-color: #d4af37;
+      color: #000;
+      font-size: 1.1rem;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+    }
+
+    .get-started-btn:hover {
+      background-color: #e0b84a;
+      transform: scale(1.05);
+    }
+
+    /* Donate Button */
+    .donate-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 30px;
+      background-color: #b8860b;
+      color: #fff;
+      font-size: 0.95rem;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      opacity: 0.85;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+      transition: all 0.4s ease-in-out;
+      z-index: 1000;
+      animation: steadyGlow 3s ease-in-out infinite;
+    }
+
+    .donate-btn:hover {
+      opacity: 1;
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.6);
+      background-color: #cba135;
+    }
+
+    @keyframes steadyGlow {
+      0%, 100% {
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+      }
+    }
+
+    /* Subtle Fade for Page */
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
-<body class="landing">
-  <div class="logo-container fade-in">
-    <img src="logo.png" alt="BridgePoint Logo" class="logo" />
-  </div>
+
+<body class="fade-in">
+  <img src="bridgepoint-logo.png" alt="BridgePoint Logo" class="logo" />
+  <button class="get-started-btn" onclick="openMain()">Get Started</button>
+
+  <button class="donate-btn" onclick="window.open('https://buymeacoffee.com/yourlink', '_blank')">
+    Donate
+  </button>
 
   <script>
-    // Auto transition to about page after 3 seconds
-    setTimeout(() => {
-      document.body.classList.add('fade-out');
+    function openMain() {
+      document.body.style.transition = "opacity 1s ease";
+      document.body.style.opacity = "0";
       setTimeout(() => {
-        window.location.href = "about.html";
-      }, 1500); // match fade duration
-    }, 3000);
+        window.location.href = "main.html"; // This will open the actual BridgePoint interior
+      }, 1000);
+    }
   </script>
 </body>
 </html>
