@@ -4,128 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BridgePoint</title>
-  <style>
-    /* Global Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      height: 100vh;
-      background-color: #000;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: "Poppins", sans-serif;
-      overflow: hidden;
-      transition: background 1s ease-in-out;
-    }
-
-    /* Logo Styling */
-    .logo {
-      width: 200px;
-      height: auto;
-      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
-      margin-bottom: 40px;
-      animation: logoFade 2s ease-in-out;
-    }
-
-    @keyframes logoFade {
-      0% {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    /* Buttons */
-    .get-started-btn {
-      background-color: #d4af37;
-      color: #000;
-      font-size: 1.1rem;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-    }
-
-    .get-started-btn:hover {
-      background-color: #e0b84a;
-      transform: scale(1.05);
-    }
-
-    /* Donate Button */
-    .donate-btn {
-      position: fixed;
-      bottom: 25px;
-      right: 30px;
-      background-color: #b8860b;
-      color: #fff;
-      font-size: 0.95rem;
-      padding: 10px 22px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      opacity: 0.85;
-      box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
-      transition: all 0.4s ease-in-out;
-      z-index: 1000;
-      animation: steadyGlow 3s ease-in-out infinite;
-    }
-
-    .donate-btn:hover {
-      opacity: 1;
-      box-shadow: 0 0 18px rgba(212, 175, 55, 0.6);
-      background-color: #cba135;
-    }
-
-    @keyframes steadyGlow {
-      0%, 100% {
-        box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
-      }
-      50% {
-        box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
-      }
-    }
-
-    /* Subtle Fade for Page */
-    .fade-in {
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
+<body>
 
-<body class="fade-in">
-  <img src="bridgepoint-logo.png" alt="BridgePoint Logo" class="logo" />
-  <button class="get-started-btn" onclick="openMain()">Get Started</button>
+  <!-- ===== BridgePoint Header ===== -->
+  <header class="header">
+    <div class="logo-container">
+      <img src="assets/bridgepoint_logo.png" alt="BridgePoint Logo" class="bridgepoint-logo" />
+    </div>
 
-  <button class="donate-btn" onclick="window.open('https://buymeacoffee.com/yourlink', '_blank')">
-    Donate
-  </button>
+    <nav class="social-links">
+      <a href="https://www.facebook.com/PharellMwendwa" target="_blank" aria-label="Facebook">
+        <img src="assets/facebook_icon.svg" alt="Facebook" />
+      </a>
+      <a href="https://www.instagram.com/pharell405" target="_blank" aria-label="Instagram">
+        <img src="assets/instagram_icon.svg" alt="Instagram" />
+      </a>
+      <a href="https://x.com/pharelltenzi" target="_blank" aria-label="Twitter">
+        <img src="assets/twitter_icon.svg" alt="X (Twitter)" />
+      </a>
+      <a href="https://www.linkedin.com/in/pharelltenzi" target="_blank" aria-label="LinkedIn">
+        <img src="assets/linkedin_icon.svg" alt="LinkedIn" />
+      </a>
+    </nav>
+  </header>
 
-  <script>
-    function openMain() {
-      document.body.style.transition = "opacity 1s ease";
-      document.body.style.opacity = "0";
-      setTimeout(() => {
-        window.location.href = "main.html"; // This will open the actual BridgePoint interior
-      }, 1000);
-    }
-  </script>
+  <!-- ===== BridgePoint Hero Section ===== -->
+  <section class="hero">
+    <div class="content">
+      <h1>Welcome to <span>BridgePoint</span></h1>
+      <p>Inspiration. Inclusion. Hope. Modernity. Warmth.</p>
+      <button class="get-started" onclick="location.href='about.html'">Get Started</button>
+    </div>
+  </section>
+
 </body>
 </html>
