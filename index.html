@@ -36,7 +36,7 @@
       position: relative;
     }
 
-    /* BRIDGE ARC ABOVE LOGO */
+    /* BRIDGE ARC ABOVE LOGO WITH GLOW ANIMATION */
     .logo::before {
       content: "";
       position: absolute;
@@ -48,7 +48,19 @@
       border: 3px solid rgba(212, 175, 55, 0.8);
       border-bottom: none;
       border-radius: 100% 100% 0 0;
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+      animation: arcGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes arcGlow {
+      0%, 100% {
+        box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+        opacity: 0.8;
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(212, 175, 55, 1);
+        opacity: 1;
+      }
     }
 
     /* BUTTON STYLES */
