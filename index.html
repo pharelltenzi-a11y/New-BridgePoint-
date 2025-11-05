@@ -1,117 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BridgePoint</title>
-  <style>
-    /* --- Page Base --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background-color: #000;
-      color: #d4af37;
-      font-family: 'Poppins', sans-serif;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BridgePoint</title>
+<style>
+  /* RESET & BASE */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    color:#111;
+    background:#000; /* starting background = black */
+  }
 
-    /* --- Logo --- */
-    .logo {
-      font-size: 3rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      filter: drop-shadow(0 0 12px rgba(212,175,55,0.5));
-    }
+  /* Stage wrapper: we'll stack 3 full-screen sections */
+  .stage {position:relative;width:100%;height:100vh;overflow:hidden}
 
-    .arc {
-      width: 90px;
-      height: 45px;
-      border-top: 3px solid #d4af37;
-      border-radius: 90px 90px 0 0;
-      box-shadow: 0 0 10px rgba(212,175,55,0.7);
-    }
+/* ===== SECTION: INTRO (logo on black) ===== */
+  .section {position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .intro {background:#000;color:#d4af37;z-index:30;transition:opacity 2s ease}
+  .intro.hidden {opacity:0;pointer-events:none}
 
-    /* --- Buttons --- */
-    .buttons {
-      display: flex;
-      gap: 20px;
-      margin-top: 40px;
-    }
+  /* logo box */
+  .logo-wrap{display:flex;flex-direction:column;align-items:center;gap:18px}
+  svg.bridge{width:260px;height:auto;display:block;filter:drop-shadow(0 6px 18px rgba(212,175,55,0.4))}
+  .brand-text{font-size:34px;font-weight:700;letter-spacing:2px;color:#d4af37;text-shadow:0 0 14px rgba(212,175,55,0.45)}
+  /* steady luminous arc effect is baked into the SVG (no animation) */
 
-    .btn {
-      border: 2px solid #d4af37;
-      color: #d4af37;
-      padding: 12px 30px;
-      font-size: 1rem;
-      border-radius: 50px;
-      cursor: pointer;
-      background: none;
-      transition: all 0.2s ease-in-out;
-    }
+  /* ===== SECTION: ABOUT (black background, white info panel) ===== */
+  .about {background:#000;color:#fff;z-index:20;transition:opacity 1s ease;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+  .about.active{opacity:1;pointer-events:auto}
 
-    .btn:hover {
-      background-color: #d4af37;
-      color: #000;
-    }
+  .about-panel{
+    width:min(920px,92%);
+    max-width:920px;
+    background:#fff; /* the white panel with mission text */
+    color:#111;
+    padding:44px 40px;
+    border-radius:12px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.45);
+    text-align:center;
+  }
 
-    .donate {
-      opacity: 0.7;
-      border: 2px solid rgba(212,175,55,0.6);
-    }
+  .about-panel h1{font-size:28px;margin-bottom:14px;color:#b8860b;font-weight:700}
+  .about-panel p{font-size:16px;line-height:1.55;color:#333;margin-bottom:24px}
 
-    /* --- Socials --- */
-    .socials {
-      display: flex;
-      gap: 25px;
-      margin-top: 60px;
-    }
+  /* CTA area under panel (gold pill button) */
+  .cta-row{display:flex;gap:16px;justify-content:center;margin-top:8px}
+  .btn-pill{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:12px 26px;border-radius:999px;border:2px solid #d4af37;background:transparent;
+    color:#d4af37;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;
+    transition:all .28s ease; position:relative; overflow:hidden;
+  }
+  /* subtle hover shimmer: only on hover (gentle) */
+  .btn-pill::after{
+    content:"";position:absolute;left:-70%;top:0;height:100%;width:70%;
+    background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+    transform:skewX(-18deg) translateX(-100%);transition:transform .6s ease;
+    pointer-events:none;mix-blend-mode:screen;
+  }
+  .btn-pill:hover{background:#d4af37;color:#000;box-shadow:0 10px 30px rgba(212,175,55,0.25)}
+  .btn-pill:hover::after{transform:skewX(-18deg) translateX(250%)}
 
-    .social-icon {
-      width: 45px;
-      height: 45px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 2px solid #d4af37;
-      border-radius: 12px;
-      color: #d4af37;
-      font-size: 1.3rem;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
+  /* donate is subtler */
+  .btn-donate{opacity:0.85;border-color:rgba(212,175,55,0.6);padding:10px 20px;font-size:14px}
+  .btn-donate:hover{opacity:1;background:rgba(212,175,55,0.12)}
 
-    .social-icon:hover {
-      box-shadow: 0 0 10px #d4af37, 0 0 20px #d4af37;
-      transform: scale(1.05);
-    }
-  </style>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  /* socials row (centered bottom of view) */
+  .social-row{
+    position:absolute;left:50%;transform:translateX(-50%);bottom:18px;display:flex;gap:14px;z-index:60;
+  }
+  .social{
+    display:inline-grid;place-items:center;width:44px;height:44px;border-radius:10px;
+    border:2px solid #d4af37;color:#d4af37;background:transparent;text-decoration:none;
+    transition:transform .24s ease,box-shadow .24s ease,background .24s ease,color .24s ease;
+    box-shadow:0 0 0 rgba(212,175,55,0);
+  }
+  .social svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:1.6}
+  .social:hover{transform:scale(1.06);background:#d4af37;color:#000;box-shadow:0 6px 20px rgba(212,175,55,0.28)}
+
+  /* donate small pill at very bottom-right (subtle) */
+  .donate-bottom{
+    position:fixed;right:16px;bottom:12px;z-index:70;
+  }
+
+  /* ===== SECTION: INTERIOR (white main site placeholder) ===== */
+  .interior{
+    position:absolute;inset:0;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;
+    padding:32px;opacity:0;pointer-events:none;transition:opacity 1s ease;
+  }
+  .interior.active{opacity:1;pointer-events:auto}
+  .interior h2{color:#b8860b;font-size:28px;margin-bottom:6px}
+  .interior p{max-width:800px;text-align:center;color:#333;font-size:16px;line-height:1.6}
+
+  /* small responsive tweaks */
+  @media (max-width:640px){
+    .brand-text{font-size:22px}
+    svg.bridge{width:200px}
+    .about-panel{padding:28px}
+    .btn-pill{padding:10px 18px;font-size:14px}
+  }
+</style>
 </head>
 <body>
-  <!-- Logo -->
-  <div class="logo">
-    <div class="arc"></div>
-    <span>BridgePoint</span>
+  <div class="stage">
+
+    <!-- INTRO (logo) -->
+    <section id="intro" class="section intro" aria-hidden="false">
+      <div class="logo-wrap" role="img" aria-label="BridgePoint logo">
+        <!-- Embedded SVG (stylized Golden Gate-like arc + small decorative verticals) -->
+        <svg class="bridge" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <!-- background-transparent, gold strokes -->
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#e3c270"/>
+              <stop offset="1" stop-color="#c79b2b"/>
+            </linearGradient>
+            <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="8" stdDeviation="18" flood-color="#d4af37" flood-opacity="0.25"/>
+            </filter>
+          </defs>
+
+          <!-- Bridge arc -->
+          <path d="M40 200 C140 40, 460 40, 560 200" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" filter="url(#soft)"/>
+
+          <!-- suspension verticals (subtle) -->
+          <g stroke="url(#g)" stroke-width="3" stroke-linecap="round" opacity="0.95">
+            <path d="M120 200 V150" />
+            <path d="M180 200 V145" />
+            <path d="M240 200 V150" />
+            <path d="M300 200 V140" />
+            <path d="M360 200 V150" />
+            <path d="M420 200 V145" />
+            <path d="M480 200 V150" />
+          </g>
+        </svg>
+
+        <div class="brand-text" style="font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;">
+          BridgePoint
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT (black background, white panel with mission) -->
+    <section id="about" class="section about" aria-hidden="true">
+      <div class="about-panel" role="region" aria-label="About BridgePoint">
+        <h1>BridgePoint</h1>
+        <p>
+          BridgePoint connects people and ideas through shared purpose and creative collaboration.
+          We create simple, warm digital spaces that foster understanding, opportunity, and inclusion.
+        </p>
+
+        <div class="cta-row">
+          <a id="getStarted" href="#" class="btn-pill" role="button" aria-pressed="false">Get Started</a>
+        </div>
+      </div>
+
+      <!-- socials & donate placed on black background below the white panel -->
+      <div class="social-row" aria-hidden="false">
+        <!-- Instagram -->
+        <a class="social" href="https://instagram.com/pharell405" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a class="social" href="https://facebook.com/PharellMwendwa" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+        <!-- X (Twitter) -->
+        <a class="social" href="https://x.com/pharelltenzi" target="_blank" rel="noopener noreferrer" aria-label="X">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M23 4.01c-.8.36-1.66.6-2.56.71a4.48 4.48 0 0 0-7.65 3v.36A12.8 12.8 0 0 1 3.15 3.16a4.48 4.48 0 0 0 1.39 5.98c-.68-.02-1.32-.21-1.88-.52v.05c0 2.15 1.53 3.94 3.56 4.35a4.45 4.45 0 0 1-2.02.08 4.48 4.48 0 0 0 4.18 3.11A8.99 8.99 0 0 1 2 19.54 12.72 12.72 0 0 0 8.29 21c7.55 0 11.68-6.26 11.68-11.68v-.53A8.35 8.35 0 0 0 23 4.01z"></path>
+          </svg>
+        </a>
+        <!-- LinkedIn -->
+        <a class="social" href="https://linkedin.com/in/pharelltenzi" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.6h.1c.5-.9 1.8-1.6 3.6-1.6 3.8 0 4.5 2.5 4.5 5.7V21H18v-5.2c0-1.3 0-2.9-1.8-2.9-1.8 0-2.1 1.4-2.1 2.8V21H9z"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- subtle donate button bottom-right (subtle as requested) -->
+      <div class="donate-bottom">
+        <a class="btn-pill btn-donate" href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" rel="noopener noreferrer" aria-label="Donate to BridgePoint">☕ Support</a>
+      </div>
+    </section>
+
+    <!-- INTERIOR placeholder (white) -->
+    <section id="interior" class="section interior" aria-hidden="true">
+      <h2>Welcome Inside BridgePoint</h2>
+      <p>Interior coming soon — this is the place where BridgePoint's projects, community spaces and tools will live.</p>
+    </section>
+
   </div>
 
-  <!-- Buttons -->
-  <div class="buttons">
-    <button class="btn">Get Started</button>
-    <button class="btn donate">Donate</button>
-  </div>
+<script>
+  /* Page flow timings */
+  const introEl = document.getElementById('intro');
+  const aboutEl = document.getElementById('about');
+  const interiorEl = document.getElementById('interior');
+  const getStartedBtn = document.getElementById('getStarted');
 
-  <!-- Social Icons -->
-  <div class="socials">
-    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-    <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
-    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-  </div>
+  // start: show intro (already visible). After 2s, cross-fade to About (2s transition in CSS).
+  const LOGO_DISPLAY_MS = 2000; // how long the intro remains before fading to About
+  const ABOUT_FADE_MS = 1000;   // 1s fade when Get Started -> Interior
+
+  // On load schedule intro -> about
+  window.addEventListener('load', () => {
+    // ensure about is hidden initially (CSS above sets opacity 0)
+    introEl.style.opacity = '1';
+    // after logo display delay, fade out intro (CSS transition handles it)
+    setTimeout(() => {
+      introEl.classList.add('hidden'); // via .hidden {opacity:0}
+      // show about after the intro fade completes (match transition 2s)
+      setTimeout(() => {
+        aboutEl.classList.add('active');
+        aboutEl.setAttribute('aria-hidden','false');
+        introEl.setAttribute('aria-hidden','true');
+      }, 2000); // wait for opacity transition to finish
+    }, LOGO_DISPLAY_MS);
+  });
+
+  // Get Started fades to interior (1s)
+  getStartedBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    // hide about panel
+    aboutEl.classList.remove('active');
+    aboutEl.setAttribute('aria-hidden','true');
+    // small delay to allow cross-fade effect
+    setTimeout(() => {
+      interiorEl.classList.add('active');
+      interiorEl.setAttribute('aria-hidden','false');
+      // set body background to white for interior
+      document.body.style.background = '#fff';
+      // also set page text color appropriately
+      document.body.style.color = '#111';
+    }, ABOUT_FADE_MS);
+  });
+
+  // Accessibility: allow enter key to activate Get Started when focused
+  getStartedBtn.addEventListener('keydown', (ev) => {
+    if(ev.key === 'Enter' || ev.key === ' ') {
+      ev.preventDefault();
+      getStartedBtn.click();
+    }
+  });
+</script>
 </body>
 </html>
