@@ -1,180 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>BridgePoint</title>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
+  /* -------------------- RESET & BASE -------------------- */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { height: 100%; }
+  body{
+    background: #000;
+    color: #fff;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
     overflow: hidden;
-    background-color: #000;
-    color: white;
   }
 
-  /* Intro (logo) screen */
-  #intro {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* Stage holds stacked full-screen sections */
+  .stage { position: relative; width:100%; height:100vh; }
+
+  /* -------------------- INTRO (logo) -------------------- */
+  .intro {
+    position: absolute; inset: 0;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    background: #000;
+    z-index: 30;
     opacity: 1;
-    transition: opacity 1s ease-in-out;
-    z-index: 2;
+    transition: opacity 1.5s ease;
   }
+  .intro.hidden { opacity: 0; pointer-events: none; }
 
-  #intro.fade-out {
-    opacity: 0;
-    pointer-events: none;
+  /* Logo cluster */
+  .logo-wrap { display:flex; flex-direction:column; align-items:center; gap:18px; }
+  /* richer gold for arc + brand */
+  .brand-text {
+    color: #b8860b; /* slightly richer gold */
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: 1.6px;
+    text-shadow: 0 0 18px rgba(184,134,11,0.45);
   }
+  /* small tagline (optional) */
+  .tag { color: rgba(212,175,55,0.85); font-size: 13px; margin-top:4px; }
 
-  .bridge-logo {
-    font-size: 3em;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: gold;
+  /* -------------------- ABOUT (black BG, white panel) -------------------- */
+  .about {
+    position: absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background: #000;
+    z-index: 20;
+    opacity: 0; pointer-events: none;
+    transition: opacity 1.5s ease;
+    padding: 36px;
+  }
+  .about.active { opacity: 1; pointer-events: auto; }
+
+  .about-panel {
+    background: #fff;
+    color: #111;
+    width: min(900px, 94%);
+    border-radius: 12px;
+    padding: 42px 36px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45);
     text-align: center;
-    text-shadow: 0 0 15px rgba(255,215,0,0.6);
   }
+  .about-panel h1{ color: #b8860b; font-size: 26px; margin-bottom: 12px; }
+  .about-panel p{ color:#333; font-size:16px; line-height:1.6; margin-bottom:18px; }
 
-  /* About page */
-  #about {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 100vh;
-    background-color: black;
-    color: white;
+  /* CTA row below panel (on black background visually below the white panel) */
+  .cta-area { margin-top: 20px; display:flex; gap:16px; flex-direction:column; align-items:center; }
+
+  /* Pill buttons (gold filled) */
+  .btn-pill {
     position: relative;
-    z-index: 1;
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding: 12px 28px; border-radius: 999px;
+    border: 2px solid #d4af37; background: #d4af37; color: #000;
+    font-weight:600; font-size:15px; cursor:pointer; text-decoration:none;
+    overflow:hidden; transition: transform .28s ease, box-shadow .28s ease;
+    box-shadow: 0 8px 30px rgba(212,175,55,0.18);
   }
-
-  #about.visible {
-    display: flex;
+  /* hover-only soft shimmer */
+  .btn-pill::after{
+    content:""; position:absolute; left:-80%; top:0; height:100%; width:60%;
+    transform: skewX(-18deg) translateX(-100%); transition: transform .65s cubic-bezier(.2,.9,.2,1);
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.18), rgba(255,255,255,0));
+    pointer-events:none; mix-blend-mode:screen;
   }
+  .btn-pill:hover{ transform: translateY(-4px); box-shadow: 0 18px 40px rgba(212,175,55,0.24); }
+  .btn-pill:hover::after{ transform: skewX(-18deg) translateX(260%); }
 
-  .mission-box {
-    background: white;
-    color: black;
-    padding: 40px;
-    border-radius: 20px;
-    width: 70%;
-    max-width: 700px;
-    box-shadow: 0 0 30px rgba(255,215,0,0.3);
-  }
-
-  .mission-title {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  .mission-desc {
-    font-size: 1.1em;
-  }
-
-  .buttons {
-    margin-top: 40px;
-    display: flex;
-    gap: 20px;
-  }
-
-  .btn {
-    background: gold;
-    border: none;
-    color: black;
-    padding: 14px 35px;
+  /* Donate outlined pill (black fill, golden frame only) */
+  .btn-donate {
+    background: transparent;
+    color: #d4af37;
+    border: 2px solid rgba(212,175,55,0.9);
+    padding: 10px 22px;
     border-radius: 999px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-weight:600; font-size:14px;
+    box-shadow: none;
+    transition: background .28s ease, box-shadow .28s ease, transform .18s ease;
+    opacity: 0.95;
   }
-
-  .btn:hover {
+  .btn-donate:hover{
+    background: rgba(212,175,55,0.08);
+    box-shadow: 0 10px 26px rgba(212,175,55,0.12);
     transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(255,215,0,0.5);
   }
 
-  .btn.donate {
-    opacity: 0.8;
+  /* Social icons row centered bottom */
+  .social-row {
+    position: absolute; left:50%; transform:translateX(-50%); bottom:18px;
+    display:flex; gap:14px; z-index:60;
+  }
+  .social-btn {
+    width:44px; height:44px; display:inline-grid; place-items:center; border-radius:10px;
+    border:2px solid #d4af37; color:#d4af37; background:transparent; text-decoration:none;
+    transition: transform .22s ease, box-shadow .22s ease, background .22s ease, color .22s ease;
+  }
+  .social-btn svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.6; }
+  .social-btn:hover {
+    background:#d4af37; color:#000; transform:scale(1.06);
+    box-shadow: 0 10px 30px rgba(212,175,55,0.22);
   }
 
-  /* Social icons */
-  .socials {
-    display: flex;
-    gap: 25px;
-    margin-top: 40px;
+  /* -------------------- INTERIOR placeholder (white) -------------------- */
+  .interior {
+    position:absolute; inset:0; background:#fff; color:#111;
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px;
+    padding:32px;
+    opacity:0; pointer-events:none; transition: opacity 1s ease;
   }
+  .interior.active { opacity:1; pointer-events:auto; }
 
-  .socials a {
-    width: 40px;
-    height: 40px;
-    background: gold;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: black;
-    box-shadow: 0 0 10px rgba(255,215,0,0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+  .interior h2 { color:#b8860b; font-size:26px; margin-bottom:6px; }
+  .interior p { color:#333; font-size:16px; max-width:840px; text-align:center; line-height:1.6; }
 
-  .socials a:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255,215,0,0.7);
+  /* responsive */
+  @media (max-width:680px){
+    .brand-text{font-size:22px}
+    .logo-wrap svg{width:220px}
+    .about-panel{padding:20px}
+    .btn-pill{padding:10px 20px}
   }
 </style>
 </head>
 <body>
+  <div class="stage">
+    <!-- INTRO -->
+    <section id="intro" class="intro" aria-hidden="false">
+      <div class="logo-wrap" role="img" aria-label="BridgePoint logo">
+        <!-- Embedded SVG: double-line arc + subtle verticals (richer gold colors) -->
+        <svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="width:300px; height:auto; filter: drop-shadow(0 8px 24px rgba(183,134,11,0.18));">
+          <defs>
+            <linearGradient id="gArc" x1="0" x2="1">
+              <stop offset="0" stop-color="#e7c985"/>
+              <stop offset="1" stop-color="#b8860b"/>
+            </linearGradient>
+            <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="10" stdDeviation="22" flood-color="#b8860b" flood-opacity="0.25"/>
+            </filter>
+          </defs>
 
-<!-- Intro screen -->
-<div id="intro">
-  <div class="bridge-logo">BridgePoint</div>
-</div>
+          <!-- thicker outer arc (richer gold) -->
+          <path d="M30 210 C140 40, 500 40, 610 210" stroke="url(#gArc)" stroke-width="10" fill="none" stroke-linecap="round" filter="url(#soft)" />
 
-<!-- About page -->
-<div id="about">
-  <div class="mission-box">
-    <div class="mission-title">Our Mission</div>
-    <div class="mission-desc">
-      Building meaningful connections that empower individuals and communities through innovation and collaboration.
-    </div>
+          <!-- inner arc (parallel) -->
+          <path d="M60 210 C140 70, 500 70, 580 210" stroke="#d4af37" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.95" />
+
+          <!-- suspension vertical hints -->
+          <g stroke="url(#gArc)" stroke-width="3" stroke-linecap="round" opacity="0.95">
+            <path d="M120 210 V154" />
+            <path d="M180 210 V152" />
+            <path d="M240 210 V154" />
+            <path d="M300 210 V148" />
+            <path d="M360 210 V154" />
+            <path d="M420 210 V152" />
+            <path d="M480 210 V154" />
+          </g>
+        </svg>
+
+        <div class="brand-text">BridgePoint</div>
+        <div class="tag">Inspiration • Inclusion • Opportunity</div>
+      </div>
+    </section>
+
+    <!-- ABOUT (black background, white panel centered) -->
+    <section id="about" class="about" aria-hidden="true">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="about-panel" role="region" aria-label="About BridgePoint">
+          <h1>BridgePoint</h1>
+          <p>BridgePoint connects people and ideas through shared purpose and creative collaboration. We create simple, warm digital spaces that foster understanding, opportunity, and inclusion.</p>
+        </div>
+
+        <div class="cta-area" aria-hidden="false" style="margin-top:18px;">
+          <a id="getStarted" href="#" class="btn-pill" role="button">Get Started</a>
+          <a class="btn-donate" href="https://www.buymeacoffee.com/pharelltenzi" target="_blank" rel="noopener noreferrer">☕ Donate</a>
+        </div>
+      </div>
+
+      <!-- socials centered bottom -->
+      <div class="social-row" aria-hidden="false">
+        <!-- Instagram -->
+        <a class="social-btn" href="https://instagram.com/pharell405" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <circle cx="17.5" cy="6.5" r="0.5"></circle>
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a class="social-btn" href="https://facebook.com/PharellMwendwa" target="_blank" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+        <!-- X (Twitter) -->
+        <a class="social-btn" href="https://x.com/pharelltenzi" target="_blank" aria-label="X">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M23 4.01c-.8.36-1.66.6-2.56.71a4.48 4.48 0 0 0-7.65 3v.36A12.8 12.8 0 0 1 3.15 3.16a4.48 4.48 0 0 0 1.39 5.98c-.68-.02-1.32-.21-1.88-.52v.05c0 2.15 1.53 3.94 3.56 4.35a4.45 4.45 0 0 1-2.02.08 4.48 4.48 0 0 0 4.18 3.11A8.99 8.99 0 0 1 2 19.54 12.72 12.72 0 0 0 8.29 21c7.55 0 11.68-6.26 11.68-11.68v-.53A8.35 8.35 0 0 0 23 4.01z"></path>
+          </svg>
+        </a>
+        <!-- LinkedIn -->
+        <a class="social-btn" href="https://linkedin.com/in/pharelltenzi" target="_blank" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.6h.1c.5-.9 1.8-1.6 3.6-1.6 3.8 0 4.5 2.5 4.5 5.7V21H18v-5.2c0-1.3 0-2.9-1.8-2.9-1.8 0-2.1 1.4-2.1 2.8V21H9z"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- INTERIOR (white placeholder) -->
+    <section id="interior" class="interior" aria-hidden="true">
+      <h2>Welcome Inside BridgePoint</h2>
+      <p>Interior coming soon — this is where BridgePoint's projects, community spaces and tools will live.</p>
+    </section>
   </div>
-
-  <div class="buttons">
-    <button class="btn">Get Started</button>
-    <button class="btn donate">Donate</button>
-  </div>
-
-  <div class="socials">
-    <a href="https://instagram.com/pharell405" target="_blank">IG</a>
-    <a href="https://facebook.com/PharellMwendwa" target="_blank">FB</a>
-    <a href="https://x.com/pharelltenzi" target="_blank">X</a>
-    <a href="https://linkedin.com/in/pharelltenzi" target="_blank">IN</a>
-  </div>
-</div>
 
 <script>
-  // Fade-out intro after 2 seconds
-  window.onload = () => {
-    setTimeout(() => {
-      const intro = document.getElementById('intro');
-      const about = document.getElementById('about');
-      intro.classList.add('fade-out');
-      setTimeout(() => {
-        intro.style.display = 'none';
-        about.classList.add('visible');
-      }, 1000);
-    }, 2000);
-  };
-</script>
+  // Timings
+  const SHOW_INTRO_MS = 1500;  // intro visible before fading
+  const INTRO_FADE_MS = 1500;  // fade duration (matches CSS transition)
+  const ABOUT_TO_INTERIOR_MS = 1000; // getStarted -> interior fade duration
 
+  const intro = document.getElementById('intro');
+  const about = document.getElementById('about');
+  const interior = document.getElementById('interior');
+  const getStarted = document.getElementById('getStarted');
+
+  // On load: after SHOW_INTRO_MS, fade intro out; then show About
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      intro.classList.add('hidden'); // triggers CSS opacity transition (1.5s)
+      // wait for the fade to finish before revealing about
+      setTimeout(() => {
+        about.classList.add('active');
+        intro.setAttribute('aria-hidden','true');
+        about.setAttribute('aria-hidden','false');
+      }, INTRO_FADE_MS);
+    }, SHOW_INTRO_MS);
+  });
+
+  // Get Started -> show interior placeholder in same tab with 1s fade
+  getStarted.addEventListener('click', (e) => {
+    e.preventDefault();
+    // hide about (fade out)
+    about.classList.remove('active');
+    about.setAttribute('aria-hidden','true');
+    // small delay to allow about opacity transition (1s) before showing interior
+    setTimeout(() => {
+      interior.classList.add('active');
+      interior.setAttribute('aria-hidden','false');
+      // change body background to white for interior
+      document.body.style.background = '#fff';
+      document.body.style.color = '#111';
+    }, ABOUT_TO_INTERIOR_MS);
+  });
+
+  // accessibility: allow keyboard activation on Enter for Get Started
+  getStarted.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); getStarted.click(); }
+  });
+</script>
 </body>
 </html>
