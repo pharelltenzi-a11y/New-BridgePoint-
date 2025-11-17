@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - BridgePoint</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #999;
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .login-form {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 40px 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #d4af37;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 8px;
+        }
+
+        .forgot-password a {
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #f4e5a1;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 50%, #d4af37 100%);
+            border: none;
+            border-radius: 25px;
+            color: #0a0a0a;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            color: #666;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .signup-link a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #f4e5a1;
+        }
+
+        .error-message {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #ff6b6b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            color: #51cf66;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            margin: 0;
+            color: #aaa;
+            font-size: 0.9rem;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .login-form {
+                padding: 30px 25px;
+            }
+
+            .logo-text {
+                font-size: 1.7rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo-text">BridgePoint</div>
+            <p class="tagline">Welcome Back</p>
+        </div>
+
+        <div class="login-form">
+            <h2>Sign In</h2>
+            <p class="subtitle">Continue your journey</p>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="forgot-password">
+                        <a href="forgot-password.html">Forgot password?</a>
+                    </div>
+                </div>
+
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+            </form>
+
+            <div class="divider">OR</div>
+
+            <div class="signup-link">
+                Don't have an account? <a href="signup.html">Create Account</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase configuration
+        // import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        // import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        // import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // TODO: Add your Firebase configuration
+        // const firebaseConfig = {
+        //     apiKey: "YOUR_API_KEY",
+        //     authDomain: "YOUR_AUTH_DOMAIN",
+        //     projectId: "YOUR_PROJECT_ID",
+        //     storageBucket: "YOUR_STORAGE_BUCKET",
+        //     messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        //     appId: "YOUR_APP_ID"
+        // };
+
+        // const app = initializeApp(firebaseConfig);
+        // const auth = getAuth(app);
+        // const db = getFirestore(app);
+
+        const form = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Clear previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Disable button during login
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing In...';
+
+            // Get form values
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            try {
+                // TODO: Uncomment when Firebase is configured
+                
+                // Set persistence based on "Remember Me" checkbox
+                // await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
+
+                // Sign in user
+                // const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                // const user = userCredential.user;
+
+                // Check if profile is complete
+                // const userDoc = await getDoc(doc(db, 'users', user.uid));
+                // const userData = userDoc.data();
+
+                showSuccess('Login successful! Redirecting...');
+
+                setTimeout(() => {
+                    // Redirect based on profile completion status
+                    // if (userData && userData.profileComplete) {
+                    //     window.location.href = 'dashboard.html';
+                    // } else {
+                    //     window.location.href = 'profile-setup.html';
+                    // }
+                    
+                    // For now, just redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                // Re-enable button
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In';
+                
+                // Handle specific Firebase errors
+                let message = 'An error occurred. Please try again.';
+                
+                if (error.code === 'auth/user-not-found') {
+                    message = 'No account found with this email. Please sign up first.';
+                } else if (error.code === 'auth/wrong-password') {
+                    message = 'Incorrect password. Please try again.';
+                } else if (error.code === 'auth/invalid-email') {
+                    message = 'Please enter a valid email address.';
+                } else if (error.code === 'auth/too-many-requests') {
+                    message = 'Too many failed attempts. Please try again later.';
+                } else if (error.code === 'auth/user-disabled') {
+                    message = 'This account has been disabled. Contact support.';
+                }
+                
+                showError(message);
+            }
+        });
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Check if user is already logged in
+        // TODO: Uncomment when Firebase is configured
+        // import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        // onAuthStateChanged(auth, (user) => {
+        //     if (user) {
+        //         // User is already signed in, redirect to dashboard
+        //         window.location.href = 'dashboard.html';
+        //     }
+        // });
+    </script>
+</body>
+</html>
