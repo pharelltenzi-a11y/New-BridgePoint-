@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BridgePoint</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            color: #2a2a2a;
+            min-height: 100vh;
+        }
+
+        /* Top Navigation */
+        .navbar {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .admin-badge {
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid #ffffff;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #ffffff;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #ffffff;
+            color: #d4af37;
+        }
+
+        /* Sidebar Navigation */
+        .main-layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #fafafa;
+            border-right: 2px solid #f0e5c9;
+            min-height: calc(100vh - 56px);
+            padding: 20px 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #555;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-item:hover {
+            background: #f0e5c9;
+            color: #d4af37;
+            border-left: 4px solid #d4af37;
+        }
+
+        .sidebar-item.active {
+            background: linear-gradient(90deg, #f4e5a1 0%, transparent 100%);
+            color: #d4af37;
+            border-left: 4px solid #d4af37;
+            font-weight: 700;
+        }
+
+        .sidebar-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Main Content Area */
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: calc(100vh - 56px);
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+        }
+
+        .stat-trend {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .stat-trend.up {
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+
+        .stat-trend.down {
+            background: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: #ffffff;
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 100%);
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: #f4e5a1;
+            color: #333;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0e5c9;
+            color: #555;
+        }
+
+        .data-table tr:hover {
+            background: #fafafa;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-badge.active {
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+
+        .status-badge.inactive {
+            background: rgba(108, 117, 125, 0.15);
+            color: #6c757d;
+        }
+
+        /* Action Buttons in Table */
+        .table-action-btn {
+            padding: 6px 12px;
+            border: 1px solid #d4af37;
+            background: transparent;
+            color: #d4af37;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 5px;
+        }
+
+        .table-action-btn:hover {
+            background: #d4af37;
+            color: #ffffff;
+        }
+
+        .table-action-btn.danger {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+        .table-action-btn.danger:hover {
+            background: #dc3545;
+            color: #ffffff;
+        }
+
+        /* Quick Actions Panel */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quick-action-card {
+            background: linear-gradient(135deg, #f4e5a1 0%, #fef7e0 100%);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .quick-action-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .quick-action-label {
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-box.warning {
+            background: rgba(255, 193, 7, 0.15);
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+
+        .alert-box.info {
+            background: rgba(23, 162, 184, 0.15);
+            border: 2px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content-area {
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">BridgePoint Admin</div>
+            <div class="admin-badge">🛡️ MODERATOR</div>
+        </div>
+        <div class="nav-right">
+            <a href="dashboard.html" class="nav-btn">View Site</a>
+            <button class="nav-btn" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active" onclick="showSection('overview')">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Overview</span>
+                </li>
+                <li class="sidebar-item" onclick="showSection('users')">
+                    <span class="sidebar-icon">👥</span>
+                    <span>Users</span>
+                </li>
+                <li class="sidebar-item" onclick="showSection('rooms')">
+                    <span class="sidebar-icon">💬</span>
+                    <span>Rooms</span>
+                </li>
+                <li class="sidebar-item" onclick="showSection('moderation')">
+                    <span class="sidebar-icon">🛡️</span>
+                    <span>Moderation</span>
+                </li>
+                <li class="sidebar-item" onclick="showSection('content')">
+                    <span class="sidebar-icon">📝</span>
+                    <span>Content</span>
+                </li>
+                <li class="sidebar-item" onclick="showSection('reports')">
+                    <span class="sidebar-icon">⚠️</span>
+                    <span>Reports</span>
+                </li>
+                <li class="sidebar-item" onclick="showSection('analytics')">
+                    <span class="sidebar-icon">📈</span>
+                    <span>Analytics</span>
+                </li>
+                <li class="sidebar-item" onclick="showSection('settings')">
+                    <span class="sidebar-icon">⚙️</span>
+                    <span>Settings</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area" id="mainContent">
+            <!-- Overview Section -->
+            <div class="page-header">
+                <h1 class="page-title">Platform Overview</h1>
+                <p class="page-subtitle">Monitor and manage BridgePoint</p>
+            </div>
+
+            <!-- Alert -->
+            <div class="alert-box info">
+                <span style="font-size: 1.5rem;">ℹ️</span>
+                <div>
+                    <strong>Welcome back!</strong> 2 new reports require your attention.
+                </div>
+            </div>
+
+            <!-- Platform Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-trend up">↑ 12%</div>
+                    </div>
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">🟢</div>
+                        <div class="stat-trend up">↑ 8%</div>
+                    </div>
+                    <div class="stat-value">342</div>
+                    <div class="stat-label">Active Now</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-trend up">↑ 24%</div>
+                    </div>
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Active Rooms</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-trend down">↓ 15%</div>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Pending Reports</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">Quick Actions</h2>
+                </div>
+                <div class="quick-actions">
+                    <div class="quick-action-card" onclick="createRoom()">
+                        <div class="quick-action-icon">➕</div>
+                        <div class="quick-action-label">Create Room</div>
+                    </div>
+                    <div class="quick-action-card" onclick="uploadContent()">
+                        <div class="quick-action-icon">📤</div>
+                        <div class="quick-action-label">Upload Content</div>
+                    </div>
+                    <div class="quick-action-card" onclick="viewReports()">
+                        <div class="quick-action-icon">🔍</div>
+                        <div class="quick-action-label">Review Reports</div>
+                    </div>
+                    <div class="quick-action-card" onclick="sendAnnouncement()">
+                        <div class="quick-action-icon">📢</div>
+                        <div class="quick-action-label">Send Announcement</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Activity</h2>
+                    <button class="action-btn">View All</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Room</th>
+                            <th>Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sarah K.</td>
+                            <td>Joined room</td>
+                            <td>Cultural Exchange Hub</td>
+                            <td>2 min ago</td>
+                            <td>
+                                <button class="table-action-btn">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Carlos M.</td>
+                            <td>Posted message</td>
+                            <td>Language Learning</td>
+                            <td>5 min ago</td>
+                            <td>
+                                <button class="table-action-btn">View</button>
+                                <button class="table-action-btn danger">Flag</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Yuki T.</td>
+                            <td>Created profile</td>
+                            <td>-</td>
+                            <td>12 min ago</td>
+                            <td>
+                                <button class="table-action-btn">View Profile</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Priya S.</td>
+                            <td>Reported content</td>
+                            <td>Food & Traditions</td>
+                            <td>18 min ago</td>
+                            <td>
+                                <button class="table-action-btn">Review</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Active Rooms -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">Active Connection Rooms</h2>
+                    <button class="action-btn" onclick="createRoom()">+ New Room</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Room Name</th>
+                            <th>Participants</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🌏 Cultural Exchange Hub</td>
+                            <td>12 online</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>Jan 15, 2025</td>
+                            <td>
+                                <button class="table-action-btn">Edit</button>
+                                <button class="table-action-btn">Monitor</button>
+                                <button class="table-action-btn danger">Close</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>🗣️ Language Learning Circle</td>
+                            <td>8 online</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>Jan 10, 2025</td>
+                            <td>
+                                <button class="table-action-btn">Edit</button>
+                                <button class="table-action-btn">Monitor</button>
+                                <button class="table-action-btn danger">Close</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>🍲 Food & Traditions</td>
+                            <td>15 online</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>Jan 5, 2025</td>
+                            <td>
+                                <button class="table-action-btn">Edit</button>
+                                <button class="table-action-btn">Monitor</button>
+                                <button class="table-action-btn danger">Close</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Section Navigation
+        function showSection(section) {
+            // Update active sidebar item
+            const items = document.querySelectorAll('.sidebar-item');
+            items.forEach(item => item.classList.remove('active'));
+            event.target.closest('.sidebar-item').classList.add('active');
+
+            // In a full implementation, you would load different content here
+            console.log('Navigating to:', section);
+        }
+
+        // Quick Actions
+        function createRoom() {
+            alert('Create Room feature - Opens room creation form');
+            // TODO: Implement room creation modal/form
+        }
+
+        function uploadContent() {
+            alert('Upload Content feature - Opens file upload interface');
+            // TODO: Implement content upload interface
+        }
+
+        function viewReports() {
+            alert('View Reports feature - Opens reports dashboard');
+            // TODO: Navigate to reports section
+        }
+
+        function sendAnnouncement() {
+            alert('Send Announcement feature - Opens announcement composer');
+            // TODO: Implement announcement system
+        }
+
+        // Logout
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout from admin panel?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Firebase Admin SDK integration
+        // TODO: Add Firebase Admin operations
+        // - User management
+        // - Room management
+        // - Content moderation
+        // - Analytics tracking
+    </script>
+</body>
+</html>
