@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Room - BridgePoint</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            color: #2a2a2a;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            background: #ffffff;
+            border-bottom: 2px solid #d4af37;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+        }
+
+        .room-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: #c49b2e;
+        }
+
+        .room-title {
+            font-size: 1.3rem;
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .room-status {
+            padding: 5px 12px;
+            background: rgba(40, 167, 69, 0.15);
+            border: 2px solid rgba(40, 167, 69, 0.6);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .icon-btn:hover {
+            background: #d4af37;
+            color: #ffffff;
+        }
+
+        /* Main Content Area */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Chat Area */
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid #f0e5c9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #fafafa;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #c49b2e;
+        }
+
+        /* Message Bubbles */
+        .message {
+            display: flex;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.own {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            border: 2px solid #d4af37;
+        }
+
+        .message-content {
+            max-width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message-author {
+            font-size: 0.9rem;
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .message-country {
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 500;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        .message-bubble {
+            background: #ffffff;
+            border: 2px solid #f0e5c9;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: #333;
+            line-height: 1.6;
+            box-shadow: 0 2px 5px rgba(212, 175, 55, 0.05);
+        }
+
+        .message.own .message-bubble {
+            background: linear-gradient(135deg, #f4e5a1 0%, #fef7e0 100%);
+            border-color: #d4af37;
+        }
+
+        /* System Messages */
+        .system-message {
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            padding: 10px;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* Chat Input */
+        .chat-input-container {
+            padding: 20px;
+            background: #ffffff;
+            border-top: 2px solid #f0e5c9;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(212, 175, 55, 0.05);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #fafafa;
+            border: 2px solid #d4af37;
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: #333;
+            font-size: 0.95rem;
+            resize: none;
+            max-height: 100px;
+            font-family: inherit;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+
+        .chat-input::placeholder {
+            color: #999;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 50%, #d4af37 100%);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Sidebar - Participants */
+        .sidebar {
+            width: 300px;
+            background: #ffffff;
+            border-left: 2px solid #f0e5c9;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 2px solid #f0e5c9;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 100%);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .participants-count {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .participants-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #fafafa;
+        }
+
+        .participant-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: #ffffff;
+            border: 2px solid #f0e5c9;
+            transition: all 0.3s ease;
+        }
+
+        .participant-item:hover {
+            border-color: #d4af37;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.15);
+        }
+
+        .participant-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border: 2px solid #d4af37;
+        }
+
+        .participant-info {
+            flex: 1;
+        }
+
+        .participant-name {
+            font-size: 0.9rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .participant-country {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .participant-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #28a745;
+        }
+
+        /* Room Guidelines */
+        .guidelines-banner {
+            background: linear-gradient(135deg, #fef7e0 0%, #f4e5a1 100%);
+            border: 2px solid #d4af37;
+            padding: 15px 20px;
+            margin: 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #333;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+        }
+
+        .guidelines-banner strong {
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .room-info {
+                gap: 10px;
+            }
+
+            .room-title {
+                font-size: 1rem;
+            }
+
+            .message-content {
+                max-width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <div class="room-info">
+            <a href="dashboard.html" class="back-btn">←</a>
+            <div class="room-title" id="roomTitle">Cultural Exchange Hub</div>
+            <div class="room-status">● Live</div>
+        </div>
+        <div class="nav-actions">
+            <button class="icon-btn" onclick="toggleParticipants()">👥 Participants</button>
+            <button class="icon-btn" onclick="leaveRoom()">🚪 Leave</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <!-- Guidelines Banner -->
+            <div class="guidelines-banner">
+                <strong>Room Guidelines:</strong> Be respectful, open-minded, and curious. Share your culture, ask questions, and build bridges! 🌉
+            </div>
+
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="system-message">Welcome to the Cultural Exchange Hub! 🌍</div>
+                
+                <!-- Sample Messages -->
+                <div class="message">
+                    <div class="message-avatar">🇰🇪</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">Sarah</span>
+                            <span class="message-country">Kenya</span>
+                            <span class="message-time">2:15 PM</span>
+                        </div>
+                        <div class="message-bubble">
+                            Hello everyone! I'm excited to share stories about Kenyan culture. What would you like to know?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message">
+                    <div class="message-avatar">🇯🇵</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">Yuki</span>
+                            <span class="message-country">Japan</span>
+                            <span class="message-time">2:16 PM</span>
+                        </div>
+                        <div class="message-bubble">
+                            Welcome! I'd love to learn about traditional Kenyan celebrations. Do you celebrate any unique festivals?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message">
+                    <div class="message-avatar">🇧🇷</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">Carlos</span>
+                            <span class="message-country">Brazil</span>
+                            <span class="message-time">2:17 PM</span>
+                        </div>
+                        <div class="message-bubble">
+                            Hi everyone! In Brazil, we have Carnival - it's all about music, dance, and community. What are your biggest celebrations?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="system-message">You joined the room</div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <textarea 
+                    id="messageInput" 
+                    class="chat-input" 
+                    placeholder="Share your thoughts, ask questions, connect..."
+                    rows="1"
+                ></textarea>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">✉️</button>
+            </div>
+        </div>
+
+        <!-- Sidebar - Participants -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Participants</div>
+                <div class="participants-count"><span id="participantCount">12</span> people online</div>
+            </div>
+            <div class="participants-list">
+                <div class="participant-item">
+                    <div class="participant-avatar">🇰🇪</div>
+                    <div class="participant-info">
+                        <div class="participant-name">Sarah</div>
+                        <div class="participant-country">Kenya</div>
+                    </div>
+                    <div class="participant-status"></div>
+                </div>
+
+                <div class="participant-item">
+                    <div class="participant-avatar">🇯🇵</div>
+                    <div class="participant-info">
+                        <div class="participant-name">Yuki</div>
+                        <div class="participant-country">Japan</div>
+                    </div>
+                    <div class="participant-status"></div>
+                </div>
+
+                <div class="participant-item">
+                    <div class="participant-avatar">🇧🇷</div>
+                    <div class="participant-info">
+                        <div class="participant-name">Carlos</div>
+                        <div class="participant-country">Brazil</div>
+                    </div>
+                    <div class="participant-status"></div>
+                </div>
+
+                <div class="participant-item">
+                    <div class="participant-avatar">🇮🇳</div>
+                    <div class="participant-info">
+                        <div class="participant-name">Priya</div>
+                        <div class="participant-country">India</div>
+                    </div>
+                    <div class="participant-status"></div>
+                </div>
+
+                <div class="participant-item">
+                    <div class="participant-avatar">🇫🇷</div>
+                    <div class="participant-info">
+                        <div class="participant-name">Marie</div>
+                        <div class="participant-country">France</div>
+                    </div>
+                    <div class="participant-status"></div>
+                </div>
+
+                <div class="participant-item">
+                    <div class="participant-avatar">🇲🇽</div>
+                    <div class="participant-info">
+                        <div class="participant-name">Diego</div>
+                        <div class="participant-country">Mexico</div>
+                    </div>
+                    <div class="participant-status"></div>
+                </div>
+
+                <div class="participant-item">
+                    <div class="participant-avatar">🇳🇬</div>
+                    <div class="participant-info">
+                        <div class="participant-name">Chioma</div>
+                        <div class="participant-country">Nigeria</div>
+                    </div>
+                    <div class="participant-status"></div>
+                </div>
+
+                <div class="participant-item">
+                    <div class="participant-avatar">🇦🇺</div>
+                    <div class="participant-info">
+                        <div class="participant-name">Jack</div>
+                        <div class="participant-country">Australia</div>
+                    </div>
+                    <div class="participant-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        const messageInput = document.getElementById('messageInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const sendBtn = document.getElementById('sendBtn');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomId = urlParams.get('room') || 'cultural-exchange';
+
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        window.sendMessage = async function() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            try {
+                addMessageToUI({
+                    authorName: 'You',
+                    authorCountry: 'Your Country',
+                    text: message,
+                    timestamp: new Date(),
+                    isOwn: true
+                });
+
+                messageInput.value = '';
+                messageInput.style.height = 'auto';
+            } catch (error) {
+                console.error('Error sending message:', error);
+                alert('Failed to send message. Please try again.');
+            }
+        };
+
+        function addMessageToUI(messageData) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${messageData.isOwn ? 'own' : ''}`;
+            
+            const time = new Date(messageData.timestamp).toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${getCountryFlag(messageData.authorCountry)}</div>
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="message-author">${messageData.authorName}</span>
+                        <span class="message-country">${messageData.authorCountry}</span>
+                        <span class="message-time">${time}</span>
+                    </div>
+                    <div class="message-bubble">${escapeHtml(messageData.text)}</div>
+                </div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function getCountryFlag(country) {
+            const flags = {
+                'Kenya': '🇰🇪', 'Japan': '🇯🇵', 'Brazil': '🇧🇷',
+                'India': '🇮🇳', 'France': '🇫🇷', 'Mexico': '🇲🇽',
+                'Nigeria': '🇳🇬', 'Australia': '🇦🇺', 'United States': '🇺🇸',
+                'Your Country': '🌍'
+            };
+            return flags[country] || '🌍';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        window.toggleParticipants = function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth <= 768) {
+                sidebar.style.display = sidebar.style.display === 'none' ? 'flex' : 'none';
+            }
+        };
+
+        window.leaveRoom = function() {
+            if (confirm('Are you sure you want to leave this room?')) {
+                window.location.href = 'dashboard.html';
+            }
+        };
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    </script>
+</body>
+</html>
