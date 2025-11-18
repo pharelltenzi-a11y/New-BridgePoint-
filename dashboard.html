@@ -13,15 +13,15 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
+            background: #ffffff;
+            color: #2a2a2a;
             min-height: 100vh;
         }
 
         /* Navigation Bar */
         .navbar {
-            background: rgba(20, 20, 20, 0.95);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            background: #ffffff;
+            border-bottom: 2px solid #d4af37;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
@@ -29,7 +29,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
         }
 
         .logo {
@@ -48,10 +48,11 @@
         }
 
         .nav-links a {
-            color: #ccc;
+            color: #555;
             text-decoration: none;
             transition: color 0.3s ease;
             font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .nav-links a:hover {
@@ -69,7 +70,7 @@
             height: 40px;
             border-radius: 50%;
             border: 2px solid #d4af37;
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -80,16 +81,18 @@
         .logout-btn {
             padding: 8px 20px;
             background: transparent;
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            border: 2px solid #d4af37;
             border-radius: 20px;
             color: #d4af37;
             font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .logout-btn:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: #d4af37;
+            color: #ffffff;
         }
 
         /* Main Container */
@@ -107,25 +110,22 @@
 
         /* Welcome Section */
         .welcome-section {
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 100%);
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
         }
 
         .welcome-title {
             font-size: 2rem;
-            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 50%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
             margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .welcome-subtitle {
-            color: #aaa;
+            color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
         }
 
@@ -138,16 +138,17 @@
         }
 
         .stat-card {
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: #ffffff;
+            border: 2px solid #d4af37;
             border-radius: 12px;
             padding: 25px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
         }
 
         .stat-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
             transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.3);
         }
 
         .stat-icon {
@@ -158,13 +159,14 @@
         .stat-value {
             font-size: 2rem;
             color: #d4af37;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 5px;
         }
 
         .stat-label {
-            color: #aaa;
+            color: #666;
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         /* Main Content Grid */
@@ -177,10 +179,11 @@
 
         /* Connection Rooms Section */
         .section {
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: #ffffff;
+            border: 2px solid #d4af37;
             border-radius: 12px;
             padding: 30px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
         }
 
         .section-header {
@@ -193,18 +196,19 @@
         .section-title {
             font-size: 1.5rem;
             color: #d4af37;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .view-all-btn {
             color: #d4af37;
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 600;
             transition: color 0.3s ease;
         }
 
         .view-all-btn:hover {
-            color: #f4e5a1;
+            color: #c49b2e;
         }
 
         /* Room Cards */
@@ -215,8 +219,8 @@
         }
 
         .room-card {
-            background: #1a1a1a;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: #fafafa;
+            border: 2px solid #f0e5c9;
             border-radius: 10px;
             padding: 20px;
             transition: all 0.3s ease;
@@ -224,8 +228,9 @@
         }
 
         .room-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
+            border-color: #d4af37;
             transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
 
         .room-header {
@@ -237,23 +242,25 @@
 
         .room-name {
             font-size: 1.1rem;
-            color: #f4e5a1;
-            font-weight: 600;
+            color: #d4af37;
+            font-weight: 700;
         }
 
         .room-status {
             padding: 4px 12px;
-            background: rgba(40, 167, 69, 0.2);
-            border: 1px solid rgba(40, 167, 69, 0.5);
+            background: rgba(40, 167, 69, 0.15);
+            border: 2px solid rgba(40, 167, 69, 0.6);
             border-radius: 12px;
             font-size: 0.8rem;
-            color: #51cf66;
+            color: #28a745;
+            font-weight: 600;
         }
 
         .room-description {
-            color: #aaa;
+            color: #666;
             font-size: 0.9rem;
             margin-bottom: 12px;
+            line-height: 1.5;
         }
 
         .room-meta {
@@ -261,6 +268,7 @@
             gap: 20px;
             font-size: 0.85rem;
             color: #888;
+            font-weight: 500;
         }
 
         .room-meta span {
@@ -274,16 +282,17 @@
             display: flex;
             gap: 15px;
             padding: 15px;
-            background: #1a1a1a;
+            background: #fafafa;
             border-radius: 8px;
             margin-bottom: 12px;
+            border: 1px solid #f0e5c9;
         }
 
         .activity-icon {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -295,13 +304,14 @@
         }
 
         .activity-text {
-            color: #ccc;
+            color: #444;
             font-size: 0.9rem;
             margin-bottom: 5px;
+            line-height: 1.5;
         }
 
         .activity-time {
-            color: #777;
+            color: #999;
             font-size: 0.8rem;
         }
 
@@ -312,19 +322,20 @@
             background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 50%, #d4af37 100%);
             border: none;
             border-radius: 25px;
-            color: #0a0a0a;
+            color: #ffffff;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
         .primary-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
         }
 
         /* Responsive Design */
@@ -510,13 +521,11 @@
                 // TODO: Uncomment when Firebase is configured
                 // onAuthStateChanged(auth, async (user) => {
                 //     if (user) {
-                //         // Get user data from Firestore
                 //         const userDoc = await getDoc(doc(db, 'users', user.uid));
                 //         if (userDoc.exists()) {
                 //             const userData = userDoc.data();
                 //             document.getElementById('userName').textContent = userData.fullName || user.displayName || 'Friend';
                             
-                //             // Update stats if available
                 //             if (userData.stats) {
                 //                 document.getElementById('connectionsCount').textContent = userData.stats.connections || 0;
                 //                 document.getElementById('culturesCount').textContent = userData.stats.cultures || 0;
@@ -529,7 +538,6 @@
                 //     }
                 // });
 
-                // For demo purposes
                 const urlParams = new URLSearchParams(window.location.search);
                 const name = urlParams.get('name');
                 if (name) {
@@ -540,11 +548,9 @@
             }
         });
 
-        // Handle logout
         window.handleLogout = async function() {
             if (confirm('Are you sure you want to logout?')) {
                 try {
-                    // TODO: Uncomment when Firebase is configured
                     // await signOut(auth);
                     window.location.href = 'index.html';
                 } catch (error) {
@@ -554,9 +560,7 @@
             }
         };
 
-        // Handle room joining
         window.joinRoom = function(roomId) {
-            // TODO: Implement actual room joining logic
             window.location.href = `connection-room.html?room=${roomId}`;
         };
     </script>
