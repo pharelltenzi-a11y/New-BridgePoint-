@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BridgePoint</title>
+    <title>About - BridgePoint</title>
     <style>
         * {
             margin: 0;
@@ -13,126 +13,298 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #0a0a0a;
+            background: linear-gradient(135deg, #FDB747 0%, #FF9A42 50%, #FF7A3D 100%);
             color: #ffffff;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-        }
-
-        /* Logo Container */
-        .logo-container {
-            text-align: center;
-            animation: fadeIn 0.8s ease-in, fadeOut 0.5s ease-out 1.5s forwards;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            animation: fadeIn 1s ease-in;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        @keyframes fadeOut {
-            to { opacity: 0; }
+        /* Logo at Top */
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 60px;
+            animation: slideDown 1s ease-out;
         }
 
-        /* Logo Icon */
-        .logo-icon {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 30px;
-            filter: drop-shadow(0 8px 30px rgba(253, 183, 71, 0.4));
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Logo Text */
-        .logo-text {
-            font-size: 4rem;
+        .top-logo-icon {
+            width: 60px;
+            height: 60px;
+        }
+
+        .top-logo-text {
+            font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #FDB747 0%, #FF9A42 50%, #FF7A3D 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -2px;
+            color: #ffffff;
+            letter-spacing: -1px;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 800px;
+            text-align: center;
+            animation: slideUp 1s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tagline {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        .description {
+            font-size: 1.15rem;
+            font-weight: 400;
+            line-height: 1.7;
+            margin-bottom: 50px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 1s ease-out 0.4s backwards;
+        }
+
+        .btn {
+            padding: 18px 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: #ffffff;
+            color: #FF7A3D;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 3px solid #ffffff;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Social Links */
+        .social-links {
+            margin-top: 60px;
+            animation: slideUp 1s ease-out 0.6s backwards;
+        }
+
+        .social-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #ffffff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .social-btn:hover {
+            background: #ffffff;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Donate Button */
+        .donate-section {
+            margin-top: 40px;
+            animation: slideUp 1s ease-out 0.8s backwards;
+        }
+
+        .donate-btn {
+            padding: 14px 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .donate-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .logo-icon {
-                width: 120px;
-                height: 120px;
+            .top-logo-icon {
+                width: 50px;
+                height: 50px;
             }
 
-            .logo-text {
-                font-size: 3rem;
+            .top-logo-text {
+                font-size: 1.5rem;
+            }
+
+            .tagline {
+                font-size: 1.5rem;
+            }
+
+            .description {
+                font-size: 1rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .social-icons {
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Logo -->
-    <div class="logo-container">
-        <svg class="logo-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#FDB747;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#FF9A42;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#FF7A3D;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            
-            <!-- Circular Background -->
-            <circle cx="100" cy="100" r="95" fill="none" stroke="url(#orangeGradient)" stroke-width="4"/>
-            
-            <!-- Bridge Icon -->
+    <!-- Top Logo -->
+    <div class="top-logo">
+        <svg class="top-logo-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="95" fill="none" stroke="#ffffff" stroke-width="4"/>
             <g transform="translate(100, 100)">
-                <!-- Bridge Arc -->
                 <path d="M -60,10 Q -60,-30 0,-35 Q 60,-30 60,10" 
-                      fill="none" 
-                      stroke="url(#orangeGradient)" 
-                      stroke-width="8" 
-                      stroke-linecap="round"/>
-                
-                <!-- Left Tower -->
-                <line x1="-50" y1="-25" x2="-50" y2="10" 
-                      stroke="url(#orangeGradient)" 
-                      stroke-width="8" 
-                      stroke-linecap="round"/>
-                
-                <!-- Right Tower -->
-                <line x1="50" y1="-25" x2="50" y2="10" 
-                      stroke="url(#orangeGradient)" 
-                      stroke-width="8" 
-                      stroke-linecap="round"/>
-                
-                <!-- Left Cable -->
-                <path d="M -50,-25 Q -25,-32 0,-35" 
-                      fill="none" 
-                      stroke="url(#orangeGradient)" 
-                      stroke-width="3"/>
-                
-                <!-- Right Cable -->
-                <path d="M 0,-35 Q 25,-32 50,-25" 
-                      fill="none" 
-                      stroke="url(#orangeGradient)" 
-                      stroke-width="3"/>
-                
-                <!-- Vertical Cables -->
-                <line x1="-30" y1="-31" x2="-30" y2="5" stroke="url(#orangeGradient)" stroke-width="2" opacity="0.7"/>
-                <line x1="-10" y1="-34" x2="-10" y2="8" stroke="url(#orangeGradient)" stroke-width="2" opacity="0.7"/>
-                <line x1="10" y1="-34" x2="10" y2="8" stroke="url(#orangeGradient)" stroke-width="2" opacity="0.7"/>
-                <line x1="30" y1="-31" x2="30" y2="5" stroke="url(#orangeGradient)" stroke-width="2" opacity="0.7"/>
+                      fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+                <line x1="-50" y1="-25" x2="-50" y2="10" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+                <line x1="50" y1="-25" x2="50" y2="10" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+                <path d="M -50,-25 Q -25,-32 0,-35" fill="none" stroke="#ffffff" stroke-width="3"/>
+                <path d="M 0,-35 Q 25,-32 50,-25" fill="none" stroke="#ffffff" stroke-width="3"/>
+                <line x1="-30" y1="-31" x2="-30" y2="5" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+                <line x1="-10" y1="-34" x2="-10" y2="8" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+                <line x1="10" y1="-34" x2="10" y2="8" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+                <line x1="30" y1="-31" x2="30" y2="5" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
             </g>
         </svg>
-
-        <h1 class="logo-text">BridgePoint</h1>
+        <h1 class="top-logo-text">BridgePoint</h1>
     </div>
 
-    <script>
-        // Auto-transition to about page after 2 seconds
-        setTimeout(() => {
-            window.location.href = 'about.html';
-        }, 2000);
-    </script>
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2 class="tagline">
+            Connecting people, bridging cultures, empowering opportunities
+        </h2>
+        <p class="description">
+            A web platform focused on connection and cross-cultural understanding. Join a global community where cultures meet, conversations flow, and barriers break down. Share your story, learn from others, and build bridges that span the world.
+        </p>
+        
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <a href="signup.html" class="btn btn-primary">Get Started</a>
+            <a href="login.html" class="btn btn-secondary">Sign In</a>
+        </div>
+
+        <!-- Donate Section -->
+        <div class="donate-section">
+            <a href="donate.html" class="donate-btn">
+                <span>💛</span>
+                <span>Support Our Mission</span>
+            </a>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links">
+            <div class="social-title">Connect With Us</div>
+            <div class="social-icons">
+                <a href="https://instagram.com/pharell405" target="_blank" class="social-btn" title="Instagram">
+                    📷
+                </a>
+                <a href="https://facebook.com/pharellmwendwa" target="_blank" class="social-btn" title="Facebook">
+                    👤
+                </a>
+                <a href="https://twitter.com/pharelltenzi" target="_blank" class="social-btn" title="X (Twitter)">
+                    🐦
+                </a>
+                <a href="https://linkedin.com/in/pharelltenzi" target="_blank" class="social-btn" title="LinkedIn">
+                    💼
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
