@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login - BridgePoint</title>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js"></script>
+    <script defer src="firebase-config.js"></script>
+
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: Arial;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        input {
+            padding: 12px;
+            margin: 10px;
+            width: 250px;
+            border-radius: 6px;
+            border: none;
+        }
+        button {
+            padding: 12px 25px;
+            background: gold;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Admin Login</h1>
+
+    <input type="email" id="email" placeholder="Admin Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <script>
+        function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    window.location.href = "admin.html"; // Go to admin panel
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+        }
+    </script>
+
+</body>
+</html>
