@@ -1,217 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BridgePoint — Admin</title>
-  <style>
-    /* Minimal styling so page appears only after auth check */
-    body { font-family: "Segoe UI", Roboto, sans-serif; margin:0; background:#0b0b0b; color:#fff; }
-    .hidden { display:none; }
-    .center { display:flex; align-items:center; justify-content:center; height:100vh; }
-    .loading { color:#d4af37; font-weight:600; }
-    .topbar {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:14px 22px; background:linear-gradient(135deg,#d4af37,#f4e5a1); color:#111;
-    }
-    .logo { font-weight:700; font-size:18px; }
-    .btn { background:#111; color:#d4af37; padding:8px 12px; border-radius:8px; text-decoration:none; border:1px solid rgba(212,175,55,0.2); cursor:pointer; }
-    .layout { display:flex; height:calc(100vh - 56px); }
-    .sidebar { width:220px; background:#0f0f0f; padding:18px; border-right:1px solid rgba(255,255,255,0.03); }
-    .sidebar a { color:#d4af37; display:block; padding:10px 6px; text-decoration:none; margin-bottom:6px; border-radius:6px; }
-    .main { flex:1; padding:20px; overflow:auto; background:linear-gradient(180deg,#070707,#0c0c0c); }
-    .card { background:#111; border:1px solid rgba(212,175,55,0.08); padding:18px; border-radius:10px; margin-bottom:16px; }
-    .notice { background:rgba(212,175,55,0.08); color:#f4e5a1; padding:10px; border-radius:8px; margin-bottom:14px; }
-    a.btn-link { color:#fff; background:linear-gradient(135deg,#d4af37,#f4e5a1); padding:10px 14px; border-radius:8px; text-decoration:none; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BridgePoint Admin</title>
+
+    <!-- Firebase Login Protection -->
+    <script type="module">
+        import { auth, onAuthStateChanged } from "./firebase.js";
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // If user is NOT logged in → send to signup/login
+                window.location.href = "signup.html";
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+    </style>
 </head>
-<body><script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js"></script>
-<script defer src="firebase-config.js"></script>
 
-<script>
-    // Block access to admin if user is NOT logged in
-    firebase.auth().onAuthStateChanged(user => {
-        if (!user) {
-            window.location.href = "admin-login.html";
-        }
-    });
-</script>
-
-  <!-- Loading / auth-check screen -->
-  <div id="loadingScreen" class="center">
-    <div>
-      <div class="loading">Checking admin access…</div>
-      <div style="margin-top:12px; color:#bbb; font-size:13px;">If this takes long, make sure you are signed in.</div>
-    </div>
-  </div>
-
-  <!-- Admin UI (hidden until auth + admin check passes) -->
-  <div id="adminUI" class="hidden">
-    <div class="topbar">
-      <div class="logo">BridgePoint Admin</div>
-      <div>
-        <span id="adminEmail" style="margin-right:12px; color:#111; background:#fff; padding:6px 10px; border-radius:8px;"></span>
-        <button id="logoutBtn" class="btn">Sign out</button>
-      </div>
-    </div>
-
-    <div class="layout">
-      <aside class="sidebar">
-        <a href="#" onclick="showSection('overview')">📊 Overview</a>
-        <a href="#" onclick="showSection('users')">👥 Manage Users</a>
-        <a href="#" onclick="showSection('rooms')">💬 Rooms</a>
-        <a href="#" onclick="showSection('reports')">⚠️ Reports</a>
-        <a href="#" onclick="showSection('settings')">⚙️ Settings</a>
-      </aside>
-
-      <main class="main" id="mainContent">
-        <div id="overviewSection" class="section">
-          <div class="notice"><strong>Admin-only area.</strong> Only authorized admins can see and use these controls.</div>
-          <div class="card">
-            <h3 style="margin-top:0;color:#d4af37">Platform Overview</h3>
-            <p id="statUsers">Users: —</p>
-            <p id="statRooms">Active Rooms: —</p>
-            <p id="statReports">Pending Reports: —</p>
-          </div>
-
-          <div class="card">
-            <h3 style="margin-top:0;color:#d4af37">Quick Actions</h3>
-            <p><a class="btn-link" href="#" onclick="createRoom()">+ Create Room</a></p>
-          </div>
-        </div>
-
-        <div id="usersSection" class="section hidden">
-          <div class="card"><h3 style="margin-top:0;color:#d4af37">Users</h3>
-            <p>List, edit, or disable user accounts. (Connects to Firestore when ready.)</p>
-          </div>
-        </div>
-
-        <div id="roomsSection" class="section hidden">
-          <div class="card"><h3 style="margin-top:0;color:#d4af37">Rooms</h3>
-            <p>Monitor active rooms and moderate as needed.</p>
-          </div>
-        </div>
-
-        <div id="reportsSection" class="section hidden">
-          <div class="card"><h3 style="margin-top:0;color:#d4af37">Reports</h3>
-            <p>Handle content reports.</p>
-          </div>
-        </div>
-
-        <div id="settingsSection" class="section hidden">
-          <div class="card"><h3 style="margin-top:0;color:#d4af37">Settings</h3>
-            <p>Admin settings and environment controls.</p>
-          </div>
-        </div>
-
-      </main>
-    </div>
-  </div>
-
-  <!-- Firebase + Admin-check logic -->
-  <script type="module">
-    // 1) Uncomment imports and paste your Firebase config below
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getFirestore, doc, getDoc, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-    // ======= PASTE YOUR FIREBASE CONFIG HERE =======
-    // Replace the object below with your Firebase config (from Firebase Console -> Project settings -> Your apps)
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-    // =================================================
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const loadingScreen = document.getElementById('loadingScreen');
-    const adminUI = document.getElementById('adminUI');
-    const adminEmail = document.getElementById('adminEmail');
-    const logoutBtn = document.getElementById('logoutBtn');
-
-    // Utility: show/hide sections
-    function showSection(name) {
-      document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-      const el = document.getElementById(name + 'Section');
-      if (el) el.classList.remove('hidden');
-    }
-
-    // Quick placeholders for UI quick actions
-    window.createRoom = () => alert('Create room (placeholder)');
-    window.showSection = showSection;
-
-    // Sign out handler
-    logoutBtn.addEventListener('click', async () => {
-      await signOut(auth);
-      window.location.href = 'index.html';
-    });
-
-    // Check auth state
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        // user not signed in → send to sign in page
-        window.location.href = 'signup.html';
-        return;
-      }
-
-      // user signed in — check admin collection
-      try {
-        // admin collection strategy:
-        // Create a collection named 'admins' in Firestore and add a document whose ID is the admin user's UID.
-        // Example: /admins/<admin-uid>  (document can be empty or contain { role: 'admin' })
-        const adminDocRef = doc(db, 'admins', user.uid);
-        const adminSnap = await getDoc(adminDocRef);
-
-        if (!adminSnap.exists()) {
-          // Not an admin → redirect out
-          alert('Access denied: you are not an admin.');
-          await signOut(auth);
-          window.location.href = 'index.html';
-          return;
-        }
-
-        // Admin — show UI
-        adminEmail.textContent = user.email || user.displayName || user.uid;
-        loadingScreen.classList.add('hidden');
-        adminUI.classList.remove('hidden');
-
-        // OPTIONAL: fetch some basic stats (placeholder)
-        // Example: count users collection or rooms collection (if present)
-        // These require existing collections in Firestore and proper read rules.
-        try {
-          const usersCol = collection(db, 'users');
-          const usersSnap = await getDocs(usersCol);
-          document.getElementById('statUsers').textContent = 'Users: ' + usersSnap.size;
-        } catch (e) {
-          // silent fallback if users collection does not exist or permission denied
-          console.log('Could not fetch stats (yet).', e);
-        }
-
-      } catch (err) {
-        console.error('Admin check error:', err);
-        alert('Error verifying admin access.');
-        await signOut(auth);
-        window.location.href = 'index.html';
-      }
-    });
-  </script>
+<body>
+    <h1>Admin Panel</h1>
+    <p>Welcome to the secure BridgePoint Admin area.</p>
 </body>
-</html><script type="module">
-  import { auth } from "./firebase.js";
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      // Not logged in → redirect to login
-      window.location.href = "welcome.html";
-    }
-  });
-</script>
+</html>
