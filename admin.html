@@ -1,12 +1,4 @@
-<script type="module">
-import { auth, onAuthStateChanged } from "./firebase.js";
-
-onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        window.location.href = "signup.html"; // Redirect if not logged in
-    }
-});
-</script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
