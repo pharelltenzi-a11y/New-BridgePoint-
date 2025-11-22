@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BridgePoint Admin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BridgePoint Admin</title>
 
-    <!-- Firebase Login Protection -->
-    <script type="module">
-        import { auth, onAuthStateChanged } from "./firebase.js";
+  <script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                // If user is NOT logged in → send to signup/login
-                window.location.href = "signup.html";
-            }
-        });
-    </script>
+    // Check if user is signed in
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "signup.html";
+      } else {
+        document.getElementById("adminContent").style.display = "block";
+      }
+    });
+  </script>
 
-    <style>
-        body {
-            background: #0a0a0a;
-            color: white;
-            font-family: Arial, sans-serif;
-            padding: 40px;
-        }
-    </style>
+  <style>
+    body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; margin: 0; padding: 20px; }
+    .hidden { display: none; }
+    .topbar { background: linear-gradient(135deg,#d4af37,#f4e5a1); padding: 15px; margin-bottom: 20px; }
+    .content { padding: 20px; background: #111; border-radius: 8px; }
+  </style>
 </head>
 
 <body>
-    <h1>Admin Panel</h1>
-    <p>Welcome to the secure BridgePoint Admin area.</p>
+  <!-- Admin content — hidden by default until Firebase check -->
+  <div id="adminContent" class="hidden">
+    <div class="topbar">
+      <h1>BridgePoint Admin Panel</h1>
+    </div>
+    <div class="content">
+      <p>Welcome to your admin dashboard.</p>
+      <!-- Add your admin interface here -->
+    </div>
+  </div>
+
 </body>
 </html>
