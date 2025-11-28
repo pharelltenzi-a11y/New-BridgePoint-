@@ -1,65 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>BridgePoint Admin Panel</title>
-  <style>
-    body {
-      background: black;
-      color: gold;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    #adminContent {
-      display: none;
-      padding: 20px;
-      border: 1px solid gold;
-      border-radius: 10px;
-    }
-  </style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BridgePoint Admin Panel</title>
 
-<body>
-  <h1>BridgePoint Admin Panel</h1>
-  <p id="loading">Checking authentication...</p>
-
-  <div id="adminContent">
-    <h2>Welcome, Admin</h2>
-    <p>You now have access to the admin tools.</p>
-  </div>
-
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDBtgnXz4ndTA2GMXBTN1ZwPgPrZQ7LSVs",
-      authDomain: "bridgepoint-5deaa.firebaseapp.com",
-      projectId: "bridgepoint-5deaa",
-      storageBucket: "bridgepoint-5deaa.firebasestorage.app",
-      messagingSenderId: "954237244994",
-      appId: "1:954237244994:web:95ad5a87dbde2bb4deffdb"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
-
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.href = "signup.html"; // not logged in → go sign in
-      } else {
-        // Only YOU should be allowed in
-        const adminEmail = "pharelltenzi@gmail.com"; //
-
-        if (user.email === adminEmail) {
-          document.getElementById("loading").style.display = "none";
-          document.getElementById("adminContent").style.display = "block";
-        } else {
-          window.location.href = "index.html"; // reject non-admin users
+    <style>
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 30px;
         }
-      }
-    });
-  </script>
+        #adminPanel {
+            display: none;
+            padding: 20px;
+            border: 1px solid gold;
+            border-radius: 10px;
+        }
+        .loading {
+            color: gold;
+            font-size: 1.3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>BridgePoint Admin</h2>
+    <p class="loading" id="loading">Checking admin access...</p>
+
+    <div id="adminPanel">
+        <h3>Welcome, Admin!</h3>
+        <p>You now have secure access to the admin panel.</p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Import Firebase SDK -->
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your Firebase config (already correct)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDBtgnXz4ndTA2GMXBTN1ZwPgPrZQ7LSVs",
+            authDomain: "bridgepoint-5deaa.firebaseapp.com",
+            projectId: "bridgepoint-5deaa",
+            storageBucket: "bridgepoint-5deaa.firebasestorage.app",
+            messagingSenderId: "954237244994",
+            appId: "1:954237244994:web:95ad5a87dbde2bb4deffdb"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Set your admin email EXACTLY
+        const adminEmail = "YOUR_ADMIN_EMAIL_HERE";
+
+        // Check login state
+        onAuthStateChanged(auth, async (user) => {
+            const loadingText = document.getElementById("loading");
+            const adminPanel = document.getElementById("adminPanel");
+
+            if (!user) {
+                loadingText.textContent = "Not logged in. Redirecting...";
+                window.location.href = "signup.html";
+                return;
+            }
+
+            if (user.email === adminEmail) {
+                loadingText.style.display = "none";
+                adminPanel.style.display = "block";
+            } else {
+                loadingText.textContent = "Access denied. Redirecting...";
+                window.location.href = "signup.html";
+            }
+        });
+
+        // Logout
+        window.logout = function () {
+            signOut(auth).then(() => {
+                window.location.href = "signup.html";
+            });
+        }
+    </script>
 </body>
 </html>
