@@ -1,89 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BridgePoint Admin Panel</title>
-
-    <style>
-        body {
-            background: #0a0a0a;
-            color: white;
-            font-family: Arial, sans-serif;
-            padding: 30px;
-        }
-        #adminPanel {
-            display: none;
-            padding: 20px;
-            border: 1px solid gold;
-            border-radius: 10px;
-        }
-        .loading {
-            color: gold;
-            font-size: 1.3rem;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>Admin - BridgePoint</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <style>
+    body{font-family:Arial,background:#000;color:#fff;margin:0;padding:30px}
+    header{display:flex;justify-content:space-between;align-items:center}
+    .brand{color:gold;font-weight:700;font-size:20px}
+    .btn{background:transparent;border:1px solid gold;color:gold;padding:8px 12px;border-radius:8px;cursor:pointer}
+    #panel{display:none;margin-top:20px}
+    .card{background:#111;padding:16px;border-radius:8px;border:1px solid rgba(212,175,55,0.08);margin-bottom:12px}
+  </style>
 </head>
 <body>
-
-    <h2>BridgePoint Admin</h2>
-    <p class="loading" id="loading">Checking admin access...</p>
-
-    <div id="adminPanel">
-        <h3>Welcome, Admin!</h3>
-        <p>You now have secure access to the admin panel.</p>
-        <button onclick="logout()">Logout</button>
+  <header>
+    <div class="brand">BridgePoint Admin</div>
+    <div>
+      <button id="logoutBtn" class="btn">Logout</button>
     </div>
+  </header>
 
-    <!-- Import Firebase SDK -->
-    <script type="module">
-        // Firebase imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  <div id="status" style="color:gold;margin-top:14px">Checking access…</div>
 
-        // Your Firebase config (already correct)
-        const firebaseConfig = {
-            apiKey: "AIzaSyDBtgnXz4ndTA2GMXBTN1ZwPgPrZQ7LSVs",
-            authDomain: "bridgepoint-5deaa.firebaseapp.com",
-            projectId: "bridgepoint-5deaa",
-            storageBucket: "bridgepoint-5deaa.firebasestorage.app",
-            messagingSenderId: "954237244994",
-            appId: "1:954237244994:web:95ad5a87dbde2bb4deffdb"
-        };
+  <div id="panel">
+    <div class="card"><h3>Users</h3><div id="usersList">Loading…</div></div>
+    <div class="card"><h3>Quick Actions</h3>
+      <button id="dummyAction" class="btn">Create demo room</button>
+    </div>
+  </div>
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+  <script type="module">
+    import { auth, db } from "./firebase.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { collection, query, where, getDocs, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Set your admin email EXACTLY
-        const adminEmail = "pharelltenzi@gmail.com";
+    const status = document.getElementById("status");
+    const panel = document.getElementById("panel");
+    const usersList = document.getElementById("usersList");
+    const logoutBtn = document.getElementById("logoutBtn");
 
-        // Check login state
-        onAuthStateChanged(auth, async (user) => {
-            const loadingText = document.getElementById("loading");
-            const adminPanel = document.getElementById("adminPanel");
+    // Helper: check admins collection for this email
+    async function isAdmin(email){
+      // Query admins collection where field 'email' == email
+      const q = query(collection(db, "admins"), where("email", "==", email));
+      const snap = await getDocs(q);
+      return !snap.empty;
+    }
 
-            if (!user) {
-                loadingText.textContent = "Not logged in. Redirecting...";
-                window.location.href = "signup.html";
-                return;
-            }
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        status.textContent = "Not signed in. Redirecting to signup...";
+        setTimeout(()=> window.location.href = "signup.html", 900);
+        return;
+      }
 
-            if (user.email === adminEmail) {
-                loadingText.style.display = "none";
-                adminPanel.style.display = "block";
-            } else {
-                loadingText.textContent = "Access denied. Redirecting...";
-                window.location.href = "signup.html";
-            }
-        });
-
-        // Logout
-        window.logout = function () {
-            signOut(auth).then(() => {
-                window.location.href = "signup.html";
-            });
+      // Check admin flag in Firestore
+      status.textContent = "Verifying admin privileges for " + user.email + " …";
+      try {
+        const ok = await isAdmin(user.email);
+        if (!ok) {
+          status.textContent = "Access denied. Your account isn't an admin.";
+          setTimeout(()=> window.location.href = "signup.html", 1200);
+          return;
         }
-    </script>
+
+        // Admin confirmed — show panel
+        status.style.display = "none";
+        panel.style.display = "block";
+
+        // Load a simple list of users from 'users' collection (if exists)
+        const usersSnap = await getDocs(collection(db,"users"));
+        if (usersSnap.empty) usersList.textContent = "No users yet.";
+        else {
+          usersList.innerHTML = "";
+          usersSnap.forEach(docSnap => {
+            const d = docSnap.data();
+            const row = document.createElement("div");
+            row.style.padding="6px 0";
+            row.style.borderBottom="1px solid #222";
+            row.innerHTML = `<strong>${d.fullName || "(no name)"}</strong> — <span style="color:#aaa">${d.email || ""}</span>`;
+            usersList.appendChild(row);
+          });
+        }
+
+      } catch(err){
+        console.error(err);
+        status.textContent = "Error checking admin. See console.";
+      }
+    });
+
+    // logout
+    logoutBtn.addEventListener("click", async ()=> {
+      await signOut(auth);
+      window.location.href = "signup.html";
+    });
+
+    // demo action
+    document.getElementById("dummyAction").addEventListener("click", ()=> alert("Demo action — implement later"));
+  </script>
 </body>
 </html>
