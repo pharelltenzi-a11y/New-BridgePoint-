@@ -2,60 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Sign up - BridgePoint</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Sign up — BridgePoint</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body { font-family: Arial, sans-serif; background:#0a0a0a; color:#fff; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; padding:20px; }
-    .card{width:360px;background:#111;padding:24px;border-radius:10px;border:1px solid rgba(212,175,55,0.08);}
+    /* minimal bridgepoint-styled signup */
+    body{font-family:Arial,background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;padding:20px}
+    .card{width:360px;background:#111;padding:24px;border-radius:10px;border:1px solid rgba(212,175,55,0.08)}
     input{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #222;background:#0f0f0f;color:#fff}
     button{width:100%;padding:12px;margin-top:12px;border-radius:25px;border:none;background:linear-gradient(135deg,#d4af37,#f4e5a1);color:#000;font-weight:700;cursor:pointer}
     a{color:#d4af37;text-decoration:none}
     .small{font-size:13px;color:#aaa;margin-top:8px}
+    #msg{margin-top:10px;font-size:13px}
   </style>
 </head>
 <body>
   <div class="card">
     <h2 style="margin:0 0 8px 0;color:gold">Create an account</h2>
+
     <form id="signupForm">
       <input id="fullName" placeholder="Full name" required />
       <input id="email" type="email" placeholder="Email" required />
       <input id="password" type="password" placeholder="Password (min 6 chars)" required />
       <button type="submit">Create account</button>
     </form>
+
     <div class="small">Already have an account? <a href="login.html">Sign in</a></div>
-    <div id="msg" class="small" style="margin-top:10px"></div>
+    <div id="msg" class="small"></div>
   </div>
 
   <script type="module">
-    import { auth, db } from "./firebase.js";
+    import { auth } from "./firebase.js";
     import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const form = document.getElementById("signupForm");
     const msg = document.getElementById("msg");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      msg.style.color = "#ddd";
       msg.textContent = "Creating account...";
+
       const name = document.getElementById("fullName").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
-      if (password.length < 6) { msg.textContent = "Password must be at least 6 characters."; return; }
+      if (password.length < 6) {
+        msg.style.color = "salmon";
+        msg.textContent = "Password must be at least 6 characters.";
+        return;
+      }
 
       try {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
         // update display name
-        await updateProfile(userCred.user, { displayName: name });
-        // store user document
-        await setDoc(doc(db, "users", userCred.user.uid), {
-          fullName: name,
-          email: email,
-          createdAt: new Date().toISOString(),
-          profileComplete: false
-        });
+        if (name) {
+          await updateProfile(userCred.user, { displayName: name });
+        }
         msg.style.color = "lightgreen";
-        msg.textContent = "Account created. Redirecting...";
+        msg.textContent = "Account created — redirecting...";
         // redirect to welcome/profile setup
         setTimeout(() => window.location.href = "welcome.html", 900);
       } catch (err) {
