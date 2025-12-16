@@ -1,312 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome - BridgePoint</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        .welcome-container {
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-            animation: fadeInUp 1.2s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(40px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-
-        /* Decorative golden shimmer effect */
-        .shimmer-top, .shimmer-bottom {
-            position: fixed;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(212, 175, 55, 0.3) 20%, 
-                rgba(244, 229, 161, 0.6) 50%, 
-                rgba(212, 175, 55, 0.3) 80%, 
-                transparent 100%);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        .shimmer-top {
-            top: 0;
-            left: 0;
-        }
-
-        .shimmer-bottom {
-            bottom: 0;
-            left: 0;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-        }
-
-        .welcome-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .welcome-icon svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 4px 20px rgba(212, 175, 55, 0.4));
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 50%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .user-greeting {
-            font-size: 1.3rem;
-            color: #f4e5a1;
-            margin-bottom: 20px;
-            font-weight: 300;
-        }
-
-        .welcome-message {
-            font-size: 1.1rem;
-            color: #cccccc;
-            line-height: 1.8;
-            margin-bottom: 40px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-section {
-            margin-top: 50px;
-        }
-
-        .continue-btn {
-            display: inline-block;
-            padding: 18px 50px;
-            background: linear-gradient(135deg, #d4af37 0%, #f4e5a1 50%, #d4af37 100%);
-            border: none;
-            border-radius: 30px;
-            color: #0a0a0a;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-decoration: none;
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        .continue-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.5);
-        }
-
-        .continue-btn:active {
-            transform: translateY(-2px);
-        }
-
-        .features-preview {
-            margin-top: 60px;
-            display: flex;
-            justify-content: space-around;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .feature-item {
-            flex: 1;
-            min-width: 150px;
-            padding: 20px;
-            background: rgba(20, 20, 20, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .feature-title {
-            font-size: 0.95rem;
-            color: #d4af37;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .feature-desc {
-            font-size: 0.85rem;
-            color: #999;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .user-greeting {
-                font-size: 1.1rem;
-            }
-
-            .welcome-message {
-                font-size: 1rem;
-            }
-
-            .continue-btn {
-                padding: 16px 40px;
-                font-size: 1rem;
-            }
-
-            .features-preview {
-                flex-direction: column;
-            }
-
-            .feature-item {
-                min-width: 100%;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>Welcome — BridgePoint</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{font-family:Arial,background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;padding:20px}
+    .box{width:760px;max-width:95%;background:#111;padding:28px;border-radius:12px;border:1px solid rgba(212,175,55,0.08);text-align:center}
+    .btn{display:inline-block;margin:10px;padding:10px 16px;border-radius:8px;border:none;cursor:pointer;background:linear-gradient(135deg,#d4af37,#f4e5a1);color:#000;font-weight:700}
+    a{color:#d4af37}
+  </style>
 </head>
 <body>
-    <div class="shimmer-top"></div>
-    <div class="shimmer-bottom"></div>
+  <div class="box">
+    <h1 style="color:gold;margin-bottom:6px">Welcome to BridgePoint</h1>
+    <p id="greet" style="color:#ddd">Loading your profile...</p>
 
-    <div class="welcome-container">
-        <div class="welcome-icon">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#f4e5a1;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <!-- Welcome checkmark in circle -->
-                <circle cx="100" cy="100" r="80" fill="none" stroke="url(#goldGradient)" stroke-width="4"/>
-                <polyline points="60,100 85,125 140,70" fill="none" stroke="url(#goldGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-
-        <h1>Welcome to BridgePoint!</h1>
-        <p class="user-greeting" id="userGreeting">Hello, <span id="userName">Friend</span>!</p>
-        
-        <p class="welcome-message">
-            You've just taken the first step toward connecting with cultures from around the world. 
-            Let's finish setting up your profile so you can start building meaningful connections.
-        </p>
-
-        <div class="cta-section">
-            <a href="profile-setup.html">
-                <button class="continue-btn">Continue to Profile Setup</button>
-            </a>
-        </div>
-
-        <div class="features-preview">
-            <div class="feature-item">
-                <div class="feature-icon">🌍</div>
-                <div class="feature-title">Explore Cultures</div>
-                <div class="feature-desc">Discover diverse perspectives</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">💬</div>
-                <div class="feature-title">Connect Live</div>
-                <div class="feature-desc">Real conversations, real people</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">🤝</div>
-                <div class="feature-title">Build Bridges</div>
-                <div class="feature-desc">Unite across divides</div>
-            </div>
-        </div>
+    <div style="margin-top:18px">
+      <a href="admin.html"><button class="btn">Open Admin</button></a>
+      <button id="logoutBtn" class="btn" style="background:transparent;border:1px solid gold;color:gold">Logout</button>
     </div>
+  </div>
 
-    <script type="module">
-        // Firebase integration for getting user data
-        // import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        // import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-        // import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  <script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // TODO: Add your Firebase configuration
-        // const firebaseConfig = { ... };
-        // const app = initializeApp(firebaseConfig);
-        // const auth = getAuth(app);
-        // const db = getFirestore(app);
+    const greet = document.getElementById("greet");
+    const logoutBtn = document.getElementById("logoutBtn");
 
-        // Check if user is authenticated and get their name
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // TODO: Uncomment when Firebase is configured
-                // onAuthStateChanged(auth, async (user) => {
-                //     if (user) {
-                //         // Get user data from Firestore
-                //         const userDoc = await getDoc(doc(db, 'users', user.uid));
-                //         if (userDoc.exists()) {
-                //             const userData = userDoc.data();
-                //             document.getElementById('userName').textContent = userData.fullName || user.displayName || 'Friend';
-                //         }
-                //     } else {
-                //         // User not logged in, redirect to signup
-                //         window.location.href = 'signup.html';
-                //     }
-                // });
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+      greet.textContent = `Hello, ${user.displayName || user.email}!`;
+    });
 
-                // For now, try to get name from URL parameters (optional)
-                const urlParams = new URLSearchParams(window.location.search);
-                const name = urlParams.get('name');
-                if (name) {
-                    document.getElementById('userName').textContent = name;
-                }
-            } catch (error) {
-                console.error('Error loading user data:', error);
-            }
-        });
-    </script>
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  </script>
 </body>
 </html>
