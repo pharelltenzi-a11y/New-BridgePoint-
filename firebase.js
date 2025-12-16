@@ -1,9 +1,9 @@
-// firebase.js — place in repo root
-// (CDN modular imports for browser)
+// firebase.js
+// Exports auth and basic firebase app instance for other pages
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// YOUR firebase config (already yours)
 const firebaseConfig = {
   apiKey: "AIzaSyDBtgnXz4ndTA2GMXBTN1ZwPgPrZQ7LSVs",
   authDomain: "bridgepoint-5deaa.firebaseapp.com",
@@ -15,4 +15,4 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+export default app;
