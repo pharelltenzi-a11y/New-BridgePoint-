@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Admin - BridgePoint</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin — BridgePoint</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body{font-family:Arial,background:#000;color:#fff;margin:0;padding:30px}
+    body{font-family:Arial,background:#000;color:#fff;margin:0;padding:28px}
     header{display:flex;justify-content:space-between;align-items:center}
     .brand{color:gold;font-weight:700;font-size:20px}
     .btn{background:transparent;border:1px solid gold;color:gold;padding:8px 12px;border-radius:8px;cursor:pointer}
     #panel{display:none;margin-top:20px}
     .card{background:#111;padding:16px;border-radius:8px;border:1px solid rgba(212,175,55,0.08);margin-bottom:12px}
+    #status{color:gold;margin-top:14px}
   </style>
 </head>
 <body>
@@ -21,83 +22,78 @@
     </div>
   </header>
 
-  <div id="status" style="color:gold;margin-top:14px">Checking access…</div>
+  <div id="status">Checking authentication…</div>
 
-  <div id="panel">
+  <div id="panel" aria-hidden="true">
     <div class="card"><h3>Users</h3><div id="usersList">Loading…</div></div>
-    <div class="card"><h3>Quick Actions</h3>
-      <button id="dummyAction" class="btn">Create demo room</button>
-    </div>
+    <div class="card"><h3>Quick Actions</h3><button id="demoBtn" class="btn">Create demo room</button></div>
   </div>
 
   <script type="module">
-    import { auth, db } from "./firebase.js";
+    import { auth } from "./firebase.js";
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { collection, query, where, getDocs, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // ADMIN EMAILS - add any emails that should be admins
+    const adminEmails = [
+      "pharelltenzi@gmail.com"
+      // add more if needed: "coadmin@example.com"
+    ];
 
     const status = document.getElementById("status");
     const panel = document.getElementById("panel");
     const usersList = document.getElementById("usersList");
     const logoutBtn = document.getElementById("logoutBtn");
 
-    // Helper: check admins collection for this email
-    async function isAdmin(email){
-      // Query admins collection where field 'email' == email
-      const q = query(collection(db, "admins"), where("email", "==", email));
-      const snap = await getDocs(q);
-      return !snap.empty;
-    }
+    const db = getFirestore();
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        status.textContent = "Not signed in. Redirecting to signup...";
+        status.textContent = "Not signed in — redirecting to signup...";
         setTimeout(()=> window.location.href = "signup.html", 900);
         return;
       }
 
-      // Check admin flag in Firestore
-      status.textContent = "Verifying admin privileges for " + user.email + " …";
+      // check admin permission (Option A)
+      if (!adminEmails.includes(user.email)) {
+        status.textContent = "Access denied — your account is not an admin.";
+        setTimeout(()=> window.location.href = "welcome.html", 1200);
+        return;
+      }
+
+      // admin ok — show panel
+      status.style.display = "none";
+      panel.style.display = "block";
+      panel.setAttribute("aria-hidden", "false");
+
+      // optional: list users from Firestore if you have users collection
       try {
-        const ok = await isAdmin(user.email);
-        if (!ok) {
-          status.textContent = "Access denied. Your account isn't an admin.";
-          setTimeout(()=> window.location.href = "signup.html", 1200);
-          return;
-        }
-
-        // Admin confirmed — show panel
-        status.style.display = "none";
-        panel.style.display = "block";
-
-        // Load a simple list of users from 'users' collection (if exists)
-        const usersSnap = await getDocs(collection(db,"users"));
-        if (usersSnap.empty) usersList.textContent = "No users yet.";
-        else {
+        const snap = await getDocs(collection(db, "users"));
+        if (snap.empty) {
+          usersList.textContent = "No users found.";
+        } else {
           usersList.innerHTML = "";
-          usersSnap.forEach(docSnap => {
-            const d = docSnap.data();
+          snap.forEach(d => {
+            const info = d.data();
             const row = document.createElement("div");
-            row.style.padding="6px 0";
-            row.style.borderBottom="1px solid #222";
-            row.innerHTML = `<strong>${d.fullName || "(no name)"}</strong> — <span style="color:#aaa">${d.email || ""}</span>`;
+            row.style.padding = "8px 0";
+            row.style.borderBottom = "1px solid #222";
+            row.innerHTML = `<strong>${info.fullName || "(no name)"}</strong> — <span style="color:#aaa">${info.email || ""}</span>`;
             usersList.appendChild(row);
           });
         }
-
-      } catch(err){
+      } catch (err) {
+        usersList.textContent = "Couldn't load users.";
         console.error(err);
-        status.textContent = "Error checking admin. See console.";
       }
     });
 
-    // logout
-    logoutBtn.addEventListener("click", async ()=> {
+    logoutBtn.addEventListener("click", async () => {
       await signOut(auth);
-      window.location.href = "signup.html";
+      window.location.href = "login.html";
     });
 
-    // demo action
-    document.getElementById("dummyAction").addEventListener("click", ()=> alert("Demo action — implement later"));
+    document.getElementById("demoBtn").addEventListener("click", ()=> alert("Demo action — implement later"));
   </script>
 </body>
 </html>
