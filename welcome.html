@@ -1,46 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Welcome — BridgePoint</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body{font-family:Arial,background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;padding:20px}
-    .box{width:760px;max-width:95%;background:#111;padding:28px;border-radius:12px;border:1px solid rgba(212,175,55,0.08);text-align:center}
-    .btn{display:inline-block;margin:10px;padding:10px 16px;border-radius:8px;border:none;cursor:pointer;background:linear-gradient(135deg,#d4af37,#f4e5a1);color:#000;font-weight:700}
-    a{color:#d4af37}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to BridgePoint</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .welcome-card {
+            max-width: 500px;
+            text-align: center;
+            padding: 50px 35px;
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #d4af37, #f4e5a1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #bbbbbb;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #d4af37, #f4e5a1);
+            color: #0a0a0a;
+            font-weight: 700;
+            border-radius: 30px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(212,175,55,0.4);
+        }
+
+        .step-text {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
-  <div class="box">
-    <h1 style="color:gold;margin-bottom:6px">Welcome to BridgePoint</h1>
-    <p id="greet" style="color:#ddd">Loading your profile...</p>
 
-    <div style="margin-top:18px">
-      <a href="admin.html"><button class="btn">Open Admin</button></a>
-      <button id="logoutBtn" class="btn" style="background:transparent;border:1px solid gold;color:gold">Logout</button>
+    <div class="welcome-card">
+        <div class="logo">BridgePoint</div>
+
+        <h1>Welcome 🎉</h1>
+
+        <p>
+            BridgePoint is a space where people connect, learn, and share cultures
+            from around the world.  
+            You’re just one step away from getting started.
+        </p>
+
+        <a href="profile-setup.html" class="cta-btn">
+            Complete Your Profile
+        </a>
+
+        <div class="step-text">
+            Step 2 of 3
+        </div>
     </div>
-  </div>
 
-  <script type="module">
-    import { auth } from "./firebase.js";
-    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-    const greet = document.getElementById("greet");
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    onAuthStateChanged(auth, user => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-      greet.textContent = `Hello, ${user.displayName || user.email}!`;
-    });
-
-    logoutBtn.addEventListener("click", async () => {
-      await signOut(auth);
-      window.location.href = "login.html";
-    });
-  </script>
 </body>
 </html>
